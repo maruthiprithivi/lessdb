@@ -1,0 +1,34 @@
+/target
+**/*.rs.bk
+.less/
+*.lessdb/
+.DS_Store
+/dist
+node_modules/
+*.so
+*.dylib
+*.pyc
+__pycache__
+.venv/
+venv/
+*.egg-info
+python/lessdb/*.so
+.cargo/
+.npm-cache/
+sdks/python/target/
+sdks/node/target/
+*.node
+bench/target/
+research_repos/
+
+# cloudflare wrangler local state + release artifacts
+website/.wrangler/
+dist/
+.tooling/
+
+# plaintext secrets must never be committed (only *.enc.*)
+secrets/*
+!secrets/*.enc.*
+!secrets/README.md
+.wrangler/
+.npm-logs/

@@ -1,0 +1,50 @@
+# Joins, CTEs, subqueries (DataFusion engine).
+
+statement ok
+CREATE TABLE users (id Int64, name String) ENGINE=Firefly ORDER BY id
+
+statement ok
+CREATE TABLE orders (id Int64, user_id Int64, total Float64) ENGINE=Firefly ORDER BY id
+
+statement ok
+INSERT INTO users VALUES (1, 'ada'), (2, 'grace'), (3, 'alan')
+
+statement ok
+INSERT INTO orders VALUES (10, 1, 5.0), (11, 1, 7.0), (12, 2, 3.0)
+
+query TI
+SELECT u.name, o.total FROM users u JOIN orders o ON u.id = o.user_id ORDER BY o.id
+----
+ada 5.0
+ada 7.0
+grace 3.0
+
+query TI
+SELECT u.name, coalesce(sum(o.total), 0) FROM users u LEFT JOIN orders o ON u.id = o.user_id GROUP BY u.id, u.name ORDER BY u.id
+----
+ada 12.0
+grace 3.0
+alan 0.0
+
+query T
+WITH big AS (SELECT user_id, sum(total) AS s FROM orders GROUP BY user_id) SELECT u.name FROM users u JOIN big ON u.id = big.user_id WHERE big.s > 5 ORDER BY u.name
+----
+ada
+
+query I
+SELECT u.id FROM users u WHERE u.id IN (SELECT user_id FROM orders) ORDER BY u.id
+----
+1
+2
+
+query T
+SELECT name FROM users WHERE EXISTS (SELECT 1 FROM orders WHERE orders.user_id = users.id) ORDER BY name
+----
+ada
+grace
+
+statement ok
+DROP TABLE users
+
+statement ok
+DROP TABLE orders

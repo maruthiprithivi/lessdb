@@ -1,0 +1,13 @@
+{
+  "name": "lessdb",
+  "version": "0.6.0",
+  "description": "LessDB CLI — one database for agents and humans (SQL + MCP). Binary installer; downloads the prebuilt lessdb release for your platform.",
+  "license": "MIT",
+  "homepage": "https://lessdb.dev",
+  "repository": { "type": "git", "url": "https://lessdb.dev/" },
+  "bin": { "lessdb": "bin/lessdb.js" },
+  "files": ["bin/", "install.js", "platforms.json", "README.md"],
+  "scripts": { "postinstall": "node install.js" },
+  "engines": { "node": ">=16" },
+  "keywords": ["lessdb", "database", "sql", "analytics", "mcp"]
+}

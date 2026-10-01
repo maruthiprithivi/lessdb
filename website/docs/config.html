@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Configuration reference · LessDB</title>
+<meta name="description" content="Configuration reference — LessDB, one database for agents and humans."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a07'/%3E%3Crect x='6' y='4' width='20' height='14' rx='4' fill='%232e2e26'/%3E%3Crect x='9' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='20' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='10' y='20' width='12' height='7' rx='3' fill='%23ffd54a'/%3E%3Crect x='14' y='23' width='4' height='2' fill='%23fff8b0'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<link rel="stylesheet" href="../docs.css"/>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-frame"><div class="header-inner">
+    <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+  </div></div>
+</header>
+<div class="docs-layout">
+  <aside class="docs-sidebar"><div class="side-group">Docs</div>
+<a href='getting-started'>Getting started</a>
+<a href='benchmarks'>Benchmarks</a>
+<a href='config'>Config</a>
+<a href='getting-started'>Getting Started</a>
+<a href='license'>License</a>
+<a href='mcp'>Mcp</a>
+<a href='skills'>Skills</a>
+<div class="side-group">Interactive</div>
+<a href='architecture-interactive'>Architecture diagram</a></aside>
+  <main class="docs-content">
+    <h1>Configuration reference</h1>
+    <h1>Configuration reference</h1>
+<p>Everything LessDB can be told, where it lives, and how to change it. Configuration is validated on load and save — a bad value fails fast with a clear message instead of misbehaving later.</p>
+<h2>Where config lives</h2>
+<p><code>&lt;data_dir&gt;/config.json</code> — written by <code>lessdb init</code>, read by every command and the embedded SDKs. All knobs have sane defaults; you only set what you care about.</p>
+<pre class="language-sh"><code>lessdb init --dir /data/mydb \
+  --shared s3://bucket/prefix \
+  --memory-limit 40GiB \
+  --compression lz4 \
+  --flush-rows 1000000 \
+  --max-merge-rows 8388608 \
+  --block-cache-bytes 1073741824 \
+  --no-wal</code></pre>
+<p>Every <code>lessdb init</code> flag also has a <code>LESSDB_*</code> environment variable (see <code>lessdb init --help</code>). Flags/env write <code>config.json</code> once; the file stays the source of truth afterwards — edit it directly and restart.</p>
+<h2>Storage &amp; durability</h2>
+<table><thead><tr><th>key</th><th>default</th><th>what it does</th></tr></thead><tbody>
+<tr><td><code>data_dir</code></td><td><code>.less</code></td><td>root of the database directory</td></tr>
+<tr><td><code>shared_url</code></td><td>none</td><td>object-storage URL for FireflyCloud tables: <code>s3://bucket/prefix</code>, <code>gcs://…</code>, <code>az://…</code>, <code>file:///path</code>, <code>memory://</code></td></tr>
+<tr><td><code>wal_enabled</code></td><td><code>true</code></td><td>write-ahead log for insert durability (<code>--no-wal</code> disables)</td></tr>
+<tr><td><code>wal_fsync</code></td><td><code>true</code></td><td>fsync every WAL append before acknowledging</td></tr>
+</tbody></table>
+<h2>Parts &amp; merging</h2>
+<table><thead><tr><th>key</th><th>default</th><th>what it does</th></tr></thead><tbody>
+<tr><td><code>flush_rows</code></td><td><code>262144</code></td><td>buffered rows per table before flushing into an immutable part</td></tr>
+<tr><td><code>max_buffer_rows</code></td><td><code>1048576</code></td><td>hard cap; flush even mid-batch</td></tr>
+<tr><td><code>target_part_bytes</code></td><td><code>268435456</code></td><td>target part size for background merging</td></tr>
+<tr><td><code>auto_merge_parts</code></td><td><code>8</code></td><td>run an optimize once a table has this many parts</td></tr>
+<tr><td><code>max_merge_rows</code></td><td><code>4194304</code></td><td>cap on input rows per merge pass — bounds merge memory (a 100M-row table converges in bounded passes)</td></tr>
+</tbody></table>
+<h2>Compression</h2>
+<table><thead><tr><th>key</th><th>default</th><th>what it does</th></tr></thead><tbody>
+<tr><td><code>compression</code></td><td><code>zstd</code></td><td><code>zstd</code> \</td><td><code>lz4</code> \</td><td><code>none</code>, per column</td></tr>
+<tr><td><code>zstd_level</code></td><td><code>3</code></td><td>0 = library default, 1..=22</td></tr>
+</tbody></table>
+<h2>Query engine</h2>
+<table><thead><tr><th>key</th><th>default</th><th>what it does</th></tr></thead><tbody>
+<tr><td><code>memory_limit</code></td><td><code>0</code></td><td>query memory pool cap in bytes (<code>0</code> = unbounded). Over-limit queries fail with <code>ResourcesExhausted</code> instead of OOM-ing the box</td></tr>
+<tr><td><code>parquet_page_index</code></td><td><code>true</code></td><td>page-level skipping toggle (off = row-group statistics only)</td></tr>
+<tr><td><code>gpu_enabled</code></td><td><code>false</code></td><td>enable the wgpu kernels</td></tr>
+</tbody></table>
+<h2>Shared-storage cache</h2>
+<table><thead><tr><th>key</th><th>default</th><th>what it does</th></tr></thead><tbody>
+<tr><td><code>block_cache_bytes</code></td><td><code>268435456</code></td><td>in-memory LRU for shared parts</td></tr>
+<tr><td><code>block_cache_dir</code></td><td>none</td><td>optional persistent disk tier (survives restarts)</td></tr>
+</tbody></table>
+<h2>Security</h2>
+<table><thead><tr><th>key</th><th>default</th><th>what it does</th></tr></thead><tbody>
+<tr><td><code>auth</code></td><td>none</td><td>LDAP/AD and/or dev-file authenticator JSON (<code>lessdb init --auth @auth.json</code>)</td></tr>
+<tr><td><code>tls_cert</code> / <code>tls_key</code></td><td>none</td><td>PEM files for HTTPS on <code>lessdb server</code></td></tr>
+<tr><td><code>node_id</code></td><td>random</td><td>stable compute-node identity for multi-writer merge claims</td></tr>
+</tbody></table>
+<h2>Logging</h2>
+<p><code>lessdb server --log-level &lt;off|error|warn|info|debug|trace&gt; --log-dir &lt;dir&gt;</code>:</p>
+<ul>
+<li><strong>stdout</strong> — human-readable lines: `2026-08-28T16:37:49Z INFO request</li>
+<p>method=POST path=/v1/sql status=200 latency_ms=18.94`.</p>
+</ul>
+<ul>
+<li><strong><code>--log-dir</code></strong> — the same records written to</li>
+<p><code>lessdb.YYYY-MM-DD.log</code>, rotated daily, 7 files kept.</p>
+</ul>
+<ul>
+<li>Filter with <code>LESSDB_LOG</code> (e.g. <code>LESSDB_LOG=info,datafusion=warn</code> to</li>
+<p>silence the planner's debug chatter).</p>
+</ul>
+<ul>
+<li>The audit trail is separate: <code>&lt;data_dir&gt;/audit/audit-YYYY-MM-DD.ndjson</code></li>
+<p>— one NDJSON line per call (caller, action, outcome, duration), day- rotated, flush-on-write.</p>
+</ul>
+<h2>Validation rules</h2>
+<p>Invalid config is rejected at load/save time: <code>compression</code> must be zstd/lz4/none, <code>zstd_level</code> 0..=22, <code>flush_rows</code> ≥ 1, <code>max_buffer_rows</code> ≥ <code>flush_rows</code>, <code>max_merge_rows</code> ≥ 1, and <code>bloom_fp_rate</code> in (0, 1).</p>
+<h2>Per-table settings</h2>
+<p>Compression is also per-table DDL: <code>COMPRESSION='lz4'</code>. Sort key, UNIQUE columns, and TTL live in the table definition, not the config file — see <a href="/docs/getting-started">Getting started</a>.</p>
+  </main>
+</div>
+<footer class="docs-footer">
+  <div class="footer-inner">
+    <span>LessDB — one database for agents and humans. <a href='license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
+    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+  </div>
+</footer>
+<script src="../app.js"></script>
+<script src="../github-stars.js"></script>
+</body>
+</html>

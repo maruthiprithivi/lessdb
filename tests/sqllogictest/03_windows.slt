@@ -1,0 +1,23 @@
+# Window functions.
+
+query II
+SELECT x, sum(x) OVER (ORDER BY x) FROM (VALUES (1), (2), (3), (4)) AS t(x) ORDER BY x
+----
+1 1
+2 3
+3 6
+4 10
+
+query II
+SELECT x, row_number() OVER (ORDER BY x) FROM (VALUES (10), (20), (30)) AS t(x) ORDER BY x
+----
+10 1
+20 2
+30 3
+
+query II
+SELECT x, rank() OVER (ORDER BY x) FROM (VALUES (1), (1), (2)) AS t(x) ORDER BY x
+----
+1 1
+1 1
+2 3

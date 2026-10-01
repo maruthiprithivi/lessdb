@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Semantic search &amp; RAG · LessDB</title>
+<meta name="description" content="Semantic search &amp; RAG — LessDB, one database for agents and humans."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a07'/%3E%3Crect x='6' y='4' width='20' height='14' rx='4' fill='%232e2e26'/%3E%3Crect x='9' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='20' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='10' y='20' width='12' height='7' rx='3' fill='%23ffd54a'/%3E%3Crect x='14' y='23' width='4' height='2' fill='%23fff8b0'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<link rel="stylesheet" href="../docs.css"/>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-frame"><div class="header-inner">
+    <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+  </div></div>
+</header>
+<div class="docs-layout">
+  <aside class="docs-sidebar"><div class="side-group">Use cases</div>
+<a href='agent-memory-mcp'>Agent memory &amp; knowledge graphs (MCP)</a>
+<a href='analytics'>Product &amp; growth analytics</a>
+<a href='data-wrangling-cli'>Local data work — DuckDB-style, one binary</a>
+<a href='embedded-analytics'>Embedded analytics (in-process database)</a>
+<a href='log-event-analytics'>Logs &amp; event streams</a>
+<a href='multi-tenant-agents'>Multi-tenant agent platform</a>
+<a href='realtime-dashboards'>Realtime dashboards &amp; ops</a>
+<a href='vector-search'>Semantic search &amp; RAG</a></aside>
+  <main class="docs-content">
+    <h1>Semantic search &amp; RAG</h1>
+    <h1>Semantic search &amp; RAG</h1>
+<p><strong>What</strong>: Embeddings, nearest-neighbor search, and RAG retrieval — as plain SQL, next to the very tables you'd join against. No separate vector service, no serialization hop, no embedding silo.</p>
+<p><strong>Why LessDB</strong>:</p>
+<ul>
+<li><code>vector_search('space', [...], k)</code> is a <strong>SQL table function</strong>: hits</li>
+<p>come back as rows you can filter, join, and aggregate like anything else.</p>
+</ul>
+<ul>
+<li>Exact flat search for correctness, IVF-PQ ANN for scale (0.87</li>
+<p>recall@10 at 8.7k QPS in benchmarks) — one API.</p>
+</ul>
+<ul>
+<li>Vectors live in the same database as your documents' metadata, so</li>
+<p>"semantic similarity + business filters" is one query, not two services and a merge.</p>
+</ul>
+<p><strong>How, step by step</strong>:</p>
+<pre class="language-sh"><code># 1. a vector space for document embeddings
+lessdb vector create docs 768 --metric cosine
+
+# 2. add embeddings with payloads (from your embedding model)
+lessdb vector add docs \
+  --vectors '[[0.1,0.2,...],[0.3,0.4,...]]' \
+  --payloads '[{"title":"postmortem: failover"},{"title":"pricing FAQ"}]'</code></pre>
+<pre class="language-sql"><code>-- 3. retrieve: nearest neighbours, then filter/join like SQL
+SELECT id, score, payload
+FROM vector_search('docs', [0.11, 0.19, ...], 10)
+WHERE payload LIKE '%postmortem%';
+
+-- 4. RAG: hits joined against a real table for grounded answers
+SELECT d.payload, inc.severity
+FROM vector_search('docs', [0.11, 0.19, ...], 5) d
+JOIN incidents inc ON inc.doc_id = d.id;</code></pre>
+<pre class="language-sh"><code># 5. agents get the same search through MCP (vector_* tools) — audited
+lessdb mcp --require-auth</code></pre>
+<p><strong>Value</strong>: retrieval quality plus business filtering in one engine — your RAG pipeline stops shipping vectors across three services and starts being one auditable query.</p>
+  </main>
+</div>
+<footer class="docs-footer">
+  <div class="footer-inner">
+    <span>LessDB — one database for agents and humans. <a href='../docs/license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
+    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+  </div>
+</footer>
+<script src="../app.js"></script>
+<script src="../github-stars.js"></script>
+</body>
+</html>

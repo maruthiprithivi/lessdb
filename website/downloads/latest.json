@@ -1,0 +1,7 @@
+{
+  "version": "0.6.0",
+  "files": {
+    "aarch64-apple-darwin": "lessdb-v0.6.0-aarch64-apple-darwin.tar.gz",
+    "x86_64-unknown-linux-gnu": "lessdb-v0.6.0-x86_64-unknown-linux-gnu.tar.gz"
+  }
+}

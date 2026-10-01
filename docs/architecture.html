@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LessDB — Interactive Architecture</title>
+<style>
+  :root {
+    --bg: #0b1020; --panel: #111830; --panel2: #0e1428; --border: #24304f;
+    --text: #dbe4f5; --muted: #8fa0c0; --accent: #4f8cff;
+    --c-client: #a78bfa; --c-query: #60a5fa; --c-engine: #34d399;
+    --c-storage: #fbbf24; --c-infra: #f87171; --c-side: #22d3ee; --c-ops: #94a3b8;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 14px/1.5 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  header {
+    display: flex; align-items: center; gap: 14px; padding: 10px 16px;
+    background: linear-gradient(180deg, #141d3a, #0e1428);
+    border-bottom: 1px solid var(--border); flex-wrap: wrap;
+  }
+  header h1 { font-size: 17px; margin: 0; font-weight: 650; letter-spacing: .2px; }
+  header h1 span { color: var(--accent); }
+  .subtitle { color: var(--muted); font-size: 12px; }
+  .spacer { flex: 1; }
+  .toolbar { display: flex; gap: 8px; align-items: center; }
+  .toolbar button, .toolbar select {
+    background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 12.5px;
+  }
+  .toolbar button:hover { border-color: var(--accent); }
+  #search {
+    background: var(--panel); border: 1px solid var(--border); color: var(--text);
+    border-radius: 6px; padding: 6px 10px; width: 210px; font-size: 12.5px;
+  }
+  main { flex: 1; display: flex; min-height: 0; }
+  #canvasWrap { flex: 1; position: relative; min-width: 0; background:
+    radial-gradient(1200px 700px at 30% 20%, #101a38 0%, #0b1020 65%); }
+  svg { width: 100%; height: 100%; display: block; cursor: grab; }
+  svg.dragging { cursor: grabbing; }
+  .node rect.body { fill: var(--panel); stroke: var(--border); stroke-width: 1.2; rx: 9; }
+  .node text.name { fill: var(--text); font-weight: 620; font-size: 13px; }
+  .node text.kind { fill: var(--muted); font-size: 10.5px; }
+  .node rect.band { rx: 4; }
+  .node:hover rect.body { stroke-width: 2; }
+  .node.selected rect.body { stroke: var(--accent); stroke-width: 2.6; filter: drop-shadow(0 0 6px rgba(79,140,255,.55)); }
+  .node.dimmed { opacity: .16; }
+  .node.flow-active rect.body { stroke: #f59e0b; stroke-width: 3; filter: drop-shadow(0 0 8px rgba(245,158,11,.8)); }
+  .edge { stroke: #33406b; stroke-width: 1.6; fill: none; }
+  .edge.data { stroke: #46608f; }
+  .edge.control { stroke-dasharray: 5 4; stroke: #5d4a8a; }
+  .edge.metrics { stroke-dasharray: 2 3; stroke: #7c6a3a; }
+  .edge.hovered, .edge.flow-active { stroke: #f59e0b; stroke-width: 2.6; }
+  .edge.dimmed { opacity: .1; }
+  .edge-label { fill: #7d8db0; font-size: 10px; }
+  .edge.flow-active ~ .edge-label, text.edge-label.flow-active { fill: #fbbf24; }
+  aside {
+    width: 400px; min-width: 340px; background: var(--panel2);
+    border-left: 1px solid var(--border); overflow-y: auto; padding: 16px;
+  }
+  aside h2 { margin: 0 0 4px; font-size: 16px; }
+  .badge {
+    display: inline-block; font-size: 10.5px; padding: 2px 8px; border-radius: 10px;
+    background: #1c2a52; color: var(--muted); margin-bottom: 8px; letter-spacing: .4px;
+  }
+  aside p { margin: 8px 0; color: #c3cfe8; font-size: 13px; }
+  aside h4 { margin: 14px 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); }
+  aside ul { margin: 0; padding-left: 18px; color: #b7c4de; font-size: 12.5px; }
+  aside li { margin: 3px 0; }
+  code.path { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11.5px;
+    background: #0d1526; border: 1px solid var(--border); padding: 1px 5px; border-radius: 4px; color: #9fd0ff; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    border: 1px solid var(--border); background: var(--panel); color: var(--text);
+    padding: 3px 9px; border-radius: 12px; font-size: 11.5px; cursor: pointer;
+  }
+  .chip:hover { border-color: var(--accent); color: #cfe1ff; }
+  #flowbar {
+    background: var(--panel2); border-top: 1px solid var(--border); padding: 10px 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  #flowbar select { background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 5px 8px; font-size: 12.5px; }
+  #flowbar button { background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 5px 11px; cursor: pointer; font-size: 12.5px; }
+  #flowbar button:hover { border-color: var(--accent); }
+  #flowText { flex: 1; color: #c9d5ef; font-size: 12.8px; }
+  #flowText b { color: #fbbf24; }
+  #stepCount { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .legend { display: flex; gap: 14px; align-items: center; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+  .legend .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; margin-right: 4px; vertical-align: -2px; }
+  .legend .ln { display: inline-block; width: 22px; height: 0; border-top: 2px solid; margin-right: 4px; vertical-align: middle; }
+  .footnote { padding: 8px 16px; background: #0d1426; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 11.5px; display: flex; gap: 18px; flex-wrap: wrap; }
+  .footnote b { color: #c3d2f2; }
+  @media (max-width: 960px) {
+    main { flex-direction: column; }
+    aside { width: auto; min-width: 0; border-left: none; border-top: 1px solid var(--border); max-height: 45vh; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>LessDB <span>Architecture</span></h1>
+  <div class="subtitle">SQL-first analytical database — click any component, or run a flow walkthrough</div>
+  <div class="spacer"></div>
+  <div class="toolbar">
+    <input id="search" type="text" placeholder="Search components… (e.g. WAL, merge, provider)">
+    <button id="btnIn" title="Zoom in">+</button>
+    <button id="btnOut" title="Zoom out">−</button>
+    <button id="btnReset" title="Reset view">⤢ Fit</button>
+  </div>
+</header>
+
+<main>
+  <div id="canvasWrap">
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#46608f"/>
+        </marker>
+        <marker id="arrData" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#46608f"/>
+        </marker>
+      </defs>
+      <g id="edges"></g>
+      <g id="nodes"></g>
+    </svg>
+  </div>
+  <aside id="sidebar">
+    <div id="detail">
+      <h2>Welcome</h2>
+      <p>This is the complete LessDB system. <b>Click a component</b> to see what it does, its data structures, and its neighbors. <b>Hover</b> highlights connections. Use the <b>flow bar</b> at the bottom to watch a request travel through the system (insert, query, optimize, crash recovery, shared storage).</p>
+      <h4>Layers</h4>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--c-client)"></span>Clients</span>
+        <span><span class="sw" style="background:var(--c-query)"></span>Query</span>
+        <span><span class="sw" style="background:var(--c-engine)"></span>Engine</span>
+        <span><span class="sw" style="background:var(--c-storage)"></span>Storage</span>
+        <span><span class="sw" style="background:var(--c-infra)"></span>Infra</span>
+        <span><span class="sw" style="background:var(--c-side)"></span>Extensions</span>
+      </div>
+      <h4>Connection styles</h4>
+      <div class="legend">
+        <span><span class="ln" style="border-color:#46608f"></span>data / SQL</span>
+        <span><span class="ln" style="border-color:#5d4a8a; border-top-style:dashed"></span>control</span>
+        <span><span class="ln" style="border-color:#7c6a3a; border-top-style:dotted"></span>metrics / optional</span>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<div id="flowbar">
+  <select id="flowSelect"></select>
+  <button id="btnPrev">◀</button>
+  <button id="btnPlay">▶ Play</button>
+  <button id="btnNext">▶</button>
+  <span id="stepCount">–</span>
+  <div id="flowText">Pick a flow to see how a request moves through the system.</div>
+</div>
+
+<div class="footnote">
+  <span><b>Measured</b> (optimus0, 28c/62GB): load 99,997,497 rows in 391s · OPTIMIZE → 25 parts · 43/43 queries · 47.2s total</span>
+  <span><b>Docs:</b> docs/ARCHITECTURE.md · docs/benchmarks.md</span>
+  <span><b>Tip:</b> scroll to zoom, drag to pan, double-click a node to jump to its detail</span>
+</div>
+
+<script>
+"use strict";
+/* ================= Component model ================= */
+const L = { client:"Clients & APIs", query:"Query layer", engine:"Storage engine", storage:"Storage & format", infra:"Shared infrastructure", side:"Extensions & ops" };
+const C = { client:"var(--c-client)", query:"var(--c-query)", engine:"var(--c-engine)", storage:"var(--c-storage)", infra:"var(--c-infra)", side:"var(--c-side)" };
+
+const NODES = [
+{ id:"cli",      layer:"client", x:30,   y:30,  w:210, h:64, title:"less CLI + TUI", kind:"less-cli",
+  short:"The `lessdb` command — REPL, scripts, TUI, and admin commands.",
+  desc:"The primary human surface. A ratatui-based interactive TUI (table sidebar, results grid, SQL editor with history, meta-commands \\t \\d \\p \\o \\h \\c \\q, running/timing status, DDL interception) plus one-shot subcommands: init, create, insert (CSV/JSONL/parquet/Arrow — parquet streams row-group batches), sql, optimize, bench, server, mcp, cypher, context, memory, gpu. Falls back to a plain REPL on non-TTYs.",
+  facts:["Ratatui TUI with focus cycling and headless TestBackend tests","insert streams parquet with bounded memory (100M rows at ~0.6 GB RSS)","lessdb init --shared s3://… writes config.json","bare `lessdb` opens the TUI on the current .less dir"],
+  code:"crates/less-cli/src/{main.rs,tui.rs,commands.rs,load.rs}" },
+{ id:"sdk",      layer:"client", x:30,  y:120, w:210, h:64, title:"Python & Node SDKs", kind:"PyO3 / napi-rs",
+  short:"Embed LessDB in-process, with pyarrow/pandas interop.",
+  desc:"In-process embeddings: the Python SDK (PyO3, abi3) exposes the engine as a library with pyarrow/pandas interop; the Node SDK (napi-rs) passes Arrow IPC buffers. No server round-trip — the database lives in your process.",
+  facts:["Same LessEngine object the CLI uses","Arrow IPC as the interchange format","'your existing tools just work'"],
+  code:"sdks/python · sdks/node" },
+{ id:"http",     layer:"client", x:30,  y:210, w:210, h:64, title:"HTTP / Arrow API", kind:"less-server (axum)",
+  short:"POST /v1/sql returning JSON or Arrow IPC; /metrics; HTTPS.",
+  desc:"The network SQL API. POST /v1/sql executes SQL and returns JSON rows or an Arrow IPC stream (zero-copy columnar results). Serves Prometheus at GET /metrics. Supports TLS (rustls) and LDAP/AD auth via less-auth. This is also the endpoint the fan-out coordinator talks to.",
+  facts:["POST /v1/sql → JSON or Arrow IPC","GET /metrics (Prometheus text format)","TLS via --tls-cert/--tls-key (axum-server + rustls)","Basic auth → LDAP/AD roles"],
+  code:"crates/less-server" },
+{ id:"mcp",      layer:"client", x:30,  y:300, w:210, h:64, title:"MCP server", kind:"less-mcp (stdio JSON-RPC)",
+  short:"Model Context Protocol for AI agents: SQL + context/graph + memory tools.",
+  desc:"Exposes the database to Claude Code / Codex / any MCP client over stdio JSON-RPC. Database tools: less_query, less_explain, less_schema, less_stats, less_tables, less_optimize. Agent-memory tools: context_* (linked notes), memory_* (RAM tables with PK index), less_cypher. Tenant-scoped memory (lessdb mcp --tenant name) so multiple agents never collide.",
+  facts:["less_query / less_explain / less_schema / less_stats / less_tables / less_optimize","context_* + memory_* + less_cypher tools","Tenant scoping: <data_dir>/tenants/<name>/…"],
+  code:"crates/less-mcp" },
+{ id:"fanout",   layer:"client", x:30,  y:390, w:210, h:64, title:"Fan-out coordinator", kind:"less-fanout (P2 v1)",
+  short:"Sharded scans across multiple LessDB nodes over the HTTP API.",
+  desc:"Distributed query v1: `lessdb fanout --nodes http://a:7080,… \"<sql>\"` parses a documented single-table subset (group columns + count/sum/min/max), injects the always-true marker `lessdb_shard(col, i, n)` so each node scans only its stable FNV-1a part-name shard, runs a partial aggregate per node, then re-aggregates the Arrow IPC partials locally. Joins/CTEs/windows/HAVING/avg/OFFSET are rejected with clear errors (gRPC/DataFusion distributed execution is the roadmap next step).",
+  facts:["lessdb_shard(col,i,n) marker intercepted by the table provider","Partial aggregates merged coordinator-side","Documented subset; everything else errors loudly"],
+  code:"crates/less-fanout" },
+
+{ id:"df",       layer:"query", x:320, y:60, w:230, h:76, title:"DataFusion session", kind:"less-query",
+  short:"SQL parser, optimizer, hash joins, aggregates, windows — the audited SQL front end.",
+  desc:"LessDB inherits DataFusion 55's battle-tested SQL engine: parser, type coercion, cost-based optimizer, hash joins, aggregations, window functions, aggregations, window functions, subqueries, EXPLAIN. Session config: exact-case unquoted identifiers (identifier normalization off), page-level parquet skipping toggle, and a bounded memory pool (GreedyMemoryPool wrapped by a tracking pool that mirrors reserved bytes to the lessdb_memory_pool_bytes gauge; over-limit queries fail with ResourcesExhausted).",
+  facts:["Hash joins, aggregates, windows, subqueries, EXPLAIN","Identifier normalization off → exact-case identifiers","memory_limit → bounded pool + Prometheus gauge","DELETE/UPDATE planned as DML against the table provider"],
+  code:"crates/less-query/src/session.rs" },
+{ id:"provider", layer:"query", x:320, y:170, w:230, h:88, title:"LessTableProvider", kind:"less-query/provider.rs",
+  short:"The piece LessDB owns: 3-level pruning → one parallel scan per surviving part.",
+  desc:"Bridges DataFusion to the engine. 1) Prune parts from meta.json alone (no data I/O): bloom filter 'definitely absent' skips for col = X on UNIQUE columns; typed StatValue min/max comparisons skip provably-disjoint parts. 2) Plan one ParquetSource per surviving part, each in its own file group → parallelism across parts and cores. 3) Push the row predicate into the parquet reader (row-group stats + row filter). EXPLAIN shows every pushdown decision. Also compiles DELETE/UPDATE predicates to physical expressions for replace-parts mutations.",
+  facts:["Bloom + typed min/max part pruning (sound by construction)","One scan per part → parallel execution","Predicate pushdown into the parquet reader","vector_search('space',[v…],k) registered as a table function"],
+  code:"crates/less-query/src/provider.rs" },
+
+{ id:"engine",   layer:"engine", x:640, y:40, w:230, h:84, title:"LessEngine", kind:"less-engine/engine.rs",
+  short:"Open/create/insert/flush/optimize — the engine façade both engines share.",
+  desc:"The central object every interface holds (Arc<LessEngine>). insert() buffers Arrow batches (auto-flush at flush_rows, hard cap max_buffer_rows); flush() materializes the buffer into an immutable part; optimize() converges merges; stats()/parts() expose table state. Runs an internal 2-thread io-runtime (block_on_owned) so sync APIs work even inside async contexts. On open it sweeps torn part directories (killed mid-write_part before meta.json landed) and replays the WAL for tables with WAL enabled.",
+  facts:["insert buffering + auto-flush (flush_rows default 256k)","open(): torn-part sweep + WAL replay","io-runtime lets sync APIs run inside async servers","stats/parts/buffered_rows introspection"],
+  code:"crates/less-engine/src/engine.rs" },
+{ id:"wal",      layer:"engine", x:640, y:152, w:230, h:76, title:"Write-ahead log", kind:"less-engine/wal.rs",
+  short:"Durability for accepted rows: len-prefixed lsn records, idempotent replay.",
+  desc:"Every insert appends [len u64][lsn u64][Arrow IPC batch] to <data_dir>/wal/<table>.wal (fsync per append when wal_fsync is on) before the row is acknowledged. Each part records wal_lsn_max (the highest WAL lsn it contains); replay re-buffers only records with lsn > max(parts.wal_lsn_max) and then flushes — exactly-once recovery. The WAL is truncated at every successful flush. Torn tail records (crash mid-append) stop the scan; garbage prefixes are rejected by size checks.",
+  facts:["Record = [len][lsn][Arrow IPC]","wal_lsn_max per part filters replay → exactly-once","Truncated after each flush; fsync optional","Crash test: kill -9 mid-load → 5.2M rows recovered on the bench box"],
+  code:"crates/less-engine/src/wal.rs" },
+{ id:"mt",       layer:"engine", x:640, y:256, w:230, h:92, title:"Firefly engine", kind:"EngineKind::Firefly",
+  short:"Vertical scale on local disk: immutable parts, size-tiered bounded merges, TTL, replace-parts mutations.",
+  desc:"Local Firefly engine. Inserts flush into immutable parts under <data_dir>/parts/<table>/<name>/. Merges are size-tiered (log2(rows) tiers): merge_all loops in bounded passes capped at max_merge_rows (default 4M input rows) so a 100M-row table converges without ever holding everything in memory. delete_where/update_where rewrite affected parts (replace-parts); TTL retention drops expired parts at flush/OPTIMIZE. UNIQUE columns (a prefix of the sort key) dedup keep-last at flush and merge.",
+  facts:["Parts = data.parquet + meta.json, written once","Size-tiered merges, bounded by max_merge_rows","TTL, DELETE/UPDATE via part replacement","UNIQUE dedup: keep the last row per key"],
+  code:"crates/less-engine/src/{merge.rs,part.rs}" },
+{ id:"smt",      layer:"engine", x:640, y:376, w:230, h:92, title:"FireflyCloud engine", kind:"EngineKind::FireflyCloud",
+  short:"Horizontal scale: stateless compute over shared object storage — no replicas, no quorum.",
+  desc:"Durable state lives entirely in the shared object store — parts under tables/<t>/parts/<part>/* and manifests under catalog/<table>.json — so a fresh node with an empty local disk sees every table by listing. Local disk holds only buffers, caches, and local Firefly tables; kill a node and start a replacement, nothing is lost. Multi-writer safety comes from CAS coordination in the metastore: part publication is a conditional create of meta.json, merges first claim inputs under merge-claims/<table>/<part> (10 min TTL).",
+  facts:["Zero durable local state — discovery by listing the bucket","Part publication = CAS put_if_absent of meta.json","Merge claims prevent double-merging across writers","Proven by multi_writer_concurrent_flush_and_optimize test"],
+  code:"crates/less-engine/src/{engine.rs,merge.rs}" },
+
+{ id:"part",     layer:"storage", x:960, y:40, w:250, h:92, title:"The data part", kind:"less-storage/part_io.rs",
+  short:"The unit of immutability: data.parquet + meta.json, sorted and stats-carrying.",
+  desc:"A part is a directory (or object-store prefix) with two files. data.parquet: columnar data, zstd/lz4 per column, row groups with statistics; written WITHOUT an offset index (the sparse-column-chunk reader path it enables is broken in DataFusion/parquet-rs for wide string columns — apache/datafusion#8092). meta.json (PartMeta): per-column typed min/max, null counts, bloom filters on UNIQUE columns, wal_lsn_max — the pruning layer the planner reads without opening the parquet. write_part() sorts + dedups in memory; write_part_sorted() does a chunked k-way merge (64k-row chunks streamed to parquet) with incremental stats/blooms and cross-chunk dedup.",
+  facts:["meta.json is written last — parts only become visible when it exists","Typed StatValue min/max (never lexicographic on numbers)","No offset index (reader-bug workaround); row-group stats remain","k-way merge writer: bounded memory at any part count"],
+  code:"crates/less-storage/src/{part_io.rs,part_meta.rs}" },
+{ id:"codec",    layer:"storage", x:960, y:160, w:250, h:64, title:"Codecs & encoding", kind:"less-storage/codec.rs",
+  short:"zstd (default, level 3) and lz4 per column; specialized codecs on the roadmap.",
+  desc:"Columnar compression through parquet's codec framing — zstd level 3 by default, lz4 (LZ4_RAW, skipping Hadoop framing overhead) when COMPRESSION='lz4'. The benchmark table: 14 GB parquet → 8.6 GB of parts. Roadmap: delta/double-delta/gorilla/dictionary encodings and low-cardinality dictionaries — the big compression wins for time series and categoricals.",
+  facts:["zstd lv3 default; lz4 raw","Configurable per table (COMPRESSION='lz4')","8.6 GB of parts for the 14 GB benchmark dataset"],
+  code:"crates/less-storage/src/codec.rs" },
+{ id:"bloom",    layer:"storage", x:960, y:252, w:250, h:64, title:"Bloom filters", kind:"less-storage/bloom.rs",
+  short:"'Definitely absent' tests on UNIQUE columns — skip whole parts without I/O.",
+  desc:"Every part carries bloom filters for its UNIQUE columns (false-positive rate configurable, default 0.01). A point lookup col = X consults the bloom first: a negative answer prunes the part before any data read. Filter sizes and hashes live in meta.json next to the typed min/max stats.",
+  facts:["UNIQUE-column point lookups skip parts entirely","FP rate configurable (bloom_fp_rate, default 0.01)","Pruning effectiveness visible via Prometheus counters"],
+  code:"crates/less-storage/src/bloom.rs" },
+{ id:"cache",    layer:"storage", x:960, y:344, w:250, h:76, title:"Block cache", kind:"less-storage/block_cache.rs",
+  short:"CachingObjectStore: LRU in RAM + optional persistent disk tier for shared parts.",
+  desc:"Shared-store reads pass through a CachingObjectStore: immutable part objects are served from a bounded in-memory LRU (block_cache_bytes, default 256 MiB) plus an optional disk tier (block_cache_dir — FNV-1a-keyed files surviving restarts). The parquet reader's byte-range requests fetch a part once and slice from cache afterwards. Only …/parts/… keys are cached and conditional reads bypass it, so mutable control-plane objects are never stale. `lessdb cache` prints live stats. (Measured: with the default 256 MiB cache, 25 × ~350 MB parts thrash — lazy range reads + a bigger cache are the roadmap fix for the 8x FireflyCloud query gap.)",
+  facts:["In-memory LRU + optional persistent disk tier","Only immutable parts/* keys cached","Byte-range fetches: part fetched once, then sliced","lessdb cache → live stats"],
+  code:"crates/less-storage/src/block_cache.rs" },
+{ id:"catalog",  layer:"storage", x:960, y:448, w:250, h:76, title:"Catalog & manifests", kind:"less-catalog",
+  short:"Schemas and table definitions: TypeSpec/SchemaSpec/TableDef, local + shared manifests.",
+  desc:"The schema layer. TypeSpec covers Int8..UInt64, Float32/64, Utf8, Date32, Timestamp(Ms), Decimal and more; TableDef carries the engine kind (Firefly / FireflyCloud), sort key, UNIQUE columns, TTL, and compression. Local tables store <data_dir>/catalog/<table>.json; FireflyCloud manifests live in the shared store at catalog/<table>.json (atomic object put = last-write-wins). DROP deletes part objects first and the manifest last, so table visibility changes atomically.",
+  facts:["TypeSpec/SchemaSpec/TableDef","Local manifests + shared-store manifests","DROP = parts first, manifest last (atomic visibility)"],
+  code:"crates/less-catalog/src/{catalog.rs,shared.rs,schema.rs}" },
+{ id:"meta",     layer:"storage", x:960, y:552, w:250, h:76, title:"CAS metastore", kind:"less-catalog/metastore.rs",
+  short:"put_if_absent + compare_and_swap — multi-writer coordination without a quorum.",
+  desc:"The pluggable MetaStore removes the single-writer assumption. Part publication is a conditional create of meta.json (readers only see parts whose metadata exists; a concurrent publication of the same uuid-named part fails loudly). Merges claim their inputs under metastore/merge-claims/<table>/<part> (TTL 10 min; expired claims are taken over where update-CAS exists), so two writers flush and OPTIMIZE concurrently without double-merging rows. Implementations: FileMetaStore (flock-serialized local files), ObjectMetaStore (claims as objects in the same bucket, insert-CAS via conditional copy); etcd is the roadmap backend.",
+  facts:["put_if_absent + compare_and_swap API","Merge claims with 10-min TTL + takeover","FileMetaStore (flock) / ObjectMetaStore (conditional copy)"],
+  code:"crates/less-catalog/src/metastore.rs" },
+
+{ id:"store",    layer:"infra", x:1280, y:60, w:240, h:84, title:"Shared object store", kind:"less-storage/object.rs",
+  short:"s3:// gcs:// az:// file:// memory:// — the shared source of truth.",
+  desc:"SharedStore is a thin typed layer over object_store: S3/GCS/Azure backends behind the `cloud` feature (credentials from standard env vars), plus file:// and memory:// for development and tests. Every FireflyCloud object lives under a URL prefix: catalog/<table>.json (manifests), tables/<t>/parts/<part>/{data.parquet,meta.json} (parts), metastore/* (claims). Reads and writes go through the same code path regardless of backend — the FireflyCloud benchmark run used a local file://-style store and hit load/merge parity with Firefly.",
+  facts:["s3:// gcs:// az:// file:// memory://","catalog/ + tables/ + metastore/ key layout","Same code path for every backend"],
+  code:"crates/less-storage/src/object.rs" },
+{ id:"disk",     layer:"infra", x:1280, y:180, w:240, h:64, title:"Local disk (compute scratch)", kind:"<data_dir>/",
+  short:"Ephemeral per-node state: buffers, WAL, local parts, caches.",
+  desc:"For FireflyCloud the node's durable state is zero — local disk holds only ephemeral compute state: insert buffers, the WAL, node-local Firefly tables, the block-cache disk tier, and config.json. Kill the node and start a replacement; nothing durable is lost and nothing needs rebalancing.",
+  facts:["<data_dir>/parts — local Firefly parts","<data_dir>/wal — write-ahead logs","<data_dir>/config.json, /shared (dev store), /vectors, /memory"],
+  code:"EngineConfig::data_dir" },
+
+{ id:"vector",   layer:"side", x:1280, y:300, w:240, h:88, title:"Vector search", kind:"less-vector",
+  short:"Embedding search: spaces, flat + IVF-PQ, SQL table function.",
+  desc:"Native ANN: a registry of vector spaces (own dimension, L2/cosine/dot metric, index flavor). Indexes: exact flat scan and IVF-PQ (k-means inverted lists + product quantization, ADC lookup tables, exact re-ranking; cosine/dot use IVF-flat today). Access is SQL-first: SELECT * FROM vector_search('space', [v…], k) is a DataFusion table function, so hits join and filter like any table. A deterministic trigram lexical embedder ships built-in; production models register their own. Persistence: <data_dir>/vectors/<space>/{meta.json,data.bin,index.bin}.",
+  facts:["flat + IVF-PQ ANN; L2/cosine/dot","vector_search(...) table function","Deterministic trigram embedder built in"],
+  code:"crates/less-vector" },
+{ id:"graph",    layer:"side", x:1280, y:416, w:240, h:88, title:"Agent memory & graph", kind:"less-graph + less-memory + less-cypher",
+  short:"Context vault + RAM tables + openCypher subset — agent-native memory in one store.",
+  desc:"The RAM-resident tier for agentic workloads (persisted under <data_dir>/memory/): a context store (titled, tagged, linked notes; ranked substring search, BFS neighborhoods, shortest paths), memory tables (Arrow-backed RAM tables with a hash PK index, O(1) point lookups via memory_get, append-log + keep-last compaction), and an openCypher subset over the graph (MATCH with variable-length patterns, WHERE, aggregation, CREATE/DELETE/SET). Everything is exposed through the same MCP server, tenant-scoped.",
+  facts:["context_put/find/link/neighbors/path tools","memory_create/insert/sql/get + compaction","openCypher subset: MATCH -[:depends_on*1..3]->, WHERE, RETURN","Atomic graph.json snapshots (crash-and-resume)"],
+  code:"crates/less-graph · less-memory · less-cypher" },
+{ id:"gpu",      layer:"side", x:1280, y:532, w:240, h:64, title:"GPU kernels (optional)", kind:"less-gpu (wgpu)",
+  short:"Filtered sum / dot-product kernels on Metal or Vulkan, threshold-dispatched.",
+  desc:"wgpu kernels for the shapes that dominate scan cost: filtered sum and dot product (the pattern of WHERE…AND SUM(…) and join/projection cost math), with per-workgroup parallel reduction and a trivial CPU final reduction. Dispatch policy (roadmap): route to GPU only above a data-size threshold, keep a CPU fallback, never block on PCIe round-trips for small batches. `lessdb gpu` benchmarks GPU vs CPU on the same data.",
+  facts:["Metal (macOS) / Vulkan (Linux) via wgpu","Filtered sum + dot product kernels","Threshold dispatch + CPU fallback (roadmap)"],
+  code:"crates/less-gpu" },
+{ id:"tele",     layer:"side", x:320, y:310, w:230, h:64, title:"Telemetry (Prometheus)", kind:"less-telemetry",
+  short:"Dependency-light registry: /metrics with query, part, pruning, and auth counters.",
+  desc:"A small registry rendered in Prometheus text format at GET /metrics (also `lessdb metrics`): query totals + duration histograms, rows returned/inserted, parts written/merged/scanned/pruned (pruning counters make index and bloom effectiveness visible on a dashboard), HTTP route/status counts, auth failures, process uptime/RSS, and the memory-pool gauge.",
+  facts:["lessdb_queries_total{status} + duration histogram","parts_pruned counters → pruning dashboards","memory_pool_bytes gauge","No external dependencies"],
+  code:"crates/less-telemetry" },
+{ id:"auth",     layer:"side", x:320, y:406, w:230, h:64, title:"LDAP / Active Directory", kind:"less-auth",
+  short:"Directory authentication for the HTTP API — bind, rebind, group → role mapping.",
+  desc:"Plugs LDAP/AD into the remote interfaces: service bind → locate the user DN → rebind as the user (password verification happens in the directory) → resolve group membership → map to a role (admin/read/write via role_mapping). Usernames are RFC 4515-escaped before filter interpolation (no LDAP injection); connections are pooled; an ungrouped user is denied unless default_role is set (fail closed). A dev-mode file authenticator serves local accounts and tests; both chain.",
+  facts:["Service bind → user rebind → groups → roles","RFC 4515 escaping; pooled connections; fail closed","Dev file authenticator for local/test","lessdb_auth_failures_total counter"],
+  code:"crates/less-auth" },
+];
+
+const EDGES = [
+  { a:"cli", b:"engine", kind:"data", label:"SQL / commands" },
+  { a:"sdk", b:"engine", kind:"data", label:"in-process API" },
+  { a:"http", b:"df", kind:"data", label:"POST /v1/sql" },
+  { a:"mcp", b:"df", kind:"data", label:"less_query tool" },
+  { a:"fanout", b:"http", kind:"data", label:"partials / shard SQL" },
+  { a:"df", b:"provider", kind:"data", label:"plans + scan requests" },
+  { a:"provider", b:"engine", kind:"control", label:"parts(), stats(), read part" },
+  { a:"provider", b:"mt", kind:"data", label:"part list + parquet scans" },
+  { a:"provider", b:"smt", kind:"data", label:"part list via object store" },
+  { a:"engine", b:"wal", kind:"control", label:"append (lsn) / truncate" },
+  { a:"engine", b:"mt", kind:"control", label:"flush / optimize / mutate" },
+  { a:"engine", b:"smt", kind:"control", label:"flush / optimize (claims)" },
+  { a:"mt", b:"part", kind:"data", label:"write_part / write_part_sorted" },
+  { a:"smt", b:"part", kind:"data", label:"write to temp → upload" },
+  { a:"part", b:"codec", kind:"data", label:"zstd / lz4 columns" },
+  { a:"part", b:"bloom", kind:"data", label:"UNIQUE blooms" },
+  { a:"part", b:"catalog", kind:"control", label:"TableDef + sort key" },
+  { a:"mt", b:"disk", kind:"data", label:"parts under <data_dir>/parts" },
+  { a:"smt", b:"store", kind:"data", label:"put data.parquet" },
+  { a:"smt", b:"meta", kind:"control", label:"CAS publish meta.json" },
+  { a:"meta", b:"store", kind:"control", label:"merge-claims objects" },
+  { a:"smt", b:"cache", kind:"data", label:"part fetches" },
+  { a:"cache", b:"store", kind:"data", label:"byte-range GETs" },
+  { a:"catalog", b:"store", kind:"control", label:"catalog/<table>.json (shared)" },
+  { a:"provider", b:"vector", kind:"data", label:"vector_search() table fn" },
+  { a:"mcp", b:"graph", kind:"data", label:"context_* / memory_* / cypher" },
+  { a:"cli", b:"graph", kind:"data", label:"context / memory / cypher cmds" },
+  { a:"df", b:"gpu", kind:"metrics", label:"threshold-dispatched kernels (roadmap)" },
+  { a:"df", b:"tele", kind:"metrics", label:"query metrics" },
+  { a:"engine", b:"tele", kind:"metrics", label:"part metrics" },
+  { a:"http", b:"tele", kind:"metrics", label:"route metrics" },
+  { a:"http", b:"auth", kind:"control", label:"LDAP/AD check" },
+];
+
+const FLOWS = [
+{ id:"insert", name:"INSERT — local Firefly",
+  steps:[
+    { n:"cli", t:"A client calls insert (CLI streams parquet/CSV batches, or an SDK pushes Arrow batches)." },
+    { n:"engine", t:"LessEngine.insert() aligns each batch to the table schema and appends it to the in-memory buffer (auto-flush at flush_rows, default 256k)." },
+    { n:"wal", t:"First, every batch is appended to <data_dir>/wal/<table>.wal with its lsn — the row becomes durable before it's acknowledged." },
+    { n:"part", t:"At flush, write_part() concatenates the buffer, sorts by the sort key, dedups UNIQUE columns (keep last), computes typed min/max + blooms, and writes data.parquet then meta.json into a new part directory." },
+    { n:"mt", t:"The new immutable part joins the table's part set under <data_dir>/parts/<table>/; the WAL is truncated. When parts ≥ auto_merge_parts (or OPTIMIZE runs), bounded size-tiered merges compact them." },
+  ]},
+{ id:"query", name:"QUERY — how a SELECT executes",
+  steps:[
+    { n:"http", t:"A SQL string arrives via POST /v1/sql (or the TUI, SDK, or MCP less_query)." },
+    { n:"df", t:"DataFusion parses, plans, and optimizes the query (hash joins, aggregates, windows) — EXPLAIN shows the whole plan." },
+    { n:"provider", t:"LessTableProvider prunes parts without I/O: bloom 'definitely absent' and typed min/max comparisons drop parts that can't match." },
+    { n:"part", t:"For each surviving part, DataFusion schedules a parallel ParquetSource scan; row-group statistics and pushed-down row filters prune further inside each file." },
+    { n:"df", t:"Results aggregate across scans and stream back to the caller as Arrow batches (JSON, IPC, or in-process arrays)." },
+  ]},
+{ id:"optimize", name:"OPTIMIZE — bounded merge passes",
+  steps:[
+    { n:"engine", t:"optimize() / auto-merge triggers merge_all()." },
+    { n:"mt", t:"Parts are grouped by size tier (log2(rows)); the smallest tier with ≥2 parts is selected, capped at max_merge_rows (default 4M) input rows per pass — a 100M-row table merges in many small passes instead of one giant in-memory merge." },
+    { n:"part", t:"Each selected part is sorted into a run; write_part_sorted() k-way merges runs in 64k-row chunks streamed straight to parquet, accumulating stats/blooms incrementally and deduping UNIQUE across chunk boundaries." },
+    { n:"mt", t:"The new level+1 part replaces its inputs (inputs deleted only after the new part is durable); the loop repeats until no eligible tier remains." },
+  ]},
+{ id:"crash", name:"CRASH RECOVERY — kill -9 and come back",
+  steps:[
+    { n:"engine", t:"Restart: LessEngine::open() first sweeps torn part directories — a kill mid-write_part can leave a directory without meta.json, which is skipped and removed (a part only becomes visible when its meta.json exists)." },
+    { n:"wal", t:"WAL replay scans <table>.wal, keeping records with lsn > max(parts.wal_lsn_max) — torn tail records stop the scan." },
+    { n:"engine", t:"Replayed batches re-enter the buffer and flush into a fresh part, so recovered rows are immediately queryable — exactly once." },
+    { n:"mt", t:"Recovery replays durable WAL entries and removes incomplete parts. Validate acknowledged-row recovery with the current fault tests." },
+  ]},
+{ id:"shared", name:"SHARED — write & read across nodes",
+  steps:[
+    { n:"smt", t:"A node flushes its buffer for a FireflyCloud table: the part is written to a temp dir, uploaded to tables/<t>/parts/<part>/data.parquet, and published by CAS-putting meta.json." },
+    { n:"meta", t:"The metastore's put_if_absent makes publication conditional — a concurrent writer publishing the same uuid-named part fails loudly instead of clobbering." },
+    { n:"store", t:"Everything durable lives in the shared object store: manifests (catalog/), parts (tables/…/parts/), claims (metastore/). A fresh node with an empty disk discovers every table by listing." },
+    { n:"provider", t:"Any node's query plans the same part set; scans go through the block cache (LRU + optional disk tier), which fetches each immutable part once and serves byte-range requests from cache." },
+    { n:"smt", t:"OPTIMIZE from any node first claims its inputs (merge-claims, 10-min TTL), so concurrent writers never double-merge rows." },
+  ]},
+];
+
+/* ================= Rendering ================= */
+const svg = document.getElementById("svg");
+const gEdges = document.getElementById("edges");
+const gNodes = document.getElementById("nodes");
+const W = 1600, H = 660;
+let vb = { x:0, y:0, w:W, h:H };
+let selected = null, flowTimer = null, flowIdx = -1, currentFlow = null;
+
+function fmt(text) { return text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function render() {
+  gNodes.innerHTML = "";
+  gEdges.innerHTML = "";
+  // edges
+  EDGES.forEach((e, i) => {
+    const a = NODES.find(n => n.id === e.a), b = NODES.find(n => n.id === e.b);
+    const p1 = port(a, b), p2 = port(b, a);
+    const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
+    const g = document.createElementNS("http://www.w3.org/2000/svg","g");
+    g.setAttribute("class", `edge ${e.kind}`);
+    g.setAttribute("data-edge", i);
+    const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+    path.setAttribute("d", `M ${p1.x} ${p1.y} C ${mx} ${p1.y}, ${mx} ${p2.y}, ${p2.x} ${p2.y}`);
+    path.setAttribute("marker-end", "url(#arr)");
+    g.appendChild(path);
+    const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+    t.setAttribute("class","edge-label");
+    t.setAttribute("x", mx); t.setAttribute("y", my - 6);
+    t.setAttribute("text-anchor","middle");
+    t.textContent = e.label;
+    g.appendChild(t);
+    gEdges.appendChild(g);
+  });
+  // nodes
+  NODES.forEach(n => {
+    const g = document.createElementNS("http://www.w3.org/2000/svg","g");
+    g.setAttribute("class","node");
+    g.setAttribute("data-node", n.id);
+    g.setAttribute("transform", `translate(${n.x},${n.y})`);
+    const r = document.createElementNS("http://www.w3.org/2000/svg","rect");
+    r.setAttribute("class","body"); r.setAttribute("width", n.w); r.setAttribute("height", n.h);
+    const band = document.createElementNS("http://www.w3.org/2000/svg","rect");
+    band.setAttribute("class","band"); band.setAttribute("x", 0); band.setAttribute("y", 0);
+    band.setAttribute("width", n.w); band.setAttribute("height", 5); band.setAttribute("fill", C[n.layer]);
+    const name = document.createElementNS("http://www.w3.org/2000/svg","text");
+    name.setAttribute("class","name"); name.setAttribute("x", 12); name.setAttribute("y", 26);
+    name.textContent = n.title;
+    const kind = document.createElementNS("http://www.w3.org/2000/svg","text");
+    kind.setAttribute("class","kind"); kind.setAttribute("x", 12); kind.setAttribute("y", n.h - 12);
+    kind.textContent = n.kind;
+    g.appendChild(r); g.appendChild(band); g.appendChild(name); g.appendChild(kind);
+    g.addEventListener("click", () => select(n.id));
+    g.addEventListener("mouseenter", () => hover(n.id, true));
+    g.addEventListener("mouseleave", () => hover(n.id, false));
+    gNodes.appendChild(g);
+  });
+  applyView();
+}
+function port(from, to) {
+  // exit point on the side of `from` facing `to`
+  const cx1 = from.x + from.w/2, cy1 = from.y + from.h/2;
+  const cx2 = to.x + to.w/2, cy2 = to.y + to.h/2;
+  const dx = cx2 - cx1, dy = cy2 - cy1;
+  if (Math.abs(dx) > Math.abs(dy)) {
+    return { x: dx > 0 ? from.x + from.w : from.x, y: cy1 };
+  }
+  return { x: cx1, y: dy > 0 ? from.y + from.h : from.y };
+}
+function hover(id, on) {
+  const n = gNodes.querySelector(`[data-node="${id}"]`);
+  const incident = EDGES.map((e,i) => ({e,i})).filter(x => x.e.a === id || x.e.b === id).map(x => x.i);
+  gNodes.querySelectorAll(".node").forEach(o => { if (!on) o.classList.remove("dimmed"); });
+  gEdges.querySelectorAll(".edge").forEach(o => o.classList.remove("hovered","dimmed"));
+  if (on) {
+    gNodes.querySelectorAll(".node").forEach(o => { if (o.dataset.node !== id) o.classList.add("dimmed"); });
+    gEdges.querySelectorAll(".edge").forEach(o => { o.classList.add("dimmed"); });
+    incident.forEach(i => { gEdges.querySelector(`[data-edge="${i}"]`).classList.remove("dimmed"); gEdges.querySelector(`[data-edge="${i}"]`).classList.add("hovered"); });
+  }
+}
+function select(id) {
+  selected = id;
+  gNodes.querySelectorAll(".node").forEach(o => o.classList.toggle("selected", o.dataset.node === id));
+  renderDetail(NODES.find(n => n.id === id));
+  stopFlow();
+}
+function renderDetail(n) {
+  const related = EDGES.filter(e => e.a === n.id || e.b === n.id)
+    .map(e => e.a === n.id ? e.b : e.a);
+  const el = document.getElementById("detail");
+  el.innerHTML =
+    `<h2>${fmt(n.title)}</h2>
+     <span class="badge">${L[n.layer]}</span>
+     <p>${fmt(n.short)}</p>
+     <p>${fmt(n.desc)}</p>
+     <h4>Key facts</h4><ul>${n.facts.map(f => `<li>${fmt(f)}</li>`).join("")}</ul>
+     <h4>Code</h4><p><code class="path">${fmt(n.code)}</code></p>
+     <h4>Talks to</h4>
+     <div class="chips">${related.map(r => { const t = NODES.find(x => x.id === r); return `<span class="chip" data-jump="${r}">${fmt(t.title)}</span>`; }).join("")}</div>`;
+  el.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => select(c.dataset.jump)));
+}
+
+/* ================= Pan / zoom ================= */
+function applyView() { svg.setAttribute("viewBox", `${vb.x} ${vb.y} ${vb.w} ${vb.h}`); }
+let dragging = false, sx = 0, sy = 0;
+const wrap = document.getElementById("canvasWrap");
+wrap.addEventListener("mousedown", e => { dragging = true; sx = e.clientX; sy = e.clientY; svg.classList.add("dragging"); });
+window.addEventListener("mouseup", () => { dragging = false; svg.classList.remove("dragging"); });
+window.addEventListener("mousemove", e => {
+  if (!dragging) return;
+  const dx = (e.clientX - sx) * vb.w / wrap.clientWidth;
+  const dy = (e.clientY - sy) * vb.h / wrap.clientHeight;
+  vb.x -= dx; vb.y -= dy; sx = e.clientX; sy = e.clientY; applyView();
+});
+wrap.addEventListener("wheel", e => {
+  e.preventDefault();
+  const factor = e.deltaY > 0 ? 1.12 : 1/1.12;
+  zoom(factor, e.clientX, e.clientY);
+}, { passive:false });
+function zoom(f, cx, cy) {
+  const r = wrap.getBoundingClientRect();
+  const px = (cx - r.left) / r.width, py = (cy - r.top) / r.height;
+  const xw = vb.w, yh = vb.h;
+  vb.w = Math.max(300, Math.min(4000, vb.w * f));
+  vb.h = Math.max(200, Math.min(4000, vb.h * f));
+  vb.x += px * (xw - vb.w);
+  vb.y += py * (yh - vb.h);
+  applyView();
+}
+document.getElementById("btnIn").onclick = () => zoom(1/1.2, wrap.clientWidth/2, wrap.clientHeight/2);
+document.getElementById("btnOut").onclick = () => zoom(1.2, wrap.clientWidth/2, wrap.clientHeight/2);
+document.getElementById("btnReset").onclick = () => { vb = {x:0,y:0,w:W,h:H}; applyView(); };
+
+/* ================= Search ================= */
+const search = document.getElementById("search");
+search.addEventListener("input", () => {
+  const q = search.value.trim().toLowerCase();
+  gNodes.querySelectorAll(".node").forEach(o => o.classList.remove("dimmed"));
+  if (!q) return;
+  gNodes.querySelectorAll(".node").forEach(o => {
+    const n = NODES.find(x => x.id === o.dataset.node);
+    const hit = (n.title + " " + n.kind + " " + n.short + " " + n.desc).toLowerCase().includes(q);
+    if (!hit) o.classList.add("dimmed");
+  });
+});
+search.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    const q = search.value.trim().toLowerCase();
+    const hit = NODES.find(n => (n.title + " " + n.kind + " " + n.short + " " + n.desc).toLowerCase().includes(q));
+    if (hit) { select(hit.id); zoomNode(hit.id); }
+  }
+});
+function zoomNode(id) {
+  const n = NODES.find(x => x.id === id);
+  vb = { x: n.x - 120, y: n.y - 90, w: Math.max(600, n.w + 300), h: Math.max(400, n.h + 220) };
+  applyView();
+}
+
+/* ================= Flows ================= */
+const flowSelect = document.getElementById("flowSelect");
+FLOWS.forEach(f => {
+  const o = document.createElement("option");
+  o.value = f.id; o.textContent = f.name;
+  flowSelect.appendChild(o);
+});
+function stopFlow() {
+  if (flowTimer) { clearInterval(flowTimer); flowTimer = null; }
+  flowIdx = -1; currentFlow = null;
+  gNodes.querySelectorAll(".node").forEach(o => o.classList.remove("flow-active"));
+  gEdges.querySelectorAll(".edge").forEach(o => o.classList.remove("flow-active"));
+  document.getElementById("flowText").innerHTML = "Pick a flow to see how a request moves through the system.";
+  document.getElementById("stepCount").textContent = "–";
+  document.getElementById("btnPlay").textContent = "▶ Play";
+}
+function showStep(f, i) {
+  flowIdx = i;
+  const s = f.steps[i];
+  gNodes.querySelectorAll(".node").forEach(o => o.classList.remove("flow-active"));
+  gEdges.querySelectorAll(".edge").forEach(o => o.classList.remove("flow-active"));
+  const el = gNodes.querySelector(`[data-node="${s.n}"]`);
+  if (el) {
+    el.classList.add("flow-active");
+    zoomNode(s.n);
+  }
+  // highlight edges connecting this step to the next
+  if (i + 1 < f.steps.length) {
+    const next = f.steps[i+1].n;
+    const idx = EDGES.findIndex(e => (e.a === s.n && e.b === next) || (e.b === s.n && e.a === next));
+    if (idx >= 0) gEdges.querySelector(`[data-edge="${idx}"]`).classList.add("flow-active");
+  }
+  document.getElementById("flowText").innerHTML =
+    `<b>${fmt(NODES.find(n => n.id === s.n).title)}</b> — ${fmt(s.t)}`;
+  document.getElementById("stepCount").textContent = `step ${i+1}/${f.steps.length}`;
+}
+function startFlow() {
+  const f = FLOWS.find(x => x.id === flowSelect.value);
+  if (!f) return;
+  if (flowTimer) stopFlow();
+  currentFlow = f;
+  document.getElementById("btnPlay").textContent = "⏸ Pause";
+  showStep(f, 0);
+  flowTimer = setInterval(() => {
+    if (flowIdx + 1 >= f.steps.length) { stopFlow(); return; }
+    showStep(f, flowIdx + 1);
+  }, 2600);
+}
+document.getElementById("btnPlay").onclick = () => {
+  if (flowTimer) { stopFlow(); } else { startFlow(); }
+};
+document.getElementById("btnNext").onclick = () => {
+  const f = FLOWS.find(x => x.id === flowSelect.value);
+  if (!f) return;
+  stopFlow();
+  currentFlow = f;
+  showStep(f, Math.min((flowIdx === -1 ? 0 : flowIdx + 1), f.steps.length - 1));
+};
+document.getElementById("btnPrev").onclick = () => {
+  const f = FLOWS.find(x => x.id === flowSelect.value);
+  if (!f) return;
+  stopFlow();
+  currentFlow = f;
+  showStep(f, Math.max(0, flowIdx === -1 ? 0 : flowIdx - 1));
+};
+flowSelect.addEventListener("change", () => { stopFlow(); });
+
+render();
+</script>
+</body>
+</html>

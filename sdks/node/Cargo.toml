@@ -1,0 +1,26 @@
+[package]
+name = "lessdb-node"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT"
+description = "LessDB Node.js SDK: in-process analytical database"
+
+[lib]
+name = "lessdb_node"
+crate-type = ["cdylib"]
+
+[dependencies]
+less-common = { path = "../../crates/less-common" }
+less-catalog = { path = "../../crates/less-catalog" }
+less-engine = { path = "../../crates/less-engine" }
+less-query = { path = "../../crates/less-query" }
+napi = { version = "3", features = ["napi8", "tokio_rt", "async"] }
+napi-derive = "3"
+tokio = { version = "1", features = ["rt-multi-thread"] }
+arrow = "59"
+arrow-json = "59"
+serde_json = "1.0.151"
+
+[build-dependencies]
+napi-build = "2"

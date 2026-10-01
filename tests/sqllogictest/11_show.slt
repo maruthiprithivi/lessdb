@@ -1,0 +1,62 @@
+# SHOW / DESCRIBE / USE / PRAGMA — the native statement layer.
+
+statement ok
+CREATE TABLE events (id Int64, name Utf8, ts Timestamp) ENGINE=Firefly ORDER BY (id, ts) UNIQUE (id) TTL ts INTERVAL 30 DAY
+
+query T
+SHOW TABLES
+----
+events
+
+query T
+SHOW TABLES FROM default
+----
+events
+
+query T
+SHOW TABLES LIKE 'eve%'
+----
+events
+
+statement error
+SHOW TABLES FROM bogus
+
+query T
+SHOW DATABASES
+----
+default
+
+query T
+SHOW COLUMNS FROM events
+----
+id Int64 false true
+name String false false
+ts DateTime false true
+
+query T
+DESCRIBE events
+----
+id Int64 false true
+name String false false
+ts DateTime false true
+
+query T
+DESCRIBE TABLE events
+----
+id Int64 false true
+name String false false
+ts DateTime false true
+
+statement ok
+SHOW CREATE TABLE events
+
+statement ok
+USE default
+
+statement error
+USE bogus
+
+query T
+PRAGMA version
+----
+0.6.0

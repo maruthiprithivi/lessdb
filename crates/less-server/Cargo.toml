@@ -1,0 +1,33 @@
+[package]
+name = "less-server"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+arrow = "59"
+arrow-json = "59"
+axum = "0.8.9"
+axum-server = { version = "0.8", features = ["tls-rustls"] }
+base64 = "0.23.1"
+datafusion = "55"
+less-auth = { path = "../less-auth" }
+less-catalog = { path = "../less-catalog" }
+less-common = { path = "../less-common" }
+less-engine = { path = "../less-engine" }
+less-query = { path = "../less-query" }
+less-mcp = { path = "../less-mcp" }
+tracing = "0.1"
+less-telemetry = { path = "../less-telemetry" }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+rustls = "0.23"
+tokio = "1.53.1"
+tower = { version = "0.5.3", features = ["util"] }
+tower-http = { version = "0.7.0", features = ["cors", "fs", "timeout"] }
+
+[dev-dependencies]
+rcgen = "0.13"
+tokio-rustls = "0.26"
+uuid = { version = "1.26.0", features = ["v4"] }

@@ -1,0 +1,52 @@
+# TTL retention: rows older than the interval drop at OPTIMIZE.
+
+statement ok
+CREATE TABLE ttl_t (id Int64, ts Timestamp) ENGINE=Firefly ORDER BY id TTL ts INTERVAL 1 DAY
+
+# Old enough to expire (10 days ago) + fresh rows. TTL is enforced at
+# flush, so the expired rows are already gone right after the insert.
+statement ok
+INSERT INTO ttl_t VALUES (1, 1720000000000), (2, 1720000000001), (3, 4102444800000), (4, 4102444800001)
+
+query I
+SELECT count(*) FROM ttl_t
+----
+2
+
+statement ok
+OPTIMIZE TABLE ttl_t
+
+query I
+SELECT count(*) FROM ttl_t
+----
+2
+
+query I rowsort
+SELECT id FROM ttl_t
+----
+3
+4
+
+# Fresh rows never expire with a huge interval.
+statement ok
+CREATE TABLE ttl_keep (id Int64, ts Timestamp) ENGINE=Firefly ORDER BY id TTL ts INTERVAL 100 MONTH
+
+statement ok
+INSERT INTO ttl_keep VALUES (1, 1720000000000)
+
+statement ok
+OPTIMIZE TABLE ttl_keep
+
+query I
+SELECT count(*) FROM ttl_keep
+----
+1
+
+statement error
+CREATE TABLE ttl_bad (id Int64, v Float64) ENGINE=Firefly ORDER BY id TTL v INTERVAL 1 DAY
+
+statement ok
+DROP TABLE ttl_t
+
+statement ok
+DROP TABLE ttl_keep

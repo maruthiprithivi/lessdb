@@ -1,0 +1,23 @@
+[build-system]
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "lessdb"
+version = "0.1.0"
+description = "LessDB Python SDK: a fast analytical database you can embed"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "License :: OSI Approved :: Apache Software License",
+]
+dependencies = []
+
+[project.optional-dependencies]
+arrow = ["pyarrow>=14"]
+pandas = ["pyarrow>=14", "pandas>=1.5"]
+
+[tool.maturin]
+features = ["pyo3/extension-module"]

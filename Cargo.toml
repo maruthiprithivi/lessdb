@@ -1,0 +1,62 @@
+[workspace]
+exclude = ["sdks", "bench"]
+resolver = "2"
+members = [
+    "crates/less-common",
+    "crates/less-storage",
+    "crates/less-catalog",
+    "crates/less-engine",
+    "crates/less-query",
+    "crates/less-server",
+    "crates/less-cli",
+    "crates/less-mcp",
+    "crates/less-graph",
+    "crates/less-memory",
+    "crates/less-telemetry",
+    "crates/less-auth",
+    "crates/less-vector",
+    "crates/less-cypher",
+    "crates/less-gpu",
+    "crates/less-fanout",
+    "crates/less-sqllogictest",
+    "crates/less-difftest",
+]
+# Bare `cargo build` builds the fast core path (engine + query + cli).
+# Use `cargo build --workspace` for server/mcp/gpu too.
+default-members = [
+    "crates/less-common",
+    "crates/less-telemetry",
+    "crates/less-auth",
+    "crates/less-vector",
+    "crates/less-storage",
+    "crates/less-catalog",
+    "crates/less-engine",
+    "crates/less-query",
+    "crates/less-cli",
+]
+
+[workspace.package]
+version = "0.6.0"
+edition = "2024"
+rust-version = "1.89"
+license = "MIT"
+authors = ["LessDB contributors"]
+repository = "https://lessdb.dev/"
+homepage = "https://lessdb.dev/"
+
+[workspace.dependencies]
+less-common = { path = "crates/less-common" }
+less-storage = { path = "crates/less-storage" }
+less-catalog = { path = "crates/less-catalog" }
+less-engine = { path = "crates/less-engine" }
+less-query = { path = "crates/less-query" }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+opt-level = 3
+panic = "unwind"
+
+[profile.bench]
+lto = "thin"
+codegen-units = 1

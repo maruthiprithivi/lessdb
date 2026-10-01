@@ -1,0 +1,15 @@
+# SOPS configuration for LessDB secrets
+#
+# Credentials (Cloudflare API tokens, R2 keys, npm tokens, …) live in
+# `secrets/*.enc.*` files, encrypted with age. Anyone with the age
+# private key (~/.config/sops/age/keys.txt) can edit them:
+#
+#   sops secrets/example.enc.yaml        # edit in place (decrypts/encrypts)
+#   sops -d secrets/example.enc.yaml     # print decrypted (pipes into scripts)
+#
+# CI decrypts with the SOPS_AGE_KEY secret (export the private key, not
+# the public one). See website/content/playbooks/secrets-sops.md.
+
+creation_rules:
+  - path_regex: secrets/.*\.enc\.(ya?ml|json|env)$
+    age: age1586nlnfnycee57kn0pjyd3pa7y5szchr9rmea30a0v5dhq4zs92q7j7cq3

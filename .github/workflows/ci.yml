@@ -1,0 +1,79 @@
+name: CI
+
+# Manual only. Incremental checks run locally on the build box via
+# scripts/ci-local.sh (ssh 192.168.0.2); this workflow is reserved for
+# accumulated "final" runs:
+#
+#   gh workflow run ci.yml
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    # Runs on the self-hosted runner on the local build machine
+    # (ssh lessdb@192.168.0.2), labeled "linux-x64".
+    runs-on: [self-hosted, linux-x64]
+    timeout-minutes: 60
+    steps:
+      - name: Disk guard (keep runner build disk healthy)
+        run: |
+          free_gb=$(df -BG --output=avail "$HOME" | tail -1 | tr -dc '0-9')
+          if [ "${free_gb:-999}" -lt 20 ]; then
+            echo "low disk (${free_gb}G free) — cleaning build caches"
+            cargo clean --release || true
+            rm -rf bench/target
+          else
+            echo "disk ok (${free_gb}G free)"
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Toolchain (pinned by rust-toolchain.toml)
+        run: rustup show active-toolchain
+
+      - name: Format check
+        run: cargo fmt --all --check
+
+      - name: Clippy (warnings denied)
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: Tests
+        run: cargo test --workspace
+
+      - name: sqllogictest corpus
+        run: cargo run --release -p less-sqllogictest -- tests/sqllogictest
+
+      - name: Build release CLI (cloud + gpu)
+        run: cargo build --release --features less-cli/cloud,less-cli/gpu
+
+      - name: MinIO e2e (S3 shared storage)
+        run: |
+          set -euo pipefail
+          # Several self-hosted runners share this box, so concurrent CI jobs
+          # must not collide on a fixed container name or host port.
+          MINIO_NAME="lessdb-minio-${GITHUB_RUN_ID}-$RANDOM"
+          MINIO_PORT=$((19000 + RANDOM % 2000))
+          docker run -d --rm --name "$MINIO_NAME" -p "127.0.0.1:${MINIO_PORT}:9000" \
+            -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin \
+            minio/minio:latest server /data --console-address :9001
+          for i in $(seq 1 30); do
+            if curl -sf "http://127.0.0.1:${MINIO_PORT}/minio/health/live"; then break; fi
+            sleep 1
+          done
+          curl -fsSL https://dl.min.io/client/mc/release/linux-amd64/mc -o /tmp/mc
+          chmod +x /tmp/mc
+          /tmp/mc alias set local "http://127.0.0.1:${MINIO_PORT}" minioadmin minioadmin
+          /tmp/mc mb -p local/lessdb
+          LESSDB=./target/release/lessdb \
+            AWS_ENDPOINT="http://127.0.0.1:${MINIO_PORT}" AWS_ALLOW_HTTP=true \
+            scripts/minio-e2e.sh
+          docker rm -f "$MINIO_NAME"
+
+      - name: MinIO cleanup
+        if: always()
+        run: docker ps -aq --filter "name=lessdb-minio-" | xargs -r docker rm -f || true
+
+      - name: Benchmark smoke (SF 0.001, no MCP)
+        run: |
+          cargo build --release --manifest-path bench/Cargo.toml
+          ./bench/target/release/less-bench --sf 0.001 --skip-mcp

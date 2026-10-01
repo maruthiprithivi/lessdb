@@ -1,0 +1,11 @@
+[package]
+name = "less-gpu"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+bytemuck = "1.25.2"
+less-common = { path = "../less-common" }
+wgpu = "26.0.1"

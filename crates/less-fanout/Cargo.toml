@@ -1,0 +1,22 @@
+[package]
+name = "less-fanout"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+arrow = "59"
+datafusion = "55"
+less-common = { path = "../less-common" }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "stream", "json"] }
+serde_json = "1.0.151"
+tokio = "1.53.1"
+
+[dev-dependencies]
+less-engine = { path = "../less-engine" }
+less-server = { path = "../less-server" }
+less-query = { path = "../less-query" }
+less-catalog = { path = "../less-catalog" }
+axum = "0.8"
+uuid = { version = "1.26.0", features = ["v4"] }

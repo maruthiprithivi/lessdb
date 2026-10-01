@@ -1,0 +1,26 @@
+[package]
+name = "less-mcp"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+arrow = "59"
+arrow-json = "59"
+less-auth = { path = "../less-auth" }
+less-catalog = { path = "../less-catalog" }
+less-common = { path = "../less-common" }
+less-cypher = { path = "../less-cypher" }
+less-engine = { path = "../less-engine" }
+less-graph = { path = "../less-graph" }
+less-memory = { path = "../less-memory" }
+less-query = { path = "../less-query" }
+less-telemetry = { path = "../less-telemetry" }
+less-vector = { path = "../less-vector" }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+tokio = { version = "1.53.1", features = ["io-std"] }
+
+[dev-dependencies]
+tokio = { version = "1.53.1", features = ["rt", "macros"] }

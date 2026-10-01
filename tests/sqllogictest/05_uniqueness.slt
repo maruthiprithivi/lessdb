@@ -1,0 +1,40 @@
+# UNIQUE (replacing) semantics: duplicates collapse within a flush and at
+# merge; keep the LAST row per unique key.
+
+statement ok
+CREATE TABLE events (id Int64, kind String, amount Float64) ENGINE=Firefly ORDER BY (kind, id) UNIQUE (kind)
+
+statement ok
+INSERT INTO events VALUES (1, 'click', 1.0), (2, 'view', 2.0), (3, 'click', 3.0)
+
+query IT rowsort
+SELECT kind, id FROM events
+----
+click 3
+view 2
+
+statement ok
+FLUSH TABLE events
+
+statement ok
+INSERT INTO events VALUES (4, 'click', 4.0)
+
+statement ok
+FLUSH TABLE events
+
+# Duplicate keys across parts are visible until OPTIMIZE.
+query IT rowsort
+SELECT kind, id FROM events
+----
+click 3
+click 4
+view 2
+
+statement ok
+OPTIMIZE TABLE events
+
+query IT rowsort
+SELECT kind, id FROM events
+----
+click 4
+view 2

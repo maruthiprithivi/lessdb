@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Architecture · LessDB</title>
+<meta name="description" content="Architecture — LessDB, one database for agents and humans."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a07'/%3E%3Crect x='6' y='4' width='20' height='14' rx='4' fill='%232e2e26'/%3E%3Crect x='9' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='20' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='10' y='20' width='12' height='7' rx='3' fill='%23ffd54a'/%3E%3Crect x='14' y='23' width='4' height='2' fill='%23fff8b0'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<link rel="stylesheet" href="../docs.css"/>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-frame"><div class="header-inner">
+    <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+  </div></div>
+</header>
+<div class="docs-layout">
+  <aside class="docs-sidebar"><div class="side-group">Docs</div>
+<a href='getting-started'>Getting started</a>
+<a href='benchmarks'>Benchmarks</a>
+<a href='config'>Config</a>
+<a href='getting-started'>Getting Started</a>
+<a href='license'>License</a>
+<a href='mcp'>Mcp</a>
+<a href='skills'>Skills</a>
+<div class="side-group">Interactive</div>
+<a href='architecture-interactive'>Architecture diagram</a></aside>
+  <main class="docs-content">
+    <h1>Architecture</h1>
+    <h1>Architecture</h1>
+<p>LessDB is a SQL-first analytical database in Rust. It scales <strong>vertically</strong> (one machine, many cores, optional GPU) and <strong>horizontally</strong> (stateless compute over shared object storage), and it ships an agent-native memory tier on the same engine.</p>
+<pre><code>┌──────────────────────────────────────────────────────────────────────┐
+│  Integrations                                                          │
+│  CLI (`lessdb`) │ Python SDK │ Node SDK │ HTTP/Arrow API │ MCP           │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                │ SQL + Arrow
+┌───────────────────────────────▼──────────────────────────────────────┐
+│  Query layer — SQL parser, cost-based optimizer, hash joins,          │
+│  aggregates, window functions, EXPLAIN                                │
+│                                                                       │
+│  Table provider: prune parts from metadata (typed min/max + bloom)    │
+│  → one parallel scan per surviving part                               │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                │ parts, metadata
+┌───────────────────────────────▼──────────────────────────────────────┐
+│  Engine — table engines                                               │
+│                                                                       │
+│  Firefly (local disk)          FireflyCloud (object storage)     │
+│  • buffer → flush → parts       • same parts, in a shared bucket      │
+│  • bounded size-tiered merges   • any node serves any table           │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                │ data.parquet + meta.json
+┌───────────────────────────────▼──────────────────────────────────────┐
+│  Storage — part format, zstd/lz4 codecs, bloom filters, object store  │
+│  Catalog — schemas, table manifests, CAS metastore                    │
+└──────────────────────────────────────────────────────────────────────┘</code></pre>
+<h2>The data part</h2>
+<p>A <strong>part</strong> is the unit of immutability: a directory (or object-store prefix) holding two files:</p>
+<ul>
+<li><code>data.parquet</code> — columnar data, zstd/lz4-compressed per column, with</li>
+<p>per-row-group statistics. Using the parquet format means every Arrow tool can read LessDB files directly and vice versa.</p>
+</ul>
+<ul>
+<li><code>meta.json</code> — per-column <strong>typed</strong> min/max, null counts, and bloom</li>
+<p>filters on uniqueness columns. This metadata layer is what lets the planner prune parts <strong>without opening them</strong>.</p>
+</ul>
+<p>Parts are written once and never mutated. Inserts accumulate in an in-memory buffer and flush into a new part; deletes and updates replace parts with rewritten ones.</p>
+<h2>Firefly (vertical scale)</h2>
+<pre><code>INSERT ──► buffer (Arrow batches, in memory)
+             │ flush at flush_rows (default 256k)
+             ▼
+         write_part(): sort by sort key → dedup UNIQUE (keep last) →
+         column stats + blooms → data.parquet + meta.json
+             ▼
+         parts p0…pn (immutable)
+             │ merge when parts ≥ auto_merge_parts (or OPTIMIZE)
+             ▼
+         merge_all(): bounded passes — each pass merges one size-tiered
+         selection capped at max_merge_rows (default 4M) input rows;
+         repeats to convergence</code></pre>
+<ul>
+<li><strong>Sort key</strong> orders data within a part (range scans become sequential</li>
+<p>reads).</p>
+</ul>
+<ul>
+<li><strong>UNIQUE</strong> columns (a prefix of the sort key) dedup keep-last at flush</li>
+<p>and merge — an upsert key. Between merges, reads may transiently see duplicate keys; <code>OPTIMIZE</code> enforces exact uniqueness.</p>
+</ul>
+<ul>
+<li><strong>Pruning</strong> at three levels: part metadata (typed min/max + bloom,</li>
+<p>before any I/O), row-group statistics inside the parquet file, and row-level predicate pushdown into the reader.</p>
+</ul>
+<ul>
+<li><strong>Bounded merges</strong>: a table with hundreds of equal-sized parts</li>
+<p>converges over many small passes instead of one giant in-memory merge.</p>
+</ul>
+<h2>FireflyCloud (horizontal scale)</h2>
+<p>No replicas, no quorum protocol: the shared source of truth is object storage.</p>
+<pre><code>        shared object storage (s3:// gcs:// az:// file://)
+        catalog/&lt;table&gt;.json          table manifests (shared)
+        tables/&lt;t&gt;/parts/&lt;part&gt;/*     immutable data parts
+                   ▲
+   compute A   compute B   compute C   …   (stateless)
+   local disk: buffers, caches, local tables</code></pre>
+<ul>
+<li>A node's durable state for shared tables is <strong>zero</strong> — a fresh node</li>
+<p>with an empty local directory sees every table by listing the bucket.</p>
+</ul>
+<ul>
+<li><strong>Multi-writer safety via CAS</strong>: part publication is a conditional</li>
+<p>create of <code>meta.json</code> (readers only see parts whose metadata exists); merges first claim their inputs under <code>merge-claims/&lt;table&gt;/&lt;part&gt;</code> (10-minute TTL), so two writers can flush and optimize concurrently without double-merging.</p>
+</ul>
+<ul>
+<li><strong>Block cache</strong>: shared reads go through a bounded in-memory LRU</li>
+<p>(default 256 MiB) plus an optional persistent disk tier; immutable part objects are fetched once and sliced from cache afterwards.</p>
+</ul>
+<h2>Query layer</h2>
+<p>The SQL front end (parser, type coercion, cost-based optimizer, hash joins, aggregations, window functions, subqueries) is a battle-tested, audited engine; the piece LessDB owns is the table provider:</p>
+<ol>
+<li><strong>Prune</strong> parts from <code>meta.json</code> alone — bloom "definitely absent"</li>
+<p>skips for <code>col = X</code> on UNIQUE columns; typed min/max comparisons skip provably-disjoint parts.</p>
+</ol>
+<ol>
+<li><strong>Plan</strong> one parallel scan per surviving part.</li>
+</ol>
+<ol>
+<li><strong>Push down</strong> row predicates into the reader.</li>
+</ol>
+<p><code>EXPLAIN</code> shows everything, including pushdown decisions. A <code>memory_limit</code> caps the query memory pool: over-limit queries fail with a clean <code>ResourcesExhausted</code> error instead of exhausting the machine.</p>
+<h2>Mutations, TTL, and durability</h2>
+<ul>
+<li><code>DELETE … WHERE</code> / <code>UPDATE … SET</code> rewrite affected parts into fresh</li>
+<p>immutable parts; buffered rows flush first so mutations cover the whole table, and rewritten parts carry the old part's WAL watermark so recovery can never resurrect deleted rows.</p>
+</ul>
+<ul>
+<li><code>TTL &lt;col&gt; INTERVAL &lt;n&gt; DAY</code> drops expired rows at flush/optimize.</li>
+</ul>
+<ul>
+<li>The WAL (<code>&lt;data_dir&gt;/wal/&lt;table&gt;.wal</code>) makes accepted inserts durable</li>
+<p>before they return; replay is idempotent (records newer than the newest part's watermark re-buffer and flush — exactly once). Torn part directories from a crash are swept at open.</p>
+</ul>
+<h2>The agent tier (same engine)</h2>
+<ul>
+<li><strong>Context store</strong> — titled, tagged, linked notes with ranked search,</li>
+<p>BFS neighborhoods, and shortest paths; atomic snapshots.</p>
+</ul>
+<ul>
+<li><strong>Memory tables</strong> — Arrow-backed RAM tables with a hash primary-key</li>
+<p>index, O(1) latest-row point lookups, append-log semantics.</p>
+</ul>
+<ul>
+<li><strong>Cypher</strong> — a documented openCypher subset over the same graph store.</li>
+</ul>
+<ul>
+<li><strong>Vector search</strong> — named spaces (L2/cosine/dot) with exact flat and</li>
+<p>IVF-PQ ANN indexes, queried through the SQL table function <code>vector_search('space', [v…], k)</code>.</p>
+</ul>
+<p>All of it is exposed through the same MCP server as the database, tenant-scoped per agent.</p>
+<h2>Security &amp; observability</h2>
+<ul>
+<li><strong>LDAP/AD</strong> — service bind → user rebind → group membership → role</li>
+<p>(<code>admin</code>/<code>read</code>/<code>write</code>), fail-closed; a dev file authenticator covers local accounts.</p>
+</ul>
+<ul>
+<li><strong>TLS</strong> on the HTTP server via rustls.</li>
+</ul>
+<ul>
+<li><strong>Prometheus</strong> at <code>/metrics</code>: query counts + durations, rows, parts</li>
+<p>written/merged/scanned/pruned, HTTP routes, auth failures, and the memory-pool gauge.</p>
+</ul>
+<p>See the <a href="/docs/architecture-interactive">interactive diagram</a> for the clickable component map and the flow walkthroughs.</p><div class="card-grid"><a class="card" href="architecture-interactive"><h3>Interactive diagram →</h3><p>Clickable map of every component, its data structures, and six animated flow walkthroughs (INSERT, QUERY, OPTIMIZE, crash recovery, shared storage).</p></a></div>
+  </main>
+</div>
+<footer class="docs-footer">
+  <div class="footer-inner">
+    <span>LessDB — one database for agents and humans. <a href='license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
+    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+  </div>
+</footer>
+<script src="../app.js"></script>
+<script src="../github-stars.js"></script>
+</body>
+</html>

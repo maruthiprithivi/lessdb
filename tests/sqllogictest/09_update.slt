@@ -1,0 +1,49 @@
+# UPDATE ... SET (replace-parts mutations).
+
+statement ok
+CREATE TABLE u (id Int64, kind String, v Float64) ENGINE=Firefly ORDER BY id
+
+statement ok
+INSERT INTO u VALUES (1, 'a', 1.0), (2, 'b', 2.0), (3, 'a', 3.0), (4, 'c', 4.0)
+
+query I
+UPDATE u SET v = v * 10 WHERE kind = 'a'
+----
+2
+
+query ? rowsort
+SELECT id, v FROM u WHERE kind = 'a'
+----
+1 10.0
+3 30.0
+
+# Reference the updated column and a constant.
+query I
+UPDATE u SET kind = 'z' WHERE id = 4
+----
+1
+
+query T
+SELECT kind FROM u WHERE id = 4
+----
+z
+
+# Update with no WHERE.
+query I
+UPDATE u SET v = 0.0
+----
+4
+
+query I
+SELECT count(*) FROM u WHERE v = 0.0
+----
+4
+
+# Update matching nothing.
+query I
+UPDATE u SET v = 1.0 WHERE id = 999
+----
+0
+
+statement ok
+DROP TABLE u

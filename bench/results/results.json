@@ -1,0 +1,234 @@
+{
+  "version": "0.1.0",
+  "sf": 0.01,
+  "gen_ms": 7.964459,
+  "gen_rows": 86630,
+  "load_ms": 54.758709,
+  "rss_after_load_mb": 41.680896,
+  "rss_after_queries_mb": 79.757312,
+  "rss_final_mb": 170.131456,
+  "cpu_pct": 0.0,
+  "footprint": [
+    {
+      "table": "nation",
+      "rows": 25,
+      "parts": 1,
+      "stored_bytes": 1457,
+      "raw_bytes": 577,
+      "ratio": 0.39601921757035
+    },
+    {
+      "table": "region",
+      "rows": 5,
+      "parts": 1,
+      "stored_bytes": 901,
+      "raw_bytes": 74,
+      "ratio": 0.08213096559378469
+    },
+    {
+      "table": "part",
+      "rows": 2000,
+      "parts": 1,
+      "stored_bytes": 19812,
+      "raw_bytes": 109707,
+      "ratio": 5.53740157480315
+    },
+    {
+      "table": "supplier",
+      "rows": 100,
+      "parts": 1,
+      "stored_bytes": 2706,
+      "raw_bytes": 4200,
+      "ratio": 1.5521064301552105
+    },
+    {
+      "table": "partsupp",
+      "rows": 8000,
+      "parts": 1,
+      "stored_bytes": 45946,
+      "raw_bytes": 256000,
+      "ratio": 5.571758150872764
+    },
+    {
+      "table": "customer",
+      "rows": 1500,
+      "parts": 1,
+      "stored_bytes": 20196,
+      "raw_bytes": 76553,
+      "ratio": 3.7905030699148345
+    },
+    {
+      "table": "orders",
+      "rows": 15000,
+      "parts": 1,
+      "stored_bytes": 199466,
+      "raw_bytes": 755580,
+      "ratio": 3.788013997372986
+    },
+    {
+      "table": "lineitem",
+      "rows": 60000,
+      "parts": 1,
+      "stored_bytes": 565892,
+      "raw_bytes": 4816975,
+      "ratio": 8.512180769475448
+    }
+  ],
+  "queries": [
+    {
+      "query": "Q1 pricing summary",
+      "rows": 6,
+      "cold_ms": 3.239334,
+      "warm_ms": 2.857167
+    },
+    {
+      "query": "Q3 shipping priority",
+      "rows": 10,
+      "cold_ms": 6.0610409999999995,
+      "warm_ms": 5.856291
+    },
+    {
+      "query": "Q5 local supplier volume",
+      "rows": 5,
+      "cold_ms": 8.592917,
+      "warm_ms": 7.890124999999999
+    },
+    {
+      "query": "Q6 forecast revenue",
+      "rows": 1,
+      "cold_ms": 1.838833,
+      "warm_ms": 1.774167
+    },
+    {
+      "query": "Q10 returned items",
+      "rows": 20,
+      "cold_ms": 6.492167,
+      "warm_ms": 6.10175
+    },
+    {
+      "query": "Q14 promotion effect",
+      "rows": 1,
+      "cold_ms": 2.2057499999999997,
+      "warm_ms": 2.13225
+    }
+  ],
+  "resiliency": {
+    "restart_ok": true,
+    "restart_parts": 1,
+    "two_node_ok": true,
+    "atomic_writes_ok": true,
+    "corrupt_meta_ok": true
+  },
+  "vectors": [
+    {
+      "vectors": 50000,
+      "dim": 64,
+      "add_ms": 12.508375000000001,
+      "train_ms": 25962.655749999998,
+      "recall10": 0.871,
+      "qps": 8726.701778842164,
+      "search_ms_avg": 0.11459082999999999
+    }
+  ],
+  "graph": [
+    {
+      "nodes": 10000,
+      "edges": 19999,
+      "build_ms": 25153.402083,
+      "neighbors_p50_ms": 0.00075,
+      "neighbors_p99_ms": 0.0022500000000000003,
+      "path_p50_ms": 1.2236669999999998,
+      "path_p99_ms": 3.967959
+    }
+  ],
+  "dashboard": [
+    {
+      "name": "point lookup (orders pk, bloom)",
+      "mean_ms": 0.8249042766666668,
+      "p50_ms": 0.808625,
+      "p95_ms": 0.930375,
+      "p99_ms": 1.073792,
+      "iters": 300
+    },
+    {
+      "name": "dashboard aggregate (range on shipdate)",
+      "mean_ms": 0.7819583266666663,
+      "p50_ms": 0.762667,
+      "p95_ms": 0.872417,
+      "p99_ms": 1.08425,
+      "iters": 150
+    }
+  ],
+  "mcp": [
+    {
+      "tool": "initialize",
+      "ms": 2277.744334,
+      "ok": true
+    },
+    {
+      "tool": "tools/call less_tables",
+      "ms": 0.146209,
+      "ok": true
+    },
+    {
+      "tool": "tools/call less_query agg",
+      "ms": 9.514958,
+      "ok": true
+    },
+    {
+      "tool": "tools/call less_query point",
+      "ms": 1.915416,
+      "ok": true
+    },
+    {
+      "tool": "tools/call context_put",
+      "ms": 0.335542,
+      "ok": true
+    },
+    {
+      "tool": "tools/call context_find",
+      "ms": 0.028666,
+      "ok": true
+    },
+    {
+      "tool": "tools/call context_link",
+      "ms": 0.201625,
+      "ok": true
+    },
+    {
+      "tool": "tools/call context_neighbors",
+      "ms": 0.031042,
+      "ok": true
+    },
+    {
+      "tool": "tools/call vector_create",
+      "ms": 0.420792,
+      "ok": true
+    },
+    {
+      "tool": "tools/call vector_put",
+      "ms": 0.389583,
+      "ok": true
+    },
+    {
+      "tool": "tools/call vector_search",
+      "ms": 0.035417000000000004,
+      "ok": true
+    },
+    {
+      "tool": "tools/call memory_create",
+      "ms": 0.410667,
+      "ok": true
+    },
+    {
+      "tool": "tools/call memory_insert",
+      "ms": 0.583375,
+      "ok": true
+    },
+    {
+      "tool": "tools/call memory_sql",
+      "ms": 0.635917,
+      "ok": true
+    }
+  ]
+}

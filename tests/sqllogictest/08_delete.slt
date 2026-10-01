@@ -1,0 +1,71 @@
+# DELETE FROM ... WHERE (replace-parts mutations).
+
+statement ok
+CREATE TABLE d (id Int64, kind String, v Float64) ENGINE=Firefly ORDER BY id
+
+statement ok
+INSERT INTO d VALUES (1, 'a', 1.0), (2, 'b', 2.0), (3, 'a', 3.0), (4, 'c', 4.0), (5, 'a', 5.0), (6, 'b', 6.0)
+
+query I
+SELECT count(*) FROM d
+----
+6
+
+query I
+DELETE FROM d WHERE kind = 'a'
+----
+3
+
+query I
+SELECT count(*) FROM d
+----
+3
+
+query II rowsort
+SELECT id, kind FROM d
+----
+2 b
+4 c
+6 b
+
+# Range delete.
+query I
+DELETE FROM d WHERE id >= 4 AND id <= 6
+----
+2
+
+query I
+SELECT count(*) FROM d
+----
+1
+
+# Delete nothing.
+query I
+DELETE FROM d WHERE id = 999
+----
+0
+
+query I
+SELECT count(*) FROM d
+----
+1
+
+# Delete everything (no WHERE).
+query I
+DELETE FROM d
+----
+1
+
+query I
+SELECT count(*) FROM d
+----
+0
+
+# Deleting from an empty table.
+query I
+DELETE FROM d WHERE id = 1
+----
+0
+
+statement ok
+DROP TABLE d

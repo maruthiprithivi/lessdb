@@ -1,0 +1,20 @@
+[package]
+name = "less-bench"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "LessDB benchmark suite: TPC-H-inspired queries, vector/graph/interactive/MCP workloads, resource + storage + resiliency checks"
+
+[dependencies]
+less-common = { path = "../crates/less-common" }
+less-catalog = { path = "../crates/less-catalog" }
+less-engine = { path = "../crates/less-engine" }
+less-query = { path = "../crates/less-query" }
+less-vector = { path = "../crates/less-vector" }
+less-graph = { path = "../crates/less-graph" }
+arrow = "59"
+parquet = { version = "59", features = ["arrow", "zstd", "lz4", "snap"] }
+tokio = { version = "1", features = ["rt-multi-thread", "io-std", "macros", "process", "io-util"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sysinfo = "0.33"

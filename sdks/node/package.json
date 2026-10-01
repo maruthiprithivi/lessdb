@@ -1,0 +1,24 @@
+{
+  "name": "@lessdb/node",
+  "version": "0.1.0",
+  "description": "LessDB Node.js SDK — a fast analytical database you can embed",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "napi": {
+    "name": "lessdb-node",
+    "triples": {
+      "defaults": true
+    }
+  },
+  "scripts": {
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.0.0"
+  },
+  "engines": {
+    "node": ">= 16"
+  },
+  "license": "MIT"
+}

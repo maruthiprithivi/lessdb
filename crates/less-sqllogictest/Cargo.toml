@@ -1,0 +1,16 @@
+[package]
+name = "less-sqllogictest"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+arrow = "59"
+less-catalog = { path = "../less-catalog" }
+less-common = { path = "../less-common" }
+less-engine = { path = "../less-engine" }
+less-query = { path = "../less-query" }
+sqllogictest = "0.29.1"
+tokio = "1.53.1"
+async-trait = "0.1.89"

@@ -1,0 +1,79 @@
+# ALTER TABLE, TRUNCATE, CREATE TABLE AS SELECT, and the friendly
+# errors for transactions / ATTACH / CREATE VIEW.
+
+statement ok
+CREATE TABLE t (id Int64, name String, v Float64) ENGINE=Firefly ORDER BY id
+
+statement ok
+INSERT INTO t VALUES (1, 'a', 1.5), (2, 'b', 2.5)
+
+statement ok
+ALTER TABLE t ADD COLUMN w Int64
+
+# the new column defaults to 0 (columns are non-nullable in LessDB)
+query TI
+SELECT name, w FROM t ORDER BY id
+----
+a 0
+b 0
+
+statement ok
+ALTER TABLE t DROP COLUMN w
+
+statement ok
+ALTER TABLE t ADD COLUMN doubled Float64
+
+statement ok
+UPDATE t SET doubled = v
+
+query TFF
+SELECT name, v, doubled FROM t ORDER BY id
+----
+a 1.5 1.5
+b 2.5 2.5
+
+statement ok
+TRUNCATE TABLE t
+
+query I
+SELECT count(*) FROM t
+----
+0
+
+# the schema survives truncation: inserting 3 columns still works
+statement ok
+INSERT INTO t (id, name, v) VALUES (3, 'c', 0.5)
+
+query TI
+SELECT name, doubled FROM t ORDER BY id
+----
+c NULL
+
+# CREATE TABLE AS SELECT persists through the catalog
+statement ok
+CREATE TABLE agg AS SELECT name, count(*) AS n FROM t GROUP BY name
+
+query TI
+SELECT name, n FROM agg ORDER BY name
+----
+c 1
+
+query I
+SELECT count(*) FROM agg
+----
+1
+
+statement ok
+DROP TABLE agg
+
+statement error
+BEGIN
+
+statement error
+COMMIT
+
+statement error
+CREATE VIEW vw AS SELECT * FROM t
+
+statement error
+ATTACH 'other.db'

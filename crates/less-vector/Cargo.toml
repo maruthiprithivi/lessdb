@@ -1,0 +1,15 @@
+[package]
+name = "less-vector"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+bincode = { version = "2", features = ["serde"] }
+less-common = { path = "../less-common" }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+
+[dev-dependencies]
+uuid = { version = "1.26.0", features = ["v4"] }

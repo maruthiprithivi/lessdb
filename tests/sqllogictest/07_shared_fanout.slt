@@ -1,0 +1,30 @@
+# FireflyCloud + the fan-out shard marker.
+
+statement ok
+CREATE TABLE s (id Int64, v Float64) ENGINE=FireflyCloud ORDER BY id
+
+statement ok
+INSERT INTO s VALUES (1, 1.0), (2, 2.0), (3, 3.0), (4, 4.0)
+
+query I
+SELECT count(*) FROM s
+----
+4
+
+# The shard marker is an always-true predicate; a full-shard split must
+# still see every row when unions are combined (single node, n=1).
+query I
+SELECT count(*) FROM s WHERE lessdb_shard(id, 0, 1)
+----
+4
+
+# With one part, either shard 0 or shard 1 owns it (stable hash, but the
+# winner is data-dependent); the deterministic property is that the union
+# of both shards sees every row.
+query I
+SELECT count(*) FROM s WHERE lessdb_shard(id, 0, 2) OR lessdb_shard(id, 1, 2)
+----
+4
+
+statement ok
+DROP TABLE s

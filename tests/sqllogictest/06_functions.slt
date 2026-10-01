@@ -1,0 +1,71 @@
+# Scalar functions, math, strings, dates.
+
+query ?
+SELECT round(2.567, 2)
+----
+2.57
+
+query ?
+SELECT floor(2.9), ceil(2.1), abs(-7)
+----
+2.0 3.0 7
+
+query ?
+SELECT sqrt(16.0), power(2.0, 10.0)
+----
+4.0 1024.0
+
+query T
+SELECT substr('hello world', 7), trim('  x  '), replace('a-b-c', '-', '+')
+----
+world x a+b+c
+
+query I
+SELECT position('world' IN 'hello world')
+----
+7
+
+query I
+SELECT strpos('hello world', 'world')
+----
+7
+
+query T
+SELECT lpad('7', 3, '0'), rpad('ab', 4, '-')
+----
+007 ab--
+
+query T
+SELECT split_part('a,b,c', ',', 2)
+----
+b
+
+query I
+SELECT date_part('year', DATE '2024-06-01')
+----
+2024
+
+query I
+SELECT date_part('doy', DATE '2024-12-31')
+----
+366
+
+query ?
+SELECT current_date IS NOT NULL
+----
+true
+
+query I
+SELECT greatest(3, 7, 2), least(3, 7, 2)
+----
+7 2
+
+query ?
+SELECT log(2.0, 8.0)
+----
+3.0
+
+query ?
+SELECT signum(-5), signum(0), signum(5)
+----
+-1.0 0.0 1.0

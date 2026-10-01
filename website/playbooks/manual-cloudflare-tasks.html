@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Manual Cloudflare tasks (one-time setup checklist) · LessDB</title>
+<meta name="description" content="Manual Cloudflare tasks (one-time setup checklist) — LessDB, one database for agents and humans."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a07'/%3E%3Crect x='6' y='4' width='20' height='14' rx='4' fill='%232e2e26'/%3E%3Crect x='9' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='20' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='10' y='20' width='12' height='7' rx='3' fill='%23ffd54a'/%3E%3Crect x='14' y='23' width='4' height='2' fill='%23fff8b0'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<link rel="stylesheet" href="../docs.css"/>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-frame"><div class="header-inner">
+    <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+  </div></div>
+</header>
+<div class="docs-layout">
+  <aside class="docs-sidebar"><div class="side-group">Playbooks</div>
+<a href='benchmark'>Benchmark playbook</a>
+<a href='cloudflare-distribution'>Binary distribution on Cloudflare (R2 + Pages)</a>
+<a href='manual-cloudflare-tasks'>Manual Cloudflare tasks (one-time setup checklist)</a>
+<a href='multi-node-shared'>Multi-node FireflyCloud (zero-replication horizontal scale)</a>
+<a href='observability-auth-backups'>Observability, auth, and backups</a>
+<a href='secrets-sops'>Secrets with SOPS + age</a>
+<a href='website-deploy'>Deploying this website (lessdb.dev)</a></aside>
+  <main class="docs-content">
+    <h1>Manual Cloudflare tasks (one-time setup checklist)</h1>
+    <h1>Manual Cloudflare tasks (one-time setup checklist)</h1>
+<p>Everything the site and the release pipeline need from Cloudflare, with exactly which steps are done and which need a human. Work top to bottom.</p>
+<h2>✅ Already done (2026-08-28)</h2>
+<ul>
+<li>[x] <code>wrangler login</code> — authenticated as <code>team@lessdb.dev</code></li>
+<p>(account <code>154cd854…</code>). Re-auth with <code>npx wrangler login</code> when the token expires.</p>
+</ul>
+<ul>
+<li>[x] Zone <strong>lessdb.dev</strong> exists in that account (DNS is managed by</li>
+<p>Cloudflare).</p>
+</ul>
+<ul>
+<li>[x] DNS: <code>lessdb.dev</code> → CNAME <code>lessdb.pages.dev</code> (proxied). Verified</li>
+<p>live: <code>https://lessdb.dev/</code> serves the site.</p>
+</ul>
+<ul>
+<li>[x] Pages project <strong>lessdb</strong> created; the site deploys with</li>
+<p><code>wrangler pages deploy website --project-name lessdb --branch main</code>.</p>
+</ul>
+<ul>
+<li>[x] R2 bucket <strong>lessdb-downloads</strong> created; release tarballs uploaded</li>
+<p>(<code>wrangler r2 object put … --file … --remote</code>).</p>
+</ul>
+<ul>
+<li>[x] Pages Function <code>/dl/[[path]]</code> (R2 binding from <code>website/wrangler.toml</code>)</li>
+<p>serves the artifacts — no public bucket access needed.</p>
+</ul>
+<ul>
+<li>[x] Custom domain <strong>lessdb.dev</strong> attached to the Pages project.</li>
+</ul>
+<h2>☐ To do (human steps, in order)</h2>
+<h3>1. ~~Publish the npm package~~ → Hosted on Cloudflare (done)</h3>
+<p>The npm wrapper is <strong>not</strong> published to registry.npmjs.org. It is packed and served from this site: <code>scripts/package-npm.sh</code> writes <code>dist/lessdb-&lt;ver&gt;.tgz</code> + the packument, they are uploaded to R2 (<code>npm/…</code> keys), and the Pages Function at <code>/npm/*</code> serves them. Users install with:</p>
+<pre class="language-sh"><code>npm install -g lessdb --registry https://lessdb.dev/npm/
+# or: npm install -g https://lessdb.dev/npm/lessdb/-/lessdb-&lt;ver&gt;.tgz</code></pre>
+<p>No <code>npm login</code>, no <code>npm publish</code> — ever.</p>
+<h3>2. Create a Cloudflare API token for CI deploys</h3>
+<p>Dashboard → My Profile → API Tokens → Create Token → "Edit Cloudflare Workers" template, scope it to the lessdb.dev zone + your account, then:</p>
+<pre class="language-sh"><code># locally, so the values live only in the repo:
+# GitHub repo → Settings → Secrets and variables → Actions → New secret
+CLOUDFLARE_API_TOKEN   = &lt;the token&gt;
+CLOUDFLARE_ACCOUNT_ID  = <your-cloudflare-account-id></code></pre>
+<p>CI deploys the site on every push that touches <code>website/</code> (workflow <code>.github/workflows/deploy-website.yml</code>).</p>
+<h3>3. Verify the GitHub Release mirror</h3>
+<p>The <code>v0.1.0</code> release has the four tarballs attached (<code>gh release view v0.1.0</code>). If the public download URLs 404 (the asset CDN can lag a few minutes after creation), re-check in a while or re-upload with <code>gh release upload v0.1.0 dist/*.tar.gz --clobber</code>.</p>
+<h3>4. (Optional) Second wrangler auth for other machines</h3>
+<pre class="language-sh"><code>npx wrangler login                 # browser OAuth, same account</code></pre>
+<h3>5. (Optional) R2 API token for direct bucket scripting</h3>
+<p>Only needed for <code>wrangler r2</code> scripting outside the Pages Function. Dashboard → R2 → Manage R2 API Tokens → Create (Object Read &amp; Write on <code>lessdb-downloads</code>). Store it with SOPS (<code>sops secrets/production.enc.yaml</code>, see the <a href="/playbooks/secrets-sops">secrets playbook</a>).</p>
+<h2>Deploy commands cheat-sheet</h2>
+<pre class="language-sh"><code>python3 scripts/build-site.py                              # regenerate site from content
+cd website &amp;&amp; wrangler pages deploy . --project-name lessdb --branch main
+wrangler r2 object put lessdb-downloads/&lt;f&gt; --file dist/&lt;f&gt; --remote</code></pre>
+  </main>
+</div>
+<footer class="docs-footer">
+  <div class="footer-inner">
+    <span>LessDB — one database for agents and humans. <a href='../docs/license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
+    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+  </div>
+</footer>
+<script src="../app.js"></script>
+<script src="../github-stars.js"></script>
+</body>
+</html>

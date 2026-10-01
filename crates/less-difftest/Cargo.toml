@@ -1,0 +1,19 @@
+[package]
+name = "less-difftest"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+arrow = "59"
+duckdb = { version = "1.10505", features = ["bundled"] }
+less-catalog = { path = "../less-catalog" }
+less-common = { path = "../less-common" }
+less-engine = { path = "../less-engine" }
+less-query = { path = "../less-query" }
+rand = "0.8"
+tokio = "1.53.1"
+
+[dev-dependencies]
+uuid = { version = "1.26.0", features = ["v4"] }

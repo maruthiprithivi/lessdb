@@ -1,0 +1,30 @@
+[
+  {
+    "platform": "macOS (Apple Silicon) — cloud",
+    "file": "lessdb-v0.6.0-aarch64-apple-darwin-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.6.0-aarch64-apple-darwin-cloud.tar.gz?v=3e91abf8e582",
+    "sha256": "3e91abf8e582220493939644d331e49d4a9321d73c2bb0d74e275a54e6d8d6b0",
+    "size": 41325523
+  },
+  {
+    "platform": "Linux x86_64 — cloud",
+    "file": "lessdb-v0.6.0-x86_64-unknown-linux-gnu-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.6.0-x86_64-unknown-linux-gnu-cloud.tar.gz?v=a3e1de5bd016",
+    "sha256": "a3e1de5bd0169229fff624bd7cfe415f67e2d0e01896d2e3f66487b0e169098c",
+    "size": 44245607
+  },
+  {
+    "platform": "macOS (Apple Silicon) — base",
+    "file": "lessdb-v0.6.0-aarch64-apple-darwin.tar.gz",
+    "url": "/dl/lessdb-v0.6.0-aarch64-apple-darwin.tar.gz?v=facc73e7f90b",
+    "sha256": "facc73e7f90bafdd1ce893d2b7c8d2b5b53ca03f20b9b11760e69b9f8dc4a062",
+    "size": 41325493
+  },
+  {
+    "platform": "Linux x86_64 — base",
+    "file": "lessdb-v0.6.0-x86_64-unknown-linux-gnu.tar.gz",
+    "url": "/dl/lessdb-v0.6.0-x86_64-unknown-linux-gnu.tar.gz?v=70cf54a7d1e1",
+    "sha256": "70cf54a7d1e17131b9d781c974ee29f43202f52e785d0f64ef9c97fb5b4f9508",
+    "size": 44245498
+  }
+]

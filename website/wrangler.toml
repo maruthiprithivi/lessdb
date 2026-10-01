@@ -1,0 +1,7 @@
+name = "lessdb"
+pages_build_output_dir = "."
+compatibility_date = "2026-08-01"
+
+[[r2_buckets]]
+binding = "DOWNLOADS"
+bucket_name = "lessdb-downloads"
