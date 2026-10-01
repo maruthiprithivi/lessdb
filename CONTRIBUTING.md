@@ -1,8 +1,10 @@
 # Contributing to LessDB
 
-LessDB is experimental. Correctness, durability and access boundaries take
-priority over performance. The source snapshot has known gaps; the README
-status is authoritative about maturity.
+LessDB is an experimental database exploring long-term agent knowledge, memory
+persistence and cross-agent communication. Collaboration is welcome: bring use
+cases, designs, bug reports, documentation and reproducible tests. Correctness,
+durability and access boundaries take priority over performance. The source
+snapshot has known gaps; the README status is authoritative about maturity.
 
 ## Setup and validation
 
@@ -89,5 +91,16 @@ not invent an email address or promise a response deadline.
 
 ## License
 
-Contributions follow the repository’s existing MIT license. Dependencies keep
-their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Contributions to LessDB follow the existing [MIT License](LICENSE). The canonical
+copyright notice remains `Copyright (c) 2025-2026 LessDB Project and LessDB
+contributors`.
+
+Forks and redistributions that contain copies or substantial portions of LessDB
+must retain its copyright and MIT permission notices. Keep the original `LICENSE`
+file with the covered code; do not replace or remove its notices. MIT permits
+commercial use, modification, distribution and sublicensing. It does not require
+your separate additions or entire fork to be MIT-licensed, nor require publishing
+your changes. This guide adds no license restrictions.
+
+Dependencies keep their own licenses; see
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
