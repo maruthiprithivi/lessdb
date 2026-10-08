@@ -1,30 +1,170 @@
 [
   {
     "platform": "macOS (Apple Silicon) — cloud",
-    "file": "lessdb-v0.6.0-aarch64-apple-darwin-cloud.tar.gz",
-    "url": "/dl/lessdb-v0.6.0-aarch64-apple-darwin-cloud.tar.gz?v=3e91abf8e582",
-    "sha256": "3e91abf8e582220493939644d331e49d4a9321d73c2bb0d74e275a54e6d8d6b0",
-    "size": 41325523
+    "file": "lessdb-v0.1.0-aarch64-apple-darwin-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.1.0-aarch64-apple-darwin-cloud.tar.gz?v=44ed5b94df42",
+    "sha256": "44ed5b94df42f991ca6e3d622839aec05a1a516690b42934211b2c987415fd43",
+    "size": 40860517
+  },
+  {
+    "platform": "macOS (Apple Silicon) — base",
+    "file": "lessdb-v0.1.0-aarch64-apple-darwin.tar.gz",
+    "url": "/dl/lessdb-v0.1.0-aarch64-apple-darwin.tar.gz?v=8a6b310338da",
+    "sha256": "8a6b310338dab82f6bc1ac23bbb97813508256b57bb972891f6dfccb2b984056",
+    "size": 40860465
   },
   {
     "platform": "Linux x86_64 — cloud",
-    "file": "lessdb-v0.6.0-x86_64-unknown-linux-gnu-cloud.tar.gz",
-    "url": "/dl/lessdb-v0.6.0-x86_64-unknown-linux-gnu-cloud.tar.gz?v=a3e1de5bd016",
-    "sha256": "a3e1de5bd0169229fff624bd7cfe415f67e2d0e01896d2e3f66487b0e169098c",
-    "size": 44245607
+    "file": "lessdb-v0.1.0-x86_64-unknown-linux-gnu-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.1.0-x86_64-unknown-linux-gnu-cloud.tar.gz?v=0df5d18f26c9",
+    "sha256": "0df5d18f26c9f9edfd5e59d5625c8dd579f2e9f0cdeee8314aab64284c9533fd",
+    "size": 43561001
+  },
+  {
+    "platform": "Linux x86_64 — base",
+    "file": "lessdb-v0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+    "url": "/dl/lessdb-v0.1.0-x86_64-unknown-linux-gnu.tar.gz?v=cbece17697ab",
+    "sha256": "cbece17697abd28af5e5619a4b0b4cd4c6d755c6680251339edb8aca7f07313c",
+    "size": 43561006
+  },
+  {
+    "platform": "macOS (Apple Silicon) — cloud",
+    "file": "lessdb-v0.2.0-aarch64-apple-darwin-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.2.0-aarch64-apple-darwin-cloud.tar.gz?v=384dda488b1e",
+    "sha256": "384dda488b1eece18cfaf9b3a1a9376a317c1c6a93e868a2765baab4c0b8371c",
+    "size": 40858916
+  },
+  {
+    "platform": "macOS (Apple Silicon) — base",
+    "file": "lessdb-v0.2.0-aarch64-apple-darwin.tar.gz",
+    "url": "/dl/lessdb-v0.2.0-aarch64-apple-darwin.tar.gz?v=1f88a7086c7e",
+    "sha256": "1f88a7086c7e53fc48e8a1b7d93f43e50d34da81ea648f07e3cf0a0acf17f9dd",
+    "size": 40858915
+  },
+  {
+    "platform": "Linux x86_64 — cloud",
+    "file": "lessdb-v0.2.0-x86_64-unknown-linux-gnu-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.2.0-x86_64-unknown-linux-gnu-cloud.tar.gz?v=97710dd6106d",
+    "sha256": "97710dd6106d97856b88eadba45be087a0e7573b94f058e6ea441c12bbbda4f6",
+    "size": 43564507
+  },
+  {
+    "platform": "Linux x86_64 — base",
+    "file": "lessdb-v0.2.0-x86_64-unknown-linux-gnu.tar.gz",
+    "url": "/dl/lessdb-v0.2.0-x86_64-unknown-linux-gnu.tar.gz?v=9465a882c16e",
+    "sha256": "9465a882c16e4154b0a88fe2102b91cd07857fc3a1fa0546bb29644521166a99",
+    "size": 43564492
+  },
+  {
+    "platform": "macOS (Apple Silicon) — cloud",
+    "file": "lessdb-v0.3.0-aarch64-apple-darwin-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.3.0-aarch64-apple-darwin-cloud.tar.gz?v=3e9757f01359",
+    "sha256": "3e9757f013596739d8ded4b17f0b7b3070547c82122e0b0d38f87d8dbed17cbf",
+    "size": 40858086
+  },
+  {
+    "platform": "macOS (Apple Silicon) — base",
+    "file": "lessdb-v0.3.0-aarch64-apple-darwin.tar.gz",
+    "url": "/dl/lessdb-v0.3.0-aarch64-apple-darwin.tar.gz?v=3a9fda812d18",
+    "sha256": "3a9fda812d1866649c391c762975acfac1f09145820e1ee34ffe91c03b4a4bc4",
+    "size": 40858068
+  },
+  {
+    "platform": "Linux x86_64 — cloud",
+    "file": "lessdb-v0.3.0-x86_64-unknown-linux-gnu-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.3.0-x86_64-unknown-linux-gnu-cloud.tar.gz?v=be735a4579a7",
+    "sha256": "be735a4579a700ce9fdb1725a88ef3460c2f7f91b427d5a48d6370c4e86c297a",
+    "size": 43560797
+  },
+  {
+    "platform": "Linux x86_64 — base",
+    "file": "lessdb-v0.3.0-x86_64-unknown-linux-gnu.tar.gz",
+    "url": "/dl/lessdb-v0.3.0-x86_64-unknown-linux-gnu.tar.gz?v=e7ad84310c70",
+    "sha256": "e7ad84310c70624d819b87438c82f728c54f063d092e15e49578f3858cc5d823",
+    "size": 43560772
+  },
+  {
+    "platform": "macOS (Apple Silicon) — cloud",
+    "file": "lessdb-v0.4.0-aarch64-apple-darwin-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.4.0-aarch64-apple-darwin-cloud.tar.gz?v=4526456bdc71",
+    "sha256": "4526456bdc711b1395b12bb5a43a78246e8c6015f8531633fe2720f9efe7726b",
+    "size": 40925060
+  },
+  {
+    "platform": "macOS (Apple Silicon) — base",
+    "file": "lessdb-v0.4.0-aarch64-apple-darwin.tar.gz",
+    "url": "/dl/lessdb-v0.4.0-aarch64-apple-darwin.tar.gz?v=ee4d32f8c551",
+    "sha256": "ee4d32f8c551a8a674c0c584f0bf6134dc77920d7b5d6712cdfa7170869dd32a",
+    "size": 40925052
+  },
+  {
+    "platform": "Linux x86_64 — cloud",
+    "file": "lessdb-v0.4.0-x86_64-unknown-linux-gnu-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.4.0-x86_64-unknown-linux-gnu-cloud.tar.gz?v=c73f2168b248",
+    "sha256": "c73f2168b24820bdb0e4565d52f1f7166a9b0cfc8bc7140ac25b5e238b3010c7",
+    "size": 43635522
+  },
+  {
+    "platform": "Linux x86_64 — base",
+    "file": "lessdb-v0.4.0-x86_64-unknown-linux-gnu.tar.gz",
+    "url": "/dl/lessdb-v0.4.0-x86_64-unknown-linux-gnu.tar.gz?v=3b934e7949d0",
+    "sha256": "3b934e7949d0fba7e89ca0df907c36eee09528fbb0f8356a314023a137b5119b",
+    "size": 43635530
+  },
+  {
+    "platform": "macOS (Apple Silicon) — cloud",
+    "file": "lessdb-v0.5.0-aarch64-apple-darwin-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.5.0-aarch64-apple-darwin-cloud.tar.gz?v=ea5d67176e80",
+    "sha256": "ea5d67176e804d18a71d1f2a15d7c469446c616805a1df88e32dcb51d816cf79",
+    "size": 41060373
+  },
+  {
+    "platform": "macOS (Apple Silicon) — base",
+    "file": "lessdb-v0.5.0-aarch64-apple-darwin.tar.gz",
+    "url": "/dl/lessdb-v0.5.0-aarch64-apple-darwin.tar.gz?v=67c188ce90be",
+    "sha256": "67c188ce90be1026c64669cc1695790af5792eb0587ecb3b73e776e48e683222",
+    "size": 41060345
+  },
+  {
+    "platform": "Linux x86_64 — cloud",
+    "file": "lessdb-v0.5.0-x86_64-unknown-linux-gnu-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.5.0-x86_64-unknown-linux-gnu-cloud.tar.gz?v=367f5442d2c6",
+    "sha256": "367f5442d2c64def8cf84e79edec7368b400b1362de91a10fb0fa5ccfcec5a2d",
+    "size": 43774738
+  },
+  {
+    "platform": "Linux x86_64 — base",
+    "file": "lessdb-v0.5.0-x86_64-unknown-linux-gnu.tar.gz",
+    "url": "/dl/lessdb-v0.5.0-x86_64-unknown-linux-gnu.tar.gz?v=1b242a92afc2",
+    "sha256": "1b242a92afc2e20b84c506f575cabf8a54d6161d8c30a519cf91e4f9df38c670",
+    "size": 43774686
+  },
+  {
+    "platform": "macOS (Apple Silicon) — cloud",
+    "file": "lessdb-v0.6.0-aarch64-apple-darwin-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.6.0-aarch64-apple-darwin-cloud.tar.gz?v=e69db18ebdc8",
+    "sha256": "e69db18ebdc80b6d57ef2bb3fc87fa7dea5ab4843b7dc1736b1eaca1f2a68bfa",
+    "size": 41134144
   },
   {
     "platform": "macOS (Apple Silicon) — base",
     "file": "lessdb-v0.6.0-aarch64-apple-darwin.tar.gz",
-    "url": "/dl/lessdb-v0.6.0-aarch64-apple-darwin.tar.gz?v=facc73e7f90b",
-    "sha256": "facc73e7f90bafdd1ce893d2b7c8d2b5b53ca03f20b9b11760e69b9f8dc4a062",
-    "size": 41325493
+    "url": "/dl/lessdb-v0.6.0-aarch64-apple-darwin.tar.gz?v=9b7705f56efe",
+    "sha256": "9b7705f56efe83725da6675fc7ea0c638ce6fc2f80fd12b0b029c3f6eaac363e",
+    "size": 41134138
+  },
+  {
+    "platform": "Linux x86_64 — cloud",
+    "file": "lessdb-v0.6.0-x86_64-unknown-linux-gnu-cloud.tar.gz",
+    "url": "/dl/lessdb-v0.6.0-x86_64-unknown-linux-gnu-cloud.tar.gz?v=d5429dfc5e22",
+    "sha256": "d5429dfc5e22da9834803ce5ba5c57b0cd98030dfe39d3ae7e20e57bc2fe376e",
+    "size": 43857675
   },
   {
     "platform": "Linux x86_64 — base",
     "file": "lessdb-v0.6.0-x86_64-unknown-linux-gnu.tar.gz",
-    "url": "/dl/lessdb-v0.6.0-x86_64-unknown-linux-gnu.tar.gz?v=70cf54a7d1e1",
-    "sha256": "70cf54a7d1e17131b9d781c974ee29f43202f52e785d0f64ef9c97fb5b4f9508",
-    "size": 44245498
+    "url": "/dl/lessdb-v0.6.0-x86_64-unknown-linux-gnu.tar.gz?v=0606ec7e1fdd",
+    "sha256": "0606ec7e1fdd247c1470ed33739100dcf688f37ed354d674c79a4c0ba8e32a44",
+    "size": 43857582
   }
 ]
