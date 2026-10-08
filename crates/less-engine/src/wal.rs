@@ -1,21 +1,12 @@
-//! Write-ahead log for crash-safe inserts.
+//! Write-ahead log for buffered inserts.
 //!
-//! Inserts are appended to `<data_dir>/wal/<table>.wal` as length-prefixed
-//! records `[len u64][lsn u64][arrow-ipc batch]`, optionally fsynced, so
-//! accepted rows survive a crash even before they flush into a data part.
-//!
-//! **Idempotent replay**: every data part records `wal_lsn_max` — the
-//! highest WAL sequence number its rows came from (persisted in the part's
-//! `meta.json`). On recovery, replay skips every record with
-//! `lsn <= max(parts.wal_lsn_max)` and re-buffers the rest, then flushes
-//! them. The flush sequence (write part with `wal_lsn_max` → truncate the
-//! WAL) makes recovery exactly-once:
-//!
-//! * crash before the part is visible → nothing was flushed → all records
-//!   replay;
-//! * crash after the part is visible → its `wal_lsn_max` filters the
-//!   replayed records → no duplicates;
-//! * crash after the WAL truncate → nothing to replay.
+//! Records are `[len u64][lsn u64][arrow-ipc batch]`. Recovery validates every
+//! record, including those covered by existing parts, before accepting writes.
+//! Invalid framing fails startup closed with the original WAL unchanged.
+//! No automatic tail repair or checksum format is provided. File fsync remains
+//! configurable; parent-directory/part publication barriers and multipart
+//! atomicity are separate unresolved durability requirements on this baseline.
+//! Process-restart tests do not establish physical power-loss safety.
 
 use std::fs::{File, OpenOptions};
 use std::io::{Read, Seek, Write};
@@ -25,7 +16,7 @@ use arrow::ipc::reader::StreamReader;
 use arrow::ipc::writer::StreamWriter;
 use arrow::record_batch::RecordBatch;
 
-use less_common::Result;
+use less_common::{LessError, Result};
 
 /// The WAL directory.
 pub struct Wal {
@@ -62,8 +53,7 @@ impl Wal {
         Ok(())
     }
 
-    /// Read records with `lsn > min_lsn`. A truncated tail record (crash
-    /// mid-append) stops the scan — those rows were never acknowledged.
+    /// Replay records above the committed part cutoff; reject malformed tails.
     pub fn replay(&self, table: &str, min_lsn: u64) -> Result<Vec<RecordBatch>> {
         let path = self.path_for(table);
         if !path.exists() {
@@ -72,37 +62,42 @@ impl Wal {
         let mut file = File::open(&path)?;
         let file_len = file.metadata()?.len();
         let mut out = vec![];
-        loop {
+        while file.stream_position()? < file_len {
+            let offset = file.stream_position()?;
+            let invalid = |reason: &str| {
+                LessError::Engine(format!(
+                    "invalid WAL for table {table} at byte {offset}: {reason}; preserve the log for audited recovery"
+                ))
+            };
             let mut len_buf = [0u8; 8];
             match file.read_exact(&mut len_buf) {
                 Ok(_) => {}
-                Err(e) if e.kind() == std::io::ErrorKind::UnexpectedEof => break,
+                Err(e) if e.kind() == std::io::ErrorKind::UnexpectedEof => {
+                    return Err(invalid("incomplete length header"));
+                }
                 Err(e) => return Err(e.into()),
             }
             let len = u64::from_le_bytes(len_buf);
             let mut lsn_buf = [0u8; 8];
-            if file.read_exact(&mut lsn_buf).is_err() {
-                break; // truncated record header
-            }
+            file.read_exact(&mut lsn_buf)
+                .map_err(|_| invalid("incomplete sequence header"))?;
             let lsn = u64::from_le_bytes(lsn_buf);
             // A length prefix that cannot fit in the bytes physically left in
             // the file is a torn/garbage tail (crash mid-append, or a bogus
-            // prefix). Stop the scan here — honoring it would allocate an
-            // absurd buffer and panic on `vec![0u8; len]`.
+            // prefix). Reject it before attempting a payload allocation.
             let pos = file.stream_position()?;
             if len > file_len.saturating_sub(pos) {
-                break;
+                return Err(invalid("payload length exceeds remaining file bytes"));
             }
-            let mut payload = vec![0u8; len as usize];
-            if file.read_exact(&mut payload).is_err() {
-                break; // truncated payload
-            }
-            // A record whose payload is not a valid Arrow IPC stream is a
-            // corrupt tail; stop scanning rather than failing the whole
-            // recovery (good records before it are still replayed).
-            let Ok(batches) = ipc_to_batches(&payload) else {
-                break;
-            };
+            let len = usize::try_from(len).map_err(|_| invalid("payload length is unsupported"))?;
+            let mut payload = vec![0u8; len];
+            file.read_exact(&mut payload)
+                .map_err(|_| invalid("incomplete payload"))?;
+            // Without a validated boundary/checksum we cannot safely infer
+            // that an invalid record was unacknowledged. In particular, a
+            // writable reopen must never append behind a malformed tail.
+            let batches =
+                ipc_to_batches(&payload).map_err(|_| invalid("invalid Arrow IPC payload"))?;
             for batch in batches {
                 if lsn > min_lsn {
                     out.push(batch);
@@ -154,8 +149,27 @@ fn batch_to_ipc(batch: &RecordBatch) -> Result<Vec<u8>> {
 }
 
 fn ipc_to_batches(bytes: &[u8]) -> Result<Vec<RecordBatch>> {
-    let reader = StreamReader::try_new(std::io::Cursor::new(bytes), None)?;
-    Ok(reader.collect::<std::result::Result<Vec<_>, _>>()?)
+    // Our StreamWriter always finishes with the modern IPC EOS marker. Arrow
+    // also accepts EOF without EOS, which is too permissive for WAL recovery.
+    const EOS: [u8; 8] = [255, 255, 255, 255, 0, 0, 0, 0];
+    if !bytes.ends_with(&EOS) {
+        return Err(LessError::Engine(
+            "WAL IPC stream is missing its end marker".into(),
+        ));
+    }
+    let mut cursor = std::io::Cursor::new(bytes);
+    let batches = {
+        let reader = StreamReader::try_new(&mut cursor, None)?;
+        reader.collect::<std::result::Result<Vec<_>, _>>()?
+    };
+    // Arrow stops at EOS. Reject extra bytes that an expanded outer length
+    // could otherwise use to swallow a following acknowledged WAL record.
+    if cursor.position() != bytes.len() as u64 {
+        return Err(LessError::Engine(
+            "WAL IPC stream has trailing bytes".into(),
+        ));
+    }
+    Ok(batches)
 }
 
 /// Simulate a crash mid-append (test helper): chop the last bytes off the
@@ -205,15 +219,77 @@ mod tests {
     }
 
     #[test]
-    fn truncated_tail_record_is_skipped() {
+    fn truncated_tail_record_is_rejected_without_modifying_the_log() {
         let dir = std::env::temp_dir().join(format!("less-walt-{}", uuid::Uuid::new_v4()));
         let wal = Wal::open(&dir, false).unwrap();
         wal.append("t", 1, &batch(vec![1, 2])).unwrap();
         wal.append("t", 2, &batch(vec![3])).unwrap();
         truncate_tail(&wal.path_for("t"));
-        let replay = wal.replay("t", 0).unwrap();
-        // Only the intact first record survives.
-        assert_eq!(replay.iter().map(|b| b.num_rows()).sum::<usize>(), 2);
+        let before = std::fs::read(wal.path_for("t")).unwrap();
+        assert!(wal.replay("t", 0).is_err());
+        assert_eq!(std::fs::read(wal.path_for("t")).unwrap(), before);
         std::fs::remove_dir_all(&dir).ok();
+    }
+
+    #[test]
+    fn ipc_missing_end_marker_is_rejected() {
+        let payload = batch_to_ipc(&batch(vec![1])).unwrap();
+        assert!(ipc_to_batches(&payload).is_ok());
+        assert!(ipc_to_batches(&payload[..payload.len() - 8]).is_err());
+    }
+
+    #[test]
+    fn expanded_record_cannot_swallow_the_next_record() {
+        use std::io::SeekFrom;
+        let dir = std::env::temp_dir().join(format!("less-wal-expanded-{}", uuid::Uuid::new_v4()));
+        let wal = Wal::open(&dir, true).unwrap();
+        wal.append("t", 1, &batch(vec![1])).unwrap();
+        wal.append("t", 2, &batch(vec![2])).unwrap();
+        let mut file = OpenOptions::new()
+            .write(true)
+            .open(wal.path_for("t"))
+            .unwrap();
+        let expanded_len = file.metadata().unwrap().len() - 16;
+        file.seek(SeekFrom::Start(0)).unwrap();
+        file.write_all(&expanded_len.to_le_bytes()).unwrap();
+        file.sync_all().unwrap();
+        drop(file);
+        let before = std::fs::read(wal.path_for("t")).unwrap();
+        assert!(wal.replay("t", 0).is_err());
+        assert_eq!(std::fs::read(wal.path_for("t")).unwrap(), before);
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn invalid_tail_after_covered_records_is_rejected() {
+        for tail in [
+            vec![1],
+            [8u64.to_le_bytes().as_slice(), &[0; 4]].concat(),
+            [
+                100u64.to_le_bytes().as_slice(),
+                2u64.to_le_bytes().as_slice(),
+            ]
+            .concat(),
+            [
+                3u64.to_le_bytes().as_slice(),
+                2u64.to_le_bytes().as_slice(),
+                b"bad",
+            ]
+            .concat(),
+        ] {
+            let dir =
+                std::env::temp_dir().join(format!("less-wal-invalid-{}", uuid::Uuid::new_v4()));
+            let wal = Wal::open(&dir, false).unwrap();
+            wal.append("t", 1, &batch(vec![1])).unwrap();
+            let mut file = OpenOptions::new()
+                .append(true)
+                .open(wal.path_for("t"))
+                .unwrap();
+            file.write_all(&tail).unwrap();
+            let before = std::fs::read(wal.path_for("t")).unwrap();
+            assert!(wal.replay("t", 1).is_err());
+            assert_eq!(std::fs::read(wal.path_for("t")).unwrap(), before);
+            std::fs::remove_dir_all(dir).unwrap();
+        }
     }
 }
