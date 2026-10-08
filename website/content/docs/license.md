@@ -2,6 +2,13 @@
 
 LessDB is released under the **MIT License**.
 
+We welcome collaboration and adoption, including commercial use, modifications
+and redistribution. For forks and copies containing substantial portions of
+LessDB, retain the original copyright and MIT permission notices; keep the
+`LICENSE` file with the covered code. MIT does not require your separate additions
+or entire fork to use MIT, or require you to publish your changes. Dependencies
+retain their own licenses. These instructions add no license restrictions.
+
 ```
 MIT License
 

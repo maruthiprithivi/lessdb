@@ -1,10 +1,23 @@
 # LessDB
 
-⚗️ **Experimental** — LessDB is built with coding agents: a DBMS for AI,
-with AI. Human review at every step; expect rough edges and rapid change.
+⚗️ **Experimental database** — LessDB explores how agents can retain knowledge
+and memory over time, persist long-term context, and communicate across agents.
+We welcome collaborators, experiments, critical reviews and reproducible tests.
 
 LessDB is an experimental Rust analytical database using DataFusion and
 immutable columnar parts. It targets lightweight deployment alongside agents.
+
+Local SQL, MCP access and context/memory interfaces provide a starting point.
+Reliable long-term persistence, private per-agent databases and secure selective
+cross-agent sharing are research and engineering goals. Their presence in the
+roadmap does not establish production durability, isolation or distributed
+guarantees. See [CONTRIBUTING.md](CONTRIBUTING.md) to help build and test them.
+
+LessDB uses the [MIT License](LICENSE), including commercial use and modification.
+When forking or redistributing copies or substantial portions of LessDB, retain
+its copyright notice and MIT permission notice; keeping `LICENSE` is the simplest
+way to do this. MIT does not require your separate additions or entire fork to
+use MIT. Dependencies retain their own licenses.
 
 **Current maturity:** this clean source baseline does not include the private
 in-progress durability, concurrent visibility or access-boundary fixes.
@@ -20,8 +33,7 @@ It combines:
   parts — including **FireflyCloud**, with parts in shared object storage;
 * **DuckDB's** embeddability: one binary / one library, Arrow-native,
   works with your existing pandas/pyarrow/JS tooling;
-* **StarRocks/Doris-class joins** via the DataFusion SQL engine (hash
-  joins, cost-based optimizer, full SQL surface);
+* **DataFusion query planning and execution**, including joins and aggregations;
 * **Uniqueness constraints** with bloom-filter pruning and
   replacing-merge deduplication;
 * **Native AI-agent access** through an MCP server, plus installable agent
