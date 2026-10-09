@@ -8,6 +8,8 @@ and humans** — a static site with no build step and no dependencies.
 | File | Purpose |
 |---|---|
 | `index.html` | Single-page site: hero, curl install, live demo, why, features, **control & governance**, benchmarks, **full quickstart guide** (all 11 steps), integrations, footer |
+| `content/docs/agent-blueprints.md` | Public deployment profiles from a single assistant to software factories, communities and swarms |
+| `content/docs/agent-scenarios.md` | Public SC-01–SC-06 conformance scenarios and LessVille adoption mapping |
 | `styles.css` | Bioluminescent terminal theme (warm black + firefly amber glow) |
 | `app.js` | Pixel-art mascot renderer (**LUMO** the firefly), word swap, terminal loop, stat counters, install tabs, copy button, scroll reveals |
 | `_mascot_preview.py` | Dev helper — prints an ASCII preview of LUMO's pixel map |
@@ -67,8 +69,9 @@ Cloudflare and installed from there:
 curl -fsSL https://packages.lessdb.dev/install.sh | sh
 ```
 
-`https://packages.lessdb.dev` is the assumed host. It appears in exactly two
-places — swap both once the real package host is live:
+The package host is `https://lessdb.dev/npm/`. It appears in the generated
+installer and package documentation; keep it aligned with the Pages Function
+when changing distribution:
 
 1. `index.html` → the curl tab + quickstart steps 1 and 10
 2. `app.js` → the `INSTALL_COMMANDS` map

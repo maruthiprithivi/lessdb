@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://lessdb.dev/</loc></url>
+  <url><loc>https://lessdb.dev/docs/getting-started</loc></url>
+  <url><loc>https://lessdb.dev/docs/agent-blueprints</loc></url>
+  <url><loc>https://lessdb.dev/docs/agent-scenarios</loc></url>
+  <url><loc>https://lessdb.dev/docs/architecture</loc></url>
+  <url><loc>https://lessdb.dev/docs/architecture-interactive</loc></url>
+  <url><loc>https://lessdb.dev/docs/benchmarks</loc></url>
+  <url><loc>https://lessdb.dev/docs/config</loc></url>
+  <url><loc>https://lessdb.dev/docs/license</loc></url>
+  <url><loc>https://lessdb.dev/docs/mcp</loc></url>
+  <url><loc>https://lessdb.dev/docs/skills</loc></url>
+  <url><loc>https://lessdb.dev/playbooks/</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/agent-memory-mcp</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/multi-tenant-agents</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/analytics</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/embedded-analytics</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/log-event-analytics</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/realtime-dashboards</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/vector-search</loc></url>
+  <url><loc>https://lessdb.dev/use-cases/data-wrangling-cli</loc></url>
+  <url><loc>https://lessdb.dev/playbooks/benchmark</loc></url>
+  <url><loc>https://lessdb.dev/playbooks/cloudflare-distribution</loc></url>
+  <url><loc>https://lessdb.dev/playbooks/multi-node-shared</loc></url>
+  <url><loc>https://lessdb.dev/playbooks/observability-auth-backups</loc></url>
+  <url><loc>https://lessdb.dev/playbooks/secrets-sops</loc></url>
+  <url><loc>https://lessdb.dev/playbooks/website-deploy</loc></url>
+</urlset>

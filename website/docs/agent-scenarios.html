@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Agent adoption scenarios · LessDB</title>
+<meta name="description" content="Agent adoption scenarios — LessDB, one database for agents and humans."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a07'/%3E%3Crect x='6' y='4' width='20' height='14' rx='4' fill='%232e2e26'/%3E%3Crect x='9' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='20' y='7' width='3' height='4' fill='%23f6f09c'/%3E%3Crect x='10' y='20' width='12' height='7' rx='3' fill='%23ffd54a'/%3E%3Crect x='14' y='23' width='4' height='2' fill='%23fff8b0'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../styles.css"/>
+<link rel="stylesheet" href="../docs.css"/>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-frame"><div class="header-inner">
+    <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+  </div></div>
+</header>
+<div class="docs-layout">
+  <aside class="docs-sidebar"><div class="side-group">Docs</div>
+<a href='getting-started'>Getting started</a>
+<a href='agent-blueprints'>Agent Blueprints</a>
+<a href='agent-scenarios'>Agent Scenarios</a>
+<a href='architecture'>Architecture</a>
+<a href='benchmarks'>Benchmarks</a>
+<a href='config'>Config</a>
+<a href='license'>License</a>
+<a href='mcp'>Mcp</a>
+<a href='skills'>Skills</a>
+<div class="side-group">Interactive</div>
+<a href='architecture-interactive'>Architecture diagram</a></aside>
+  <main class="docs-content">
+    <h1>Agent adoption scenarios</h1>
+    <h1>Agent adoption scenarios</h1>
+<p>LessDB adoption starts with one bounded loop and grows through evidence. The same scenarios can be run by a personal assistant, a family assistant, a coding-agent swarm, a community service or a scientific workflow.</p>
+<p>A scenario passes only when four views agree:</p>
+<ol>
+<li>application or world state;</li>
+</ol>
+<ol>
+<li>LessDB source, decision and provenance rows;</li>
+</ol>
+<ol>
+<li>ContextPacket visibility, omissions and budget;</li>
+</ol>
+<ol>
+<li>rendered UI or authorized SQL/Arrow output.</li>
+</ol>
+<p>Model wording is never the oracle.</p>
+<h2>SC-01 — Scoped context</h2>
+<p>Seed one shared operational fact, one private reason and one bounded situation with the same keywords. Recall for a shared-facing response.</p>
+<p><strong>Expected:</strong> the shared fact is included with stable source references; the private reason is omitted with a permitted non-disclosing reason; the packet stays inside its item/byte budget; no model-generated new fact is accepted.</p>
+<h2>SC-02 — Lifecycle replay</h2>
+<p>Create active, expired, archived, revoked and deleted records. Recall before and after a pinned time boundary and inspect the explanation.</p>
+<p><strong>Expected:</strong> the states remain distinct. Expired is not deleted, archived is not revoked, and a storage TTL is not presented as immediate semantic forgetting. Retained audit/provenance follows the application retention policy.</p>
+<h2>SC-03 — Bounded multi-source recall</h2>
+<p>Seed equivalent facts in memory, graph/context, an event table and optional vector candidates, plus unrelated rows. Apply scope, time, relationship and freshness constraints before ranking.</p>
+<p><strong>Expected:</strong> duplicate facts collapse without losing provenance; hard item/byte limits hold; ordering is deterministic for the same policy; an authorized analyst can reconcile approved source references without receiving private packet text.</p>
+<h2>SC-04 — Proposal, approval and causal action</h2>
+<p>Create a proposal for a message, purchase, deployment, merge or other consequential action. Allow a model to draft, but keep policy, approval and execution separate.</p>
+<p><strong>Expected:</strong> no action occurs while pending or denied; changed revision, packet or policy invalidates approval; the application executor handles idempotency and reconciliation; LessDB records evidence but does not claim a cross-system transaction.</p>
+<h2>SC-05 — Least-privilege handoff</h2>
+<p>Materialize a handoff with a target, purpose, exact item IDs or derived fields, expiry and recipient policy. Retry it after a simulated timeout, then expire or revoke it.</p>
+<p><strong>Expected:</strong> the recipient receives only the reduced packet; an item ID is not a capability to read the source row; one logical handoff remains after retry; recipient visibility is re-evaluated.</p>
+<h2>SC-06 — Specialist loop</h2>
+<p>Use a coordinator, implementer/observer, tester/verifier, reviewer and release/safety approver. Bind the work to a repository revision/worktree or experiment/run/sample identity.</p>
+<p><strong>Expected:</strong> parent/child lineage, artifact/evidence references and review decisions are durable; private scratch is not exposed to the reviewer; no merge, release or actuator action occurs without application approval.</p>
+<h2>Generate reproducible fixtures</h2>
+<p>A runner can generate scenario JSON with a fixed seed:</p>
+<pre class="language-sh"><code>python3 tools/generate_agent_scenarios.py \
+  --seed 20261009 \
+  --count 12 \
+  --out /tmp/lessdb-agent-scenarios.json</code></pre>
+<p>The fixture schema is <code>lessdb-agent-scenario/v1</code>. It contains actors, situation, recall intent, seeded items, action state, expected visibility and a four-view oracle. The generator does not execute actions or decide policy.</p>
+<h2>LessVille reference implementation</h2>
+<p><a href="https://ville.lessdb.dev">LessVille</a> demonstrates these ideas with a fictional research simulation. Its café order, named bus, object-transition, activity and context-inspection flows are application-owned causal state. LessDB stores the memories, messages, decisions, events, packet provenance and observability needed to inspect what agents can see and why.</p>
+<p>The public simulation is observer-only. Its deterministic policies are labelled as deterministic, and its current application-level visibility broker is not presented as native LessDB ACL.</p>
+<h2>Adoption rule</h2>
+<p>Start with one agent, one tenant, one workflow and a small packet. Add sharing, handoffs, approvals and specialist agents only after replay, hidden-row, lifecycle, provenance, budget and retry behavior is measurable.</p>
+  </main>
+</div>
+<footer class="docs-footer">
+  <div class="footer-inner">
+    <span>LessDB — one database for agents and humans. <a href='license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
+    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+  </div>
+</footer>
+<script src="../app.js"></script>
+<script src="../github-stars.js"></script>
+</body>
+</html>

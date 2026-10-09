@@ -274,9 +274,11 @@ def main():
     use_cases = sorted((WEBSITE / "content" / "use-cases").glob("*.md"))
 
     groups = []
-    groups.append(("Docs", [("Getting started", WEBSITE / "docs/getting-started.html", False)]))
-    for md, out in docs[1:]:
-        groups[0][1].append((md.stem.replace("-", " ").title(), out, False))
+    docs_group = [("Getting started", WEBSITE / "docs/getting-started.html", False)]
+    for md, out in docs:
+        if md.stem != "getting-started":
+            docs_group.append((md.stem.replace("-", " ").title(), out, False))
+    groups.append(("Docs", docs_group))
     groups.append(("Interactive", [("Architecture diagram", WEBSITE / "docs/architecture-interactive.html", False)]))
 
     # index pages for playbooks / use cases

@@ -4,13 +4,17 @@
 or many customers' agents — share one database. Each needs private
 memory, controlled access, and a single engine to operate on.
 
+For the broader progression from one assistant to a governed organization,
+see the [agent deployment blueprints](/docs/agent-blueprints) and the
+[adoption scenarios](/docs/agent-scenarios).
+
 **Why LessDB**:
 
 - **Tenant scoping is built in**: `lessdb mcp --tenant acme` isolates
   each agent's context notes, RAM tables, and vector spaces under
   `<data_dir>/tenants/acme/` — while SQL tools stay on the shared
-  engine (row-level isolation is yours to design; namespace isolation
-  is free).
+  engine. Row-level isolation, consent, handoffs and application action
+  policy are yours to design; namespace isolation is the native boundary.
 - **Tokens with roles**: mint `read`/`write`/`admin` tokens per agent
   or per tenant; every call is attributable and audited.
 - **One hosted door**: `lessdb server` serves authenticated MCP over

@@ -21,6 +21,14 @@ Both doors expose the **same 27 tools** over the same engine: SQL
 `lessdb_tables`, `lessdb_optimize`), agent memory (`context_*`, `memory_*`),
 vector search (`vector_*`), and graph (`lessdb_cypher`).
 
+For new agent applications, place a small context broker above these tools.
+The broker opens an identity-bearing session, observes the current situation,
+recalls a bounded ContextPacket, records decisions and remembers the outcome.
+The packet should carry identity, situation, intent, source references, scope,
+validity, omissions and item/byte budget before any prompt is rendered. See
+the [agent deployment blueprints](/docs/agent-blueprints) and
+[adoption scenarios](/docs/agent-scenarios).
+
 ## 1. Local setup (stdio) — the 30-second path
 
 Create a database, then register the server with your agent. The command
@@ -98,6 +106,12 @@ lessdb token create <name> --role read|write|admin [--tenant <t>] [--ttl-days 30
   sharing one engine never see each other's notes.
 * **Audit everything** — `lessdb audit` shows caller, tool, SQL, and
   outcome for every MCP call; stream it to your SIEM for compliance.
+
+Tenant namespaces are not a universal row-level ACL for shared `less_*` SQL
+tables. Scope, consent, temporal filtering, packet budgets, handoffs,
+retention jobs and approval gates are application or broker responsibilities
+unless a separate native feature is explicitly documented. A model completion
+is not an approval or an action result.
 
 ## 4. The 27 tools
 

@@ -16,7 +16,7 @@
 <header class="site-header">
   <div class="header-frame"><div class="header-inner">
     <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
-    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">LessDB <span data-github-stars aria-label="Loading star count"></span></a></nav>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
   </div></div>
 </header>
 <div class="docs-layout">
@@ -71,7 +71,7 @@
 <pre class="language-sh"><code># locally, so the values live only in the repo:
 # GitHub repo → Settings → Secrets and variables → Actions → New secret
 CLOUDFLARE_API_TOKEN   = &lt;the token&gt;
-CLOUDFLARE_ACCOUNT_ID  = <your-cloudflare-account-id></code></pre>
+CLOUDFLARE_ACCOUNT_ID  = &lt;your-cloudflare-account-id&gt;</code></pre>
 <p>CI deploys the site on every push that touches <code>website/</code> (workflow <code>.github/workflows/deploy-website.yml</code>).</p>
 <h3>3. Verify the GitHub Release mirror</h3>
 <p>The <code>v0.1.0</code> release has the four tarballs attached (<code>gh release view v0.1.0</code>). If the public download URLs 404 (the asset CDN can lag a few minutes after creation), re-check in a while or re-upload with <code>gh release upload v0.1.0 dist/*.tar.gz --clobber</code>.</p>
@@ -88,7 +88,7 @@ wrangler r2 object put lessdb-downloads/&lt;f&gt; --file dist/&lt;f&gt; --remote
 <footer class="docs-footer">
   <div class="footer-inner">
     <span>LessDB — one database for agents and humans. <a href='../docs/license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
-    <a href="https://lessdb.dev/" class="gh-link">LessDB ↗</a>
+    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
   </div>
 </footer>
 <script src="../app.js"></script>

@@ -213,6 +213,12 @@ the [MCP guide](/docs/mcp). To make your coding agent fluent in LessDB
 without reading the manual, install the one-file
 [LessDB skill](/docs/skills).
 
+For a situation-aware agent integration, start with the
+[agent deployment blueprints](/docs/agent-blueprints) and run the
+[adoption scenarios](/docs/agent-scenarios). They define identity, scope,
+bounded ContextPackets, provenance, handoffs and approval boundaries without
+pretending that an application policy predicate is native row ACL.
+
 ## 10. Serve it (HTTP + Prometheus)
 
 ```sh
@@ -239,6 +245,8 @@ are disposable. `file://` works for local development.
 
 * [Use cases](/use-cases/) — end-to-end blueprints: analytics, agent
   memory, vector search, embedded.
+* [Agent blueprints](/docs/agent-blueprints) and [adoption scenarios](/docs/agent-scenarios)
+  — grow from one assistant to a governed swarm.
 * [Playbooks](/playbooks/) — operations: benchmarks, multi-node, auth,
   backups, secrets, and the manual Cloudflare tasks.
 * [Architecture](/docs/architecture) — how the engine is put together,

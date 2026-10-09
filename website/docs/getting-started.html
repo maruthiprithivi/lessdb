@@ -16,15 +16,17 @@
 <header class="site-header">
   <div class="header-frame"><div class="header-inner">
     <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
-    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">LessDB <span data-github-stars aria-label="Loading star count"></span></a></nav>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
   </div></div>
 </header>
 <div class="docs-layout">
   <aside class="docs-sidebar"><div class="side-group">Docs</div>
 <a href='getting-started'>Getting started</a>
+<a href='agent-blueprints'>Agent Blueprints</a>
+<a href='agent-scenarios'>Agent Scenarios</a>
+<a href='architecture'>Architecture</a>
 <a href='benchmarks'>Benchmarks</a>
 <a href='config'>Config</a>
-<a href='getting-started'>Getting Started</a>
 <a href='license'>License</a>
 <a href='mcp'>Mcp</a>
 <a href='skills'>Skills</a>
@@ -131,6 +133,7 @@ lessdb memory sql "SELECT count(*) FROM people"</code></pre>
 <li><code>lessdb mcp --require-auth</code>, and review everything in <code>lessdb audit</code>.</li>
 </ul>
 <p>Run it hosted instead of locally with <code>lessdb server</code> — the same 27 tools over authenticated HTTP at <code>/mcp</code> (fail-closed, agent tokens required). Full walkthrough — local vs hosted, roles, tenants, troubleshooting — in the <a href="/docs/mcp">MCP guide</a>. To make your coding agent fluent in LessDB without reading the manual, install the one-file <a href="/docs/skills">LessDB skill</a>.</p>
+<p>For a situation-aware agent integration, start with the <a href="/docs/agent-blueprints">agent deployment blueprints</a> and run the <a href="/docs/agent-scenarios">adoption scenarios</a>. They define identity, scope, bounded ContextPackets, provenance, handoffs and approval boundaries without pretending that an application policy predicate is native row ACL.</p>
 <h2>10. Serve it (HTTP + Prometheus)</h2>
 <pre class="language-sh"><code>lessdb server --addr 127.0.0.1:7080
 curl -s localhost:7080/health
@@ -146,6 +149,10 @@ curl -s localhost:7080/metrics              # Prometheus text format</code></pre
 <p>memory, vector search, embedded.</p>
 </ul>
 <ul>
+<li><a href="/docs/agent-blueprints">Agent blueprints</a> and <a href="/docs/agent-scenarios">adoption scenarios</a></li>
+<p>— grow from one assistant to a governed swarm.</p>
+</ul>
+<ul>
 <li><a href="/playbooks/">Playbooks</a> — operations: benchmarks, multi-node, auth,</li>
 <p>backups, secrets, and the manual Cloudflare tasks.</p>
 </ul>
@@ -158,7 +165,7 @@ curl -s localhost:7080/metrics              # Prometheus text format</code></pre
 <footer class="docs-footer">
   <div class="footer-inner">
     <span>LessDB — one database for agents and humans. <a href='license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
-    <a href="https://lessdb.dev/" class="gh-link">LessDB ↗</a>
+    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
   </div>
 </footer>
 <script src="../app.js"></script>

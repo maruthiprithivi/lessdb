@@ -49,3 +49,4 @@ Disallow: /tests/
 Disallow: /functions/
 Crawl-delay: 10
 Allow: /
+Sitemap: https://lessdb.dev/sitemap.xml
