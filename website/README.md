@@ -8,6 +8,7 @@ and humans** — a static site with no build step and no dependencies.
 | File | Purpose |
 |---|---|
 | `index.html` | Single-page site: hero, curl install, live demo, why, features, **control & governance**, benchmarks, **full quickstart guide** (all 11 steps), integrations, footer |
+| `assets/lessville-og.png` | Reused 1200×630 LessVille pixel-art share visual shown in the homepage showcase |
 | `content/docs/agent-blueprints.md` | Public deployment profiles from a single assistant to software factories, communities and swarms |
 | `content/docs/agent-scenarios.md` | Public SC-01–SC-06 conformance scenarios and LessVille adoption mapping |
 | `styles.css` | Bioluminescent terminal theme (warm black + firefly amber glow) |
@@ -66,7 +67,7 @@ tarballs, Python wheels, Node packages) is published to a package host on
 Cloudflare and installed from there:
 
 ```bash
-curl -fsSL https://packages.lessdb.dev/install.sh | sh
+curl -fsSL https://lessdb.dev/install.sh | sh
 ```
 
 The package host is `https://lessdb.dev/npm/`. It appears in the generated

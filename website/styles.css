@@ -932,6 +932,58 @@ code, pre, .mono { font-family: var(--font-mono); }
 }
 
 /* ==========================================================================
+   LessVille showcase
+   ========================================================================== */
+.lessville-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+  gap: clamp(28px, 5vw, 68px);
+  align-items: center;
+  margin-top: 34px;
+}
+.lessville-shot {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(255, 213, 74, 0.3);
+  border-radius: 18px;
+  background: #0d0d0a;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5), 0 0 34px var(--amber-glow-soft);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.lessville-shot:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 213, 74, 0.7);
+  box-shadow: 0 30px 84px rgba(0, 0, 0, 0.55), 0 0 42px var(--amber-glow);
+}
+.lessville-shot img { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; }
+.lessville-shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 56%, rgba(7, 8, 6, 0.84));
+  pointer-events: none;
+}
+.lessville-shot-caption {
+  position: absolute;
+  z-index: 1;
+  right: 18px;
+  bottom: 15px;
+  color: var(--amber);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-shadow: 0 0 14px var(--amber-glow);
+}
+.lessville-copy .section-title { margin-bottom: 14px; }
+.lessville-copy .section-body { max-width: 620px; }
+.lessville-copy .section-body strong { color: var(--amber-soft); }
+.lessville-points { display: grid; gap: 12px; margin: 24px 0; }
+.lessville-points > div { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: start; color: var(--text-dim); font-size: 14px; line-height: 1.55; }
+.lessville-dot { color: var(--amber); font-family: var(--font-mono); font-size: 11px; padding-top: 2px; }
+.lessville-note { color: var(--text-faint); font-size: 11px; line-height: 1.5; }
+.lessville-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+
+/* ==========================================================================
    Final CTA
    ========================================================================== */
 .final-cta {
@@ -1051,6 +1103,7 @@ code, pre, .mono { font-family: var(--font-mono); }
 }
 @media (max-width: 1020px) {
   .two-col { grid-template-columns: 1fr; }
+  .lessville-grid { grid-template-columns: 1fr; }
   .feature-grid, .int-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .why-item { grid-template-columns: 60px minmax(0, 1fr); }
