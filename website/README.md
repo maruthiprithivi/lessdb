@@ -11,6 +11,7 @@ and humans** — a static site with no build step and no dependencies.
 | `assets/lessville-og.png` | Reused 1200×630 LessVille pixel-art share visual shown in the homepage showcase |
 | `content/docs/agent-blueprints.md` | Public deployment profiles from a single assistant to software factories, communities and swarms |
 | `content/docs/agent-scenarios.md` | Public SC-01–SC-06 conformance scenarios and LessVille adoption mapping |
+| `content/docs/physical-ai.md` | Public physical-AI profiles, observation contract, safety boundaries and PA-01–PA-06 scenarios |
 | `styles.css` | Bioluminescent terminal theme (warm black + firefly amber glow) |
 | `app.js` | Pixel-art mascot renderer (**LUMO** the firefly), word swap, terminal loop, stat counters, install tabs, copy button, scroll reveals |
 | `_mascot_preview.py` | Dev helper — prints an ASCII preview of LUMO's pixel map |

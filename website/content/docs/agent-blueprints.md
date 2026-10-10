@@ -28,6 +28,7 @@ The packet is the contract presented to an agent. A prompt or model completion i
 | Software factory | Repository, revision, worktree, task and artifact scopes | Implement, test, review and approve one exact revision |
 | Organization/community | Team, project, public, shared, private and sensitive scopes | Publish and hand off an approved operational fact |
 | Scientific/operations swarm | Project, experiment, run, sample and instrument scopes | Verify a time/spatial observation before an action |
+| Physical-AI / embodied system | Site, zone, device, sensor, run and executor scopes | Verify an uncertain observation before a proposal-first action |
 
 The profile changes identity, scopes, retention, handoffs and approvals. It does not require a different storage engine.
 
@@ -65,4 +66,4 @@ Do not treat a model completion as a fact, approval, identity or action result. 
 5. Add organization or shared-object-storage scale only with a documented recovery model for broker metadata.
 6. Consider native grants, valid-time governance, immutable context-access audit or approval primitives only after the application behavior has conformance evidence.
 
-See the [agent memory and MCP use case](/use-cases/agent-memory-mcp), the [adoption scenarios](/docs/agent-scenarios), and the [MCP guide](/docs/mcp) for concrete paths.
+See the [agent memory and MCP use case](/use-cases/agent-memory-mcp), the [adoption scenarios](/docs/agent-scenarios), the [physical-AI guide](/docs/physical-ai), and the [MCP guide](/docs/mcp) for concrete paths.
