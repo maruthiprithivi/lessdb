@@ -34,7 +34,10 @@
 .docs-sidebar a {
   color: var(--text-dim);
   text-decoration: none;
-  padding: 5px 8px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 7px 8px;
   border-radius: 6px;
   border: 1px solid transparent;
 }
@@ -138,4 +141,6 @@
   .docs-sidebar { position: static; border-right: none; border-bottom: 1px solid var(--line); padding: 0 0 12px; flex-direction: row; flex-wrap: wrap; gap: 4px; }
   .docs-sidebar .side-group { width: 100%; margin-top: 10px; }
   .docs-content { padding: 14px 0 0; }
+  .docs-content table { display: block; overflow-x: auto; white-space: nowrap; }
+  .docs-content pre { max-width: 100%; }
 }

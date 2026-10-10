@@ -652,7 +652,7 @@ pub async fn cmd_repl(dir: &Path) -> Result<()> {
 
     println!(
         "lessdb {}  ·  db: {}  ·  Firefly/FireflyCloud\n\
-         Agents: 27 MCP tools over `lessdb mcp` (see /docs/mcp). SQL ends with ';', \
+         Agents: 28 MCP tools over `lessdb mcp` (see /docs/mcp). SQL ends with ';', \
          \\G for vertical. .help lists commands.",
         less_common::VERSION,
         dir.display()
@@ -878,7 +878,7 @@ async fn repl_command(
         }
         ".mcp" => {
             println!(
-                "Open the agent door (MCP):\n  lessdb mcp [--dir {}] [--require-auth]   # stdio, 27 tools\n  lessdb server --addr 0.0.0.0:7080      # hosted: POST /mcp, tokens required\nThen register with your agent, or install the one-file skill:\n  curl -fsSL https://lessdb.dev/skills/lessdb/SKILL.md -o ~/.claude/skills/lessdb/SKILL.md",
+                "Open the agent door (MCP):\n  lessdb mcp [--dir {}] [--require-auth]   # stdio, 28 tools\n  lessdb server --addr 0.0.0.0:7080      # hosted: POST /mcp, tokens required\nThen register with your agent, or install the one-file skill:\n  curl -fsSL https://lessdb.dev/skills/lessdb/SKILL.md -o ~/.claude/skills/lessdb/SKILL.md",
                 dir.display()
             );
         }
@@ -1351,7 +1351,7 @@ pub async fn cmd_demo(dir: &Path, rows: usize) -> Result<()> {
     println!();
     println!("That is LessDB in 60 seconds: one engine for SQL, vectors, and agent memory.");
     println!("  lessdb sql                    # interactive REPL (this database)");
-    println!("  lessdb mcp                    # open it to AI agents (27 MCP tools)");
+    println!("  lessdb mcp                    # open it to AI agents (28 MCP tools)");
     println!("  lessdb server                 # serve it over HTTP + Prometheus");
     println!("  https://lessdb.dev/docs/getting-started");
     println!("  MIT License — https://lessdb.dev/docs/license");

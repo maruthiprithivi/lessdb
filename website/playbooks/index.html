@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../docs.css"/>
 </head>
 <body>
-<header class="site-header"><div class="header-frame"><div class="header-inner">
+<header class="site-header" id="siteHeader"><div class="header-frame"><div class="header-inner">
   <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
   <nav class="main-nav">
     <a href="../">Home</a>
@@ -19,9 +19,17 @@
     <a href="index">Playbooks</a>
     <a href="../use-cases/">Use cases</a>
     <a href="../downloads/">Downloads</a>
-    <a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a>
+    <a href="/docs/architecture" class="project-link">Architecture</a>
   </nav>
-</div></div></header>
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-controls="mobileNav" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></div><nav class="mobile-nav" id="mobileNav" aria-label="Mobile primary">
+    <a href="../">Home</a>
+    <a href="../docs/getting-started">Docs</a>
+    <a href="index">Playbooks</a>
+    <a href="../use-cases/">Use cases</a>
+    <a href="../downloads/">Downloads</a>
+    <a href="/docs/architecture" class="project-link">Architecture</a>
+  </nav></header>
 <main class="docs-content standalone">
   <h1>Playbooks</h1>
   <div class="card-grid"><a class='card' href='benchmark'><h3>Benchmark playbook</h3><p>Use the benchmark tools present in this revision:</p></a>
@@ -33,6 +41,5 @@
 <a class='card' href='website-deploy'><h3>Deploying this website (lessdb.dev)</h3><p>The site itself is fully static — docs, playbooks, use cases, downloads</p></a></div>
 </main>
 <script src="../app.js"></script>
-<script src="../github-stars.js"></script>
 </body>
 </html>

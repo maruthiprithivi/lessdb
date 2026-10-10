@@ -52,7 +52,7 @@ The skill is *knowledge*; MCP is *access*. With both:
 3. You get the same engine your dashboards use, not a toy the agent
    invented.
 
-The canonical skill lives in the repo at
-[`skills/lessdb/SKILL.md`](https://lessdb.dev//blob/main/skills/lessdb/SKILL.md)
-and is served at `/skills/lessdb/SKILL.md`. New patterns you develop can
-be PR'd back — one skill, shared by every LessDB user's agent.
+The canonical public skill is served at
+[`/skills/lessdb/SKILL.md`](https://lessdb.dev/skills/lessdb/SKILL.md). New
+patterns you develop can be contributed through the project's source
+workflow — one skill, shared by every LessDB user's agent.

@@ -16,7 +16,6 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 WEBSITE = ROOT / "website"
-GITHUB = "https://lessdb.dev//blob/main"
 
 NAV = [
     ("Home", "/", False),
@@ -50,8 +49,9 @@ def link_repl(m):
     elif url.endswith(".html"):
         url = url[:-5]
     elif url.startswith("../crates/") or url.startswith("crates/"):
-        p = url.removeprefix("../")
-        return f'<a href="{GITHUB}/{p}">{label}</a>'
+        # No neutral public source-repository URL is advertised here. Keep the
+        # source path visible without emitting a fabricated repository link.
+        return f"<code>{html.escape(label, quote=False)}</code>"
     elif url.startswith("bench/results/"):
         return f'<a href="{GITHUB}/{url}">{label}</a>'
     return f'<a href="{url}">{label}</a>'
@@ -199,6 +199,7 @@ def page(source_md, out_html, title, group, groups, body_html=None):
     return f"""<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+<script>document.documentElement.classList.add("js");</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>{esc(title)} · LessDB</title>
@@ -211,11 +212,13 @@ def page(source_md, out_html, title, group, groups, body_html=None):
 <link rel="stylesheet" href="{rel(out_html, 'website/docs.css')}"/>
 </head>
 <body>
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="header-frame"><div class="header-inner">
     <a href="{rel(out_html, 'website/index.html')}" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
-    <nav class="main-nav" aria-label="Primary">{nav_html}<a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+    <nav class="main-nav" aria-label="Primary">{nav_html}<a href="/docs/architecture" class="project-link">Architecture</a></nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-controls="mobileNav" aria-expanded="false"><span></span><span></span><span></span></button>
   </div></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile primary">{nav_html}<a href="/docs/architecture" class="project-link">Architecture</a></nav>
 </header>
 <div class="docs-layout">
   <aside class="docs-sidebar">{sidebar}</aside>
@@ -227,11 +230,10 @@ def page(source_md, out_html, title, group, groups, body_html=None):
 <footer class="docs-footer">
   <div class="footer-inner">
     <span>LessDB — one database for agents and humans. <a href='{rel(out_html, 'website/docs/license.html')}' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
-    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+    <a href="/docs/architecture" class="gh-link">Architecture ↗</a>
   </div>
 </footer>
 <script src="{rel(out_html, 'website/app.js')}"></script>
-<script src="{rel(out_html, 'website/github-stars.js')}"></script>
 </body>
 </html>
 """
@@ -332,7 +334,7 @@ def main():
 <link rel="stylesheet" href="{rel(idx, WEBSITE / 'docs.css')}"/>
 </head>
 <body>
-<header class="site-header"><div class="header-frame"><div class="header-inner">
+<header class="site-header" id="siteHeader"><div class="header-frame"><div class="header-inner">
   <a href="{rel(idx, WEBSITE / 'index.html')}" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
   <nav class="main-nav">
     <a href="{rel(idx, WEBSITE / 'index.html')}">Home</a>
@@ -340,15 +342,22 @@ def main():
     <a href="{rel(idx, WEBSITE / 'playbooks/index.html')}">Playbooks</a>
     <a href="{rel(idx, WEBSITE / 'use-cases/index.html')}">Use cases</a>
     <a href="{rel(idx, WEBSITE / 'downloads/index.html')}">Downloads</a>
-    <a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a>
+    <a href="/docs/architecture" class="project-link">Architecture</a>
   </nav>
-</div></div></header>
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-controls="mobileNav" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></div><nav class="mobile-nav" id="mobileNav" aria-label="Mobile primary">
+    <a href="{rel(idx, WEBSITE / 'index.html')}">Home</a>
+    <a href="{rel(idx, WEBSITE / 'docs/getting-started.html')}">Docs</a>
+    <a href="{rel(idx, WEBSITE / 'playbooks/index.html')}">Playbooks</a>
+    <a href="{rel(idx, WEBSITE / 'use-cases/index.html')}">Use cases</a>
+    <a href="{rel(idx, WEBSITE / 'downloads/index.html')}">Downloads</a>
+    <a href="/docs/architecture" class="project-link">Architecture</a>
+  </nav></header>
 <main class="docs-content standalone">
   <h1>{group_name}</h1>
   <div class="card-grid">{cards}</div>
 </main>
 <script src="{rel(idx, WEBSITE / 'app.js')}"></script>
-<script src="{rel(idx, WEBSITE / 'github-stars.js')}"></script>
 </body>
 </html>
 """)

@@ -1,6 +1,6 @@
 # Getting started with LessDB
 
-One binary, zero daemons. Install it, point it at a directory, and you
+One binary for embedded/local use; hosted mode is an explicit server process. Install it, point it at a directory, and you
 have a database your team queries with SQL and your agents work over
 MCP — the same engine, the same data.
 
@@ -14,8 +14,7 @@ curl -fsSL https://lessdb.dev/install.sh | sh
 # the public registry; it downloads + verifies the same binary
 npm install -g lessdb --registry https://lessdb.dev/npm/
 
-# or via Homebrew
-brew tap lessdb/lessdb && brew install lessdb
+# Homebrew: no neutral public tap is advertised yet; use curl, npm, or cargo.
 ```
 
 The installer puts `lessdb` in `~/.local/bin` **and adds that directory
@@ -192,7 +191,7 @@ atomically, so agents can crash and resume.
 ## 9. Open the agent door (MCP)
 
 ```sh
-lessdb mcp                 # stdio JSON-RPC on .less — 27 tools for any MCP client
+lessdb mcp                 # stdio JSON-RPC on .less — 28 tools for any MCP client
 ```
 
 Register it with your client:
@@ -206,7 +205,7 @@ Tools: `lessdb_query`, `lessdb_explain`, `lessdb_schema`, `lessdb_stats`,
 `lessdb_cypher`. Lock the door with `lessdb token create <name> --role read`
 + `lessdb mcp --require-auth`, and review everything in `lessdb audit`.
 
-Run it hosted instead of locally with `lessdb server` — the same 27 tools
+Run it hosted instead of locally with `lessdb server` — the same 28 tools
 over authenticated HTTP at `/mcp` (fail-closed, agent tokens required).
 Full walkthrough — local vs hosted, roles, tenants, troubleshooting — in
 the [MCP guide](/docs/mcp). To make your coding agent fluent in LessDB

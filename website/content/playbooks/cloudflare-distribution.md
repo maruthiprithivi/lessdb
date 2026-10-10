@@ -12,24 +12,24 @@ only**; the database itself runs wherever you run it.
 | Pages project `lessdb` | the website (lessdb.dev) |
 | Pages Function `/dl/[[path]]` | serves bucket objects at `/dl/<file>` via an R2 binding — no public bucket access needed |
 | `packages/npm` | npm wrapper whose postinstall fetches + verifies from `/dl` |
-| `homebrew-lessdb` tap | formula fetching from `/dl` |
+| `Homebrew formula` | only advertise after a neutral public tap is verified |
 
 ## Releasing a version
 
 ```sh
 # 1. build on each platform (macOS arm64 and Linux x64 today)
-bash scripts/package-release.sh 0.1.0          # -> dist/*.tar.gz + .sha256
+bash scripts/package-release.sh <version>      # -> dist/*.tar.gz + .sha256
 # on the Linux box: same script, same version
 
 # 2. upload (note: --remote, the default is a local simulation)
 wrangler r2 object put lessdb-downloads/<file> --file dist/<file> --remote
 
-# 3. update packages/npm/platforms.json checksums, bump package.json
-cd packages/npm && npm publish
+# 3. update packages/npm/platforms.json checksums, bump package.json,
+#    then upload the wrapper package and packument to the configured R2 keys
 
-# 4. bump the Homebrew formula (url + sha256 + version), push the tap
-# 5. mirror on GitHub Releases:
-gh release create v0.1.0 dist/*.tar.gz dist/*.tar.gz.sha256
+# 4. update a Homebrew formula only after a neutral public tap is verified
+# 5. optionally mirror on a verified release host:
+gh release create v<version> dist/*.tar.gz dist/*.tar.gz.sha256
 
 # 6. regenerate + deploy the site (downloads manifest.json reads dist/)
 python3 scripts/build-site.py

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+  <script>document.documentElement.classList.add("js");</script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>LessDB · One database for agents and humans</title>
-  <meta name="description" content="LessDB is one database for agents and humans: agents work it over 27 MCP tools, humans over SQL, the REPL, and SDKs — one tiny binary in Rust."/>
+  <meta name="description" content="LessDB is one database for agents and humans: agents work it over 28 MCP tools, humans over SQL, the REPL, and SDKs — one tiny binary in Rust."/>
   <meta property="og:title" content="LessDB · One database for agents and humans"/>
   <meta property="og:description" content="One engine, two front doors: MCP for agents, SQL for humans. One binary. Rust, MIT-licensed."/>
   <meta property="og:type" content="website"/>
@@ -50,12 +51,12 @@
           <a href="playbooks/">Playbooks</a>
           <a href="use-cases/">Use cases</a>
           <a href="downloads/">Downloads</a>
-          <a href="https://lessdb.dev/" class="github-link">LessDB <span data-github-stars aria-label="Loading star count"></span></a>
+          <a href="docs/architecture" class="project-link">Architecture</a>
         </nav>
         <div class="header-cta">
           <a href="#install" class="btn btn-solid btn-sm">Install</a>
         </div>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-controls="mobileNav" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -68,7 +69,7 @@
         <a href="playbooks/">Playbooks</a>
         <a href="use-cases/">Use cases</a>
         <a href="downloads/">Downloads</a>
-          <a href="https://lessdb.dev/" class="github-link">LessDB <span data-github-stars aria-label="Loading star count"></span></a>
+          <a href="docs/architecture" class="project-link">Architecture</a>
         <a href="#install" class="mobile-cta">Install</a>
       </div>
     </div>
@@ -116,9 +117,10 @@
 
         <p class="hero-sub reveal">
           The shared system of record for your team and your agents: agents
-          work it over 27 MCP tools, humans over SQL, a REPL, and Python/Node
-          SDKs. Same engine, same data, same governance — columnar storage
-          with zstd underneath. One binary, zero daemons.
+          work it over 28 MCP tools, humans over SQL, a REPL, and Python/Node
+          SDKs. Same engine; SQL tables and agent context namespaces share one governed
+          process. Columnar storage with zstd underneath. One binary for embedded
+          use; hosted mode runs as an explicit server.
         </p>
 
         <div class="hero-cta reveal">
@@ -126,7 +128,7 @@
           <a href="#demo" class="btn btn-ghost">See it in action</a>
         </div>
 
-        <p class="hero-fine reveal">MIT-licensed · 27 MCP tools for agents · SQL for humans · One audit trail</p>
+        <p class="hero-fine reveal">MIT-licensed · 28 MCP tools for agents · SQL for humans · MCP audit trail</p>
         <p class="hero-fine hero-note reveal">⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</p>
       </div>
 
@@ -147,19 +149,19 @@
         </p>
 
         <div class="install-box reveal">
-          <div class="install-tabs" role="group" aria-label="Select install method">
-            <button class="install-tab is-active" data-method="curl">curl</button>
-            <button class="install-tab" data-method="brew">brew</button>
-            <button class="install-tab" data-method="npm">npm</button>
-            <button class="install-copy" id="copyBtn" aria-label="Copy install command">
-              <span>COPY</span>
+          <div class="install-tabs" role="tablist" aria-label="Select install method">
+            <button class="install-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="installCommand" data-method="curl">curl</button>
+            <button class="install-tab" type="button" role="tab" aria-selected="false" aria-controls="installCommand" data-method="npm">npm</button>
+            <button class="install-copy" type="button" id="copyBtn" aria-label="Copy install command">
+              <span class="copy-label">COPY</span>
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <rect x="7" y="7" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
                 <path d="M13 7V5.5A1.5 1.5 0 0 0 11.5 4H5.5A1.5 1.5 0 0 0 4 5.5V11A1.5 1.5 0 0 0 5.5 12.5H7" stroke="currentColor" stroke-width="1.5"/>
               </svg>
             </button>
           </div>
-          <pre class="install-command" id="installCommand"><code><span class="term-prompt">$</span> curl -fsSL https://lessdb.dev/install.sh | sh</code></pre>
+          <pre class="install-command" id="installCommand" aria-live="polite" aria-label="Selected install command"><code><span class="term-prompt">$</span> curl -fsSL https://lessdb.dev/install.sh | sh</code></pre>
+          <span class="sr-only" id="copyStatus" role="status" aria-live="polite"></span>
         </div>
 
         <div class="agent-ticker reveal" id="agentTicker">
@@ -178,7 +180,7 @@
             <span class="agent-chip">Node.js</span>
           </div>
         </div>
-        <p class="ticker-note reveal">Works with any MCP client &nbsp;|&nbsp; 27 agent tools &nbsp;|&nbsp; Storage: s3:// gcs:// az:// file:// memory:// &nbsp;|&nbsp; Packages served from Cloudflare</p>
+        <p class="ticker-note reveal">Works with any MCP client &nbsp;|&nbsp; 28 agent tools &nbsp;|&nbsp; Storage: s3:// gcs:// az:// file:// memory:// &nbsp;|&nbsp; Packages served from the LessDB site</p>
       </div>
     </section>
 
@@ -187,16 +189,16 @@
       <div class="section-frame two-col">
         <div class="col-copy">
           <div class="section-label reveal">One engine · two front doors</div>
-          <h2 class="section-title reveal">Same data. Two front doors.</h2>
+          <h2 class="section-title reveal">Same engine. Two front doors.</h2>
           <p class="section-body reveal">
             Agents call MCP tools — query, schema, search, link. Humans run SQL
             in the REPL or through the SDKs. Both hit the same engine and the
-            same data; what one side writes, the other side sees.
+            same engine; shared SQL writes are visible through the other SQL door, while agent context, memory and vector namespaces remain scoped according to their configured access path.
           </p>
           <ul class="check-list reveal">
-            <li><span class="check">✓</span> 27 MCP tools for agents, SQL REPL for humans</li>
+            <li><span class="check">✓</span> 28 MCP tools for agents, SQL REPL for humans</li>
             <li><span class="check">✓</span> One engine, one data dir — nothing to sync</li>
-            <li><span class="check">✓</span> WAL-protected writes — durable before they return</li>
+            <li><span class="check">✓</span> WAL recovery is tested; fsync durability depends on configuration</li>
           </ul>
         </div>
         <div class="col-terminal terminal-stack">
@@ -208,7 +210,7 @@
             </div>
             <div class="terminal-body" id="demoBody">
               <div class="t-line t-in"><span class="term-prompt">$</span> lessdb mcp --dir mydb</div>
-              <div class="t-line t-in t-dim">initialize → 27 tools ready</div>
+              <div class="t-line t-in t-dim">initialize → 28 tools ready</div>
               <div class="t-line t-in">tool_call  <span class="t-k">lessdb_query</span> "SELECT count(*) FROM events"</div>
               <div class="t-line t-in t-ok">result     4,102,559 rows · 7.9 ms</div>
               <div class="t-line t-in">tool_call  <span class="t-k">context_put</span> proj/lessdb "LessDB" --tag db</div>
@@ -249,8 +251,8 @@
             <p>
               Nothing, and that's the point. Two front doors on one engine:
               agents get tool-shaped access — query, schema, stats, search,
-              link — while people get SQL, the REPL, and SDKs. Same tables,
-              same vectors, no exports, no drift.
+              link — while people get SQL, the REPL, and SDKs. Shared SQL tables stay in one engine; context, memory and vector namespaces can
+              be scoped per agent. No export step is required for the local path.
             </p>
           </article>
           <article class="why-item reveal">
@@ -258,8 +260,7 @@
             <h3>“Why run one system for agents and another for people?”</h3>
             <p>
               Split systems drift and double your ops. LessDB keeps SQL, vector
-              search, and linked knowledge in one engine, so agent work and
-              human work always agree on the same data.
+              search, and linked knowledge in one engine, so agent work and human work use the same engine and governed data paths.
             </p>
           </article>
           <article class="why-item reveal">
@@ -284,7 +285,7 @@
         <div class="feature-grid">
           <article class="feature-card reveal">
             <div class="feature-icon mono">✦</div>
-            <h3>MCP server, 27 tools</h3>
+            <h3>MCP server, 28 tools</h3>
             <p>One stdio connection: query, schema, stats, tables, search, and links — for Claude Code, Codex, Cursor, and any MCP client.</p>
           </article>
           <article class="feature-card reveal">
@@ -314,8 +315,8 @@
           </article>
           <article class="feature-card reveal">
             <div class="feature-icon mono">⚡</div>
-            <h3>GPU kernels</h3>
-            <p>wgpu-accelerated filtered sums and dot products — Metal on macOS, Vulkan on Linux — with an always-on CPU fallback.</p>
+            <h3>GPU kernels (optional)</h3>
+            <p>Optional wgpu kernels cover filtered sums and dot products on Metal/Vulkan; CPU fallback remains available and automatic threshold dispatch is roadmap work.</p>
           </article>
           <article class="feature-card reveal">
             <div class="feature-icon mono">⌁</div>
@@ -336,34 +337,34 @@
       <div class="section-frame two-col">
         <div class="col-copy">
           <div class="section-label reveal">Control &amp; governance</div>
-          <h2 class="section-title reveal">Same rules for agents and humans.</h2>
+          <h2 class="section-title reveal">Explicit boundaries for agents and humans.</h2>
           <p class="section-body reveal">
-            One identity model, one role model, one audit trail — across the MCP
-            door, the HTTP door, and the SDKs. An agent is just another caller:
-            it gets a credential, a role, and a record of everything it did.
+            Hosted HTTP requires agent tokens and applies role checks; local stdio
+            authentication is optional for development. MCP calls write audit
+            entries. Context, memory and vector tenant namespaces are scoped, but
+            that is not universal row-level isolation for shared SQL tables.
           </p>
           <ul class="check-list reveal">
-            <li><span class="check">✓</span> admin / read / write roles on every door — fail-closed</li>
-            <li><span class="check">✓</span> Per-agent identity and tenancy; table grants keep agents apart</li>
-            <li><span class="check">✓</span> Every call recorded — caller, tool, SQL, outcome, cost</li>
-            <li><span class="check">✓</span> Human approval gates for agent writes and schema changes</li>
+            <li><span class="check">i</span> Hosted HTTP agent tokens with admin / read / write role checks</li>
+            <li><span class="check">i</span> Tenant namespaces for context, memory and vector state</li>
+            <li><span class="check">i</span> MCP audit entries include caller, tool, SQL and outcome</li>
+            <li><span class="check">i</span> Table grants, row-level ACLs and approval gates remain application/roadmap work</li>
           </ul>
         </div>
         <div class="col-terminal">
           <div class="terminal reveal">
             <div class="terminal-bar">
               <span class="dot dot-red"></span><span class="dot dot-amber"></span><span class="dot dot-green"></span>
-              <span class="terminal-title">lessdb audit · one trail, both doors</span>
-              <span class="terminal-live"><span class="pulse"></span> RECORDING</span>
+              <span class="terminal-title">lessdb audit · illustrative MCP trail</span>
+              <span class="terminal-live"><span class="pulse"></span> EXAMPLE</span>
             </div>
             <div class="terminal-body">
+              <div class="t-line is-in t-dim"># illustrative shape; fields depend on interface and configuration</div>
               <div class="t-line is-in"><span class="term-prompt">$</span> lessdb audit --since 1h</div>
               <div class="t-line is-in t-dim">door   caller            action                      outcome</div>
-              <div class="t-line is-in">http   human:alex    SELECT …                    <span class="t-ok">ok</span> · 4.1M rows · 7.9 ms</div>
-              <div class="t-line is-in">mcp    agent:claude     lessdb_query "SELECT…"       <span class="t-ok">ok</span> · 4.1M rows · 7.9 ms</div>
-              <div class="t-line is-in t-err">mcp    agent:claude     lessdb_optimize events        denied · role: read</div>
-              <div class="t-line is-in">mcp    agent:claude     context_put proj/lessdb    <span class="t-ok">ok</span> · tenant: alice</div>
-              <div class="t-line is-in t-ok">http   human:alex    approval #48291 accepted → lessdb_optimize</div>
+              <div class="t-line is-in">mcp    agent-example      lessdb_query "SELECT…"       <span class="t-ok">ok</span></div>
+              <div class="t-line is-in t-err">mcp    agent-example      lessdb_optimize events      denied · role: read</div>
+              <div class="t-line is-in">mcp    agent-example      context_put project/note  <span class="t-ok">ok</span> · scoped namespace</div>
             </div>
           </div>
         </div>
@@ -373,32 +374,33 @@
     <!-- ============ STATS ============ -->
     <section class="site-section" id="stats">
       <div class="section-frame">
-        <div class="section-label reveal">Measured, not marketed</div>
+        <div class="section-label reveal">Retained benchmark snapshot</div>
         <h2 class="section-title shift-title reveal">Small footprint.<br/>Serious numbers.</h2>
         <p class="section-body center reveal">
-          Every figure below comes from the bundled benchmark harness — deterministic
-          seeded data, reproducible on a MacBook-class dev machine, committed to the repo.
+          These figures come from the retained bundled harness at scale factor 0.01:
+          a local historical snapshot, not a cross-engine performance guarantee.
+          <a href="docs/benchmarks">Read the rerun instructions.</a>
         </p>
         <div class="stat-row reveal">
           <div class="stat">
-            <div class="stat-value mono"><span class="stat-count" data-count="27">0</span></div>
+            <div class="stat-value mono"><span class="stat-count" data-count="28">0</span></div>
             <div class="stat-label">agent tools over one MCP connection</div>
           </div>
           <div class="stat">
             <div class="stat-value mono"><span class="stat-count" data-count="8.5" data-decimals="1">0</span>×</div>
-            <div class="stat-label">zstd storage compression (lineitem)</div>
+            <div class="stat-label">zstd storage compression (lineitem, local baseline)</div>
           </div>
           <div class="stat">
             <div class="stat-value mono"><span class="stat-count" data-count="1.07" data-decimals="2">0</span> ms</div>
-            <div class="stat-label">p99 point lookup, bloom-pruned</div>
+            <div class="stat-label">p99 point lookup, bloom-pruned (local baseline)</div>
           </div>
           <div class="stat">
             <div class="stat-value mono"><span class="stat-count" data-count="8700">0</span></div>
-            <div class="stat-label">vector searches / sec (IVF-PQ)</div>
+            <div class="stat-label">vector searches / sec (IVF-PQ, 50k×64 baseline)</div>
           </div>
           <div class="stat">
             <div class="stat-value mono"><span class="stat-count" data-count="42">0</span> MB</div>
-            <div class="stat-label">RSS after loading 86k rows</div>
+            <div class="stat-label">RSS after loading 86k rows (local baseline)</div>
           </div>
         </div>
       </div>
@@ -408,7 +410,7 @@
     <section class="site-section" id="quickstart">
       <div class="section-frame">
         <div class="section-label reveal">Quickstart</div>
-        <h2 class="section-title reveal">Zero to a shared database in ~2 minutes</h2>
+        <h2 class="section-title reveal">A short path to a shared database</h2>
         <p class="section-body center reveal">
           The complete guide, start to finish. Install, ingest, query — then open
           the same data to your agents over MCP and your team over SQL and the SDKs.
@@ -425,11 +427,11 @@
 
 <span class="term-prompt">#</span> <span class="t-dim">The installer fetches the release for your OS/arch from the
 # Cloudflare package host and puts `lessdb` on your PATH.</span>
-<span class="term-prompt">$</span> lessdb --version                            <span class="t-dim"># lessdb 0.1.0</span>
+<span class="term-prompt">$</span> lessdb --version                            <span class="t-dim"># lessdb 0.6.0</span>
 
-<span class="term-prompt">#</span> <span class="t-dim">Prefer building from source? (Rust ≥ 1.85)</span>
+<span class="term-prompt">#</span> <span class="t-dim">Prefer building from source? (Rust ≥ 1.89)</span>
 <span class="term-prompt">$</span> cargo install --path crates/less-cli --features cloud,gpu</code></pre>
-            <p class="qs-note">The installer only writes to <span class="mono">~/.lessdb</span> plus one PATH line — delete both to uninstall.</p>
+            <p class="qs-note">The installer writes the binary to <span class="mono">~/.local/bin</span> and may add PATH lines to your shell rc files. To uninstall, remove the binary and those lines; do not delete your database directory.</p>
           </article>
 
           <article class="qs-step reveal">
@@ -515,19 +517,19 @@
               <span class="qs-num mono">7</span>
               <h3>Open the agent door (MCP)</h3>
             </div>
-            <p>One stdio connection exposes 27 tools to any MCP client — no plugins, no sync jobs.</p>
+            <p>One stdio connection exposes 28 tools to any MCP client — no plugins, no sync jobs.</p>
             <pre class="code-block"><code><span class="term-prompt">$</span> lessdb mcp            <span class="t-dim"># stdio JSON-RPC, uses --dir .less by default</span>
 
 <span class="term-prompt">#</span> <span class="t-dim">Lock the door and hold agents accountable:</span>
 <span class="term-prompt">$</span> lessdb token create claude --role read --tenant default   <span class="t-dim"># prints the token once</span>
 <span class="term-prompt">$</span> lessdb mcp --require-auth      <span class="t-dim"># tokens required, roles enforced, fail-closed</span>
-<span class="term-prompt">$</span> lessdb audit --since 24h       <span class="t-dim"># every call, both doors, newest first</span></code></pre>
+<span class="term-prompt">$</span> lessdb audit --since 24h       <span class="t-dim"># recent recorded MCP calls</span></code></pre>
             <p>Claude Code:</p>
             <pre class="code-block"><code><span class="term-prompt">$</span> claude mcp add lessdb -- lessdb mcp --dir /abs/path/to/mydb</code></pre>
             <p>Claude Desktop <span class="mono">claude_desktop_config.json</span>:</p>
-            <pre class="code-block"><code>{ "mcpServers": { "lessdb": { "command": "less", "args": ["mcp", "--dir", "/abs/path/to/mydb"] } } }</code></pre>
+            <pre class="code-block"><code>{ "mcpServers": { "lessdb": { "command": "lessdb", "args": ["mcp", "--dir", "/abs/path/to/mydb"] } } }</code></pre>
             <p class="qs-note">
-              Agents get 27 tools: <span class="mono">lessdb_query/explain/schema/stats/tables/optimize</span>,
+              Agents get 28 tools: <span class="mono">lessdb_query/explain/schema/stats/tables/optimize</span>,
               <span class="mono">context_*</span>, <span class="mono">memory_*</span>, <span class="mono">vector_*</span>.
             </p>
           </article>
@@ -545,7 +547,7 @@
 
 <span class="term-prompt">#</span> <span class="t-dim">LDAP/AD auth (fail-closed group→role mapping):</span>
 <span class="term-prompt">$</span> lessdb init --auth @auth.json   <span class="t-dim"># see docs/ARCHITECTURE.md §9 for the schema</span>
-<span class="term-prompt">$</span> curl -u alice:secret -H 'content-type: application/json' \
+<span class="term-prompt">$</span> curl -u demo-user:REDACTED_PASSWORD -H 'content-type: application/json' \
      -d '{"sql":"SELECT 1"}' localhost:7080/v1/sql</code></pre>
             <p>Prometheus:</p>
             <pre class="code-block"><code>scrape_configs:
@@ -560,7 +562,7 @@
             </div>
             <pre class="code-block"><code><span class="term-prompt">$</span> lessdb init --shared s3://my-bucket/lessdb        <span class="t-dim"># parts + catalog in S3</span></code></pre>
             <p class="qs-note">
-              Any node with the same <span class="mono">--shared</span> URL sees the same tables instantly;
+              Any node with the same <span class="mono">--shared</span> URL can discover the same tables;
               local disk stays ephemeral (buffers/caches only). <span class="mono">file://</span> for local dev.
             </p>
           </article>
@@ -570,14 +572,12 @@
               <span class="qs-num mono">10</span>
               <h3>Python / Node (embedded)</h3>
             </div>
-            <pre class="code-block"><code><span class="term-prompt">#</span> <span class="term-prompt">#</span> <span class="t-dim">npm — the CLI as a package (postinstall fetches + verifies the binary):</span>
-<span class="term-prompt">$</span> npm install -g lessdb
+            <pre class="code-block"><code><span class="term-prompt">#</span> <span class="t-dim">npm — the CLI as a package (postinstall fetches + verifies the binary):</span>
+<span class="term-prompt">$</span> npm install -g lessdb --registry https://lessdb.dev/npm/
 <span class="term-prompt">$</span> lessdb sql "SELECT 40 + 2"
-<span class="term-prompt">$</span> npx lessdb --version        <span class="t-dim"># one-shot, nothing installed</span>
+<span class="term-prompt">$</span> npx --registry https://lessdb.dev/npm/ lessdb --version        <span class="t-dim"># one-shot, nothing installed</span>
 
-<span class="term-prompt">#</span> <span class="t-dim">Homebrew — same binary from the same host:</span>
-<span class="term-prompt">$</span> brew tap lessdb/lessdb
-<span class="term-prompt">$</span> brew install lessdb</code></pre>
+<span class="term-prompt">#</span> <span class="t-dim">Homebrew — no neutral public tap is advertised yet; see Downloads.</span></code></pre>
           </article>
 
           <article class="qs-step reveal">
@@ -637,25 +637,25 @@
           <a class="int-card reveal" href="#quickstart">
             <div class="int-head">
               <span class="int-icon mono">✦</span>
-              <span class="int-status status-ga">GA</span>
+              <span class="int-status status-preview">Preview</span>
             </div>
             <h3>MCP server — the agent door</h3>
-            <p>27 tools over stdio JSON-RPC: SQL, schema, tables, vector search, and context links. Claude Code, Codex, Cursor, Gemini CLI — anything that speaks MCP.</p>
+            <p>28 tools over stdio JSON-RPC: SQL, schema, tables, vector search, and context links. Claude Code, Codex, Cursor, Gemini CLI — anything that speaks MCP.</p>
             <span class="int-cta">See quickstart step 7 →</span>
           </a>
           <a class="int-card reveal" href="#quickstart">
             <div class="int-head">
               <span class="int-icon mono">🐍</span>
-              <span class="int-status status-ga">GA</span>
+              <span class="int-status status-preview">Preview</span>
             </div>
             <h3>Python SDK</h3>
-            <p>In-process and embedded: <span class="mono">lessdb.open()</span>, pandas/pyarrow-friendly Arrow IPC out of the box. Wheels served from the package host.</p>
+            <p>In-process and embedded: <span class="mono">lessdb.open()</span>, pandas/pyarrow-friendly Arrow IPC out of the box. Build the Python binding from the source tree; the published binary installer is a separate channel.</p>
             <span class="int-cta">See quickstart step 10 →</span>
           </a>
           <a class="int-card reveal" href="#quickstart">
             <div class="int-head">
               <span class="int-icon mono">◉</span>
-              <span class="int-status status-ga">GA</span>
+              <span class="int-status status-preview">Preview</span>
             </div>
             <h3>Node SDK</h3>
             <p>napi-rs bindings. <span class="mono">queryArrow()</span> returns Arrow IPC bytes for zero-copy handoffs to JS tooling.</p>
@@ -664,7 +664,7 @@
           <a class="int-card reveal" href="#quickstart">
             <div class="int-head">
               <span class="int-icon mono">⇄</span>
-              <span class="int-status status-ga">GA</span>
+              <span class="int-status status-preview">Preview</span>
             </div>
             <h3>HTTP API</h3>
             <p>JSON or Arrow IPC over <span class="mono">POST /v1/sql</span>, health checks, Prometheus metrics, LDAP/AD auth.</p>
@@ -673,16 +673,16 @@
           <a class="int-card reveal" href="#quickstart">
             <div class="int-head">
               <span class="int-icon mono">▨</span>
-              <span class="int-status status-ga">GA</span>
+              <span class="int-status status-preview">Preview</span>
             </div>
             <h3>Object storage</h3>
-            <p>Shared tables on S3, GCS, Azure Blob, <span class="mono">file://</span>, or <span class="mono">memory://</span> — stateless compute nodes.</p>
+            <p>Shared tables can use S3, GCS or Azure Blob; <span class="mono">file://</span> and <span class="mono">memory://</span> are development/test backends. Validate multi-writer behavior for your deployment.</p>
             <span class="int-cta">See quickstart step 9 →</span>
           </a>
           <a class="int-card reveal" href="#quickstart">
             <div class="int-head">
               <span class="int-icon mono">⌁</span>
-              <span class="int-status status-ga">GA</span>
+              <span class="int-status status-preview">Preview</span>
             </div>
             <h3>Prometheus</h3>
             <p>Queries, pruning effectiveness, parts written/merged/scanned, auth failures — one scrape target.</p>
@@ -750,6 +750,5 @@
   </footer>
 
   <script src="app.js"></script>
-  <script src="github-stars.js"></script>
 </body>
 </html>

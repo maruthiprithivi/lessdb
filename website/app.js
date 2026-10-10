@@ -201,7 +201,7 @@
    STAT COUNTERS
    ------------------------------------------------------------------------ */
   const counters = document.querySelectorAll(".stat-count");
-  const countObserver = new IntersectionObserver(
+  const countObserver = "IntersectionObserver" in window ? new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
@@ -211,7 +211,7 @@
       });
     },
     { threshold: 0.6 }
-  );
+  ) : null;
 
   function animateCount(el) {
     const target = parseFloat(el.dataset.count);
@@ -232,24 +232,29 @@
       requestAnimationFrame(frame);
     }
   }
-  counters.forEach((c) => countObserver.observe(c));
+  if (countObserver) {
+    counters.forEach((c) => countObserver.observe(c));
+  } else {
+    counters.forEach((c) => animateCount(c));
+  }
 
   /* ------------------------------------------------------------------------
    INSTALL TABS + COPY
    ------------------------------------------------------------------------ */
   const INSTALL_COMMANDS = {
     curl: "curl -fsSL https://lessdb.dev/install.sh | sh",
-    brew: "brew tap lessdb/lessdb && brew install lessdb",
-    npm: "npm install -g lessdb",
+    npm: "npm install -g lessdb --registry https://lessdb.dev/npm/",
   };
 
   const installCommand = document.getElementById("installCommand");
   const copyBtn = document.getElementById("copyBtn");
+  const copyStatus = document.getElementById("copyStatus");
   const tabs = document.querySelectorAll(".install-tab");
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       tabs.forEach((t) => t.classList.toggle("is-active", t === tab));
+      tabs.forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
       const cmd = INSTALL_COMMANDS[tab.dataset.method];
       if (installCommand && cmd) {
         installCommand.innerHTML =
@@ -270,13 +275,14 @@
       try {
         await navigator.clipboard.writeText(cmd);
         copyBtn.classList.add("is-copied");
-        copyBtn.querySelector("span").textContent = "COPIED";
+        copyBtn.querySelector(".copy-label").textContent = "COPIED";
+        if (copyStatus) copyStatus.textContent = "Install command copied.";
         setTimeout(() => {
           copyBtn.classList.remove("is-copied");
-          copyBtn.querySelector("span").textContent = "COPY";
+          copyBtn.querySelector(".copy-label").textContent = "COPY";
         }, 1600);
       } catch (err) {
-        /* clipboard unavailable — ignore */
+        if (copyStatus) copyStatus.textContent = "Copy unavailable; select the command manually.";
       }
     });
   }
@@ -304,18 +310,30 @@
   }
 
   if (navToggle && mobileNav) {
-    navToggle.addEventListener("click", () => {
-      const open = mobileNav.classList.toggle("is-open");
+    const pageContent = [...document.querySelectorAll("main, footer, .docs-layout")];
+    const setMenu = (open, returnFocus = false) => {
+      mobileNav.classList.toggle("is-open", open);
       navToggle.classList.toggle("is-open", open);
       navToggle.setAttribute("aria-expanded", String(open));
+      document.body.classList.toggle("nav-open", open);
+      pageContent.forEach((node) => {
+        if (open) node.setAttribute("inert", "");
+        else node.removeAttribute("inert");
+      });
+      if (open) mobileNav.querySelector("a")?.focus();
+      else if (returnFocus) navToggle.focus();
+    };
+    navToggle.addEventListener("click", () => {
+      setMenu(!mobileNav.classList.contains("is-open"));
     });
     mobileNav.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => {
-        mobileNav.classList.remove("is-open");
-        navToggle.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
-      })
+      a.addEventListener("click", () => setMenu(false))
     );
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && mobileNav.classList.contains("is-open")) {
+        setMenu(false, true);
+      }
+    });
   }
 
   /* ------------------------------------------------------------------------

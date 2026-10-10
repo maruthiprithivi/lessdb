@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+<script>document.documentElement.classList.add("js");</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Getting started with LessDB · LessDB</title>
@@ -13,11 +14,13 @@
 <link rel="stylesheet" href="../docs.css"/>
 </head>
 <body>
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="header-frame"><div class="header-inner">
     <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
-    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="/docs/architecture" class="project-link">Architecture</a></nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-controls="mobileNav" aria-expanded="false"><span></span><span></span><span></span></button>
   </div></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="/docs/architecture" class="project-link">Architecture</a></nav>
 </header>
 <div class="docs-layout">
   <aside class="docs-sidebar"><div class="side-group">Docs</div>
@@ -36,7 +39,7 @@
   <main class="docs-content">
     <h1>Getting started with LessDB</h1>
     <h1>Getting started with LessDB</h1>
-<p>One binary, zero daemons. Install it, point it at a directory, and you have a database your team queries with SQL and your agents work over MCP — the same engine, the same data.</p>
+<p>One binary for embedded/local use; hosted mode is an explicit server process. Install it, point it at a directory, and you have a database your team queries with SQL and your agents work over MCP — the same engine, the same data.</p>
 <h2>1. Install</h2>
 <pre class="language-sh"><code># macOS (Apple Silicon) and Linux x64
 curl -fsSL https://lessdb.dev/install.sh | sh
@@ -45,8 +48,7 @@ curl -fsSL https://lessdb.dev/install.sh | sh
 # the public registry; it downloads + verifies the same binary
 npm install -g lessdb --registry https://lessdb.dev/npm/
 
-# or via Homebrew
-brew tap lessdb/lessdb &amp;&amp; brew install lessdb</code></pre>
+# Homebrew: no neutral public tap is advertised yet; use curl, npm, or cargo.</code></pre>
 <p>The installer puts <code>lessdb</code> in <code>~/.local/bin</code> <strong>and adds that directory to your <code>~/.zshrc</code> / <code>~/.bashrc</code> PATH automatically</strong>, so a new terminal just works — no PATH fiddling.</p>
 <p>Check it:</p>
 <pre class="language-sh"><code>lessdb --version     # lessdb 0.6.0</code></pre>
@@ -126,14 +128,14 @@ lessdb memory insert people '[{"id":1,"name":"ada"}]'
 lessdb memory sql "SELECT count(*) FROM people"</code></pre>
 <p>Everything persists under <code>.less/memory/</code>; every mutation snapshots atomically, so agents can crash and resume.</p>
 <h2>9. Open the agent door (MCP)</h2>
-<pre class="language-sh"><code>lessdb mcp                 # stdio JSON-RPC on .less — 27 tools for any MCP client</code></pre>
+<pre class="language-sh"><code>lessdb mcp                 # stdio JSON-RPC on .less — 28 tools for any MCP client</code></pre>
 <p>Register it with your client:</p>
 <pre class="language-json"><code>{ "mcpServers": { "lessdb": { "command": "lessdb", "args": ["mcp", "--dir", "/abs/path/to/mydb"] } } }</code></pre>
 <p>Tools: <code>lessdb_query</code>, <code>lessdb_explain</code>, <code>lessdb_schema</code>, <code>lessdb_stats</code>, <code>lessdb_tables</code>, <code>lessdb_optimize</code>, <code>context_<em></code>, <code>memory_</em></code>, <code>vector_*</code>, <code>lessdb_cypher</code>. Lock the door with <code>lessdb token create &lt;name&gt; --role read</code></p>
 <ul>
 <li><code>lessdb mcp --require-auth</code>, and review everything in <code>lessdb audit</code>.</li>
 </ul>
-<p>Run it hosted instead of locally with <code>lessdb server</code> — the same 27 tools over authenticated HTTP at <code>/mcp</code> (fail-closed, agent tokens required). Full walkthrough — local vs hosted, roles, tenants, troubleshooting — in the <a href="/docs/mcp">MCP guide</a>. To make your coding agent fluent in LessDB without reading the manual, install the one-file <a href="/docs/skills">LessDB skill</a>.</p>
+<p>Run it hosted instead of locally with <code>lessdb server</code> — the same 28 tools over authenticated HTTP at <code>/mcp</code> (fail-closed, agent tokens required). Full walkthrough — local vs hosted, roles, tenants, troubleshooting — in the <a href="/docs/mcp">MCP guide</a>. To make your coding agent fluent in LessDB without reading the manual, install the one-file <a href="/docs/skills">LessDB skill</a>.</p>
 <p>For a situation-aware agent integration, start with the <a href="/docs/agent-blueprints">agent deployment blueprints</a> and run the <a href="/docs/agent-scenarios">adoption scenarios</a>. They define identity, scope, bounded ContextPackets, provenance, handoffs and approval boundaries without pretending that an application policy predicate is native row ACL.</p>
 <h2>10. Serve it (HTTP + Prometheus)</h2>
 <pre class="language-sh"><code>lessdb server --addr 127.0.0.1:7080
@@ -166,10 +168,9 @@ curl -s localhost:7080/metrics              # Prometheus text format</code></pre
 <footer class="docs-footer">
   <div class="footer-inner">
     <span>LessDB — one database for agents and humans. <a href='license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
-    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+    <a href="/docs/architecture" class="gh-link">Architecture ↗</a>
   </div>
 </footer>
 <script src="../app.js"></script>
-<script src="../github-stars.js"></script>
 </body>
 </html>

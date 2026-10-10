@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+<script>document.documentElement.classList.add("js");</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>MCP — the agent door · LessDB</title>
@@ -13,11 +14,13 @@
 <link rel="stylesheet" href="../docs.css"/>
 </head>
 <body>
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="header-frame"><div class="header-inner">
     <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
-    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="/docs/architecture" class="project-link">Architecture</a></nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-controls="mobileNav" aria-expanded="false"><span></span><span></span><span></span></button>
   </div></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="/docs/architecture" class="project-link">Architecture</a></nav>
 </header>
 <div class="docs-layout">
   <aside class="docs-sidebar"><div class="side-group">Docs</div>
@@ -36,7 +39,7 @@
   <main class="docs-content">
     <h1>MCP — the agent door</h1>
     <h1>MCP — the agent door</h1>
-<p>LessDB speaks the Model Context Protocol natively. The same engine your humans query with SQL, your agents drive through a typed tool interface — with per-token roles, tenant scoping, and a full audit trail. No separate MCP proxy, no second database: one binary, two doors.</p>
+<p>LessDB speaks the Model Context Protocol natively. The same engine your humans query with SQL, your agents drive through a typed tool interface — with per-token roles, memory-tier tenant scoping, and an audit trail for MCP calls. No separate MCP proxy, no second database: one binary, two doors.</p>
 <h2>The two ways to run it</h2>
 <table><thead><tr><th></th><th><strong>stdio (local)</strong></th><th><strong>HTTP (hosted)</strong></th></tr></thead><tbody>
 <tr><td>Command</td><td><code>lessdb mcp [--dir .less]</code></td><td><code>lessdb server --addr 0.0.0.0:7080</code></td></tr>
@@ -46,7 +49,7 @@
 <tr><td>Auth</td><td>Optional (<code>--require-auth</code>), open for local dev</td><td><strong>Always fail-closed</strong> — agent tokens required</td></tr>
 <tr><td>Best for</td><td>Personal agents, laptops, air-gapped work</td><td>Team agents, CI agents, a "database as a service" for your org</td></tr>
 </tbody></table>
-<p>Both doors expose the <strong>same 27 tools</strong> over the same engine: SQL (<code>lessdb_query</code>, <code>lessdb_explain</code>, <code>lessdb_schema</code>, <code>lessdb_stats</code>, <code>lessdb_tables</code>, <code>lessdb_optimize</code>), agent memory (<code>context_<em></code>, <code>memory_</em></code>), vector search (<code>vector_*</code>), and graph (<code>lessdb_cypher</code>).</p>
+<p>Both doors expose the <strong>same 28 tools</strong> over the same engine; hosted HTTP is fail-closed while local stdio auth is optional for development: SQL (<code>lessdb_query</code>, <code>lessdb_explain</code>, <code>lessdb_schema</code>, <code>lessdb_stats</code>, <code>lessdb_tables</code>, <code>lessdb_optimize</code>), agent memory (<code>context_<em></code>, <code>memory_</em></code>), vector search (<code>vector_*</code>), and graph (<code>lessdb_cypher</code>).</p>
 <p>For new agent applications, place a small context broker above these tools. The broker opens an identity-bearing session, observes the current situation, recalls a bounded ContextPacket, records decisions and remembers the outcome. The packet should carry identity, situation, intent, source references, scope, validity, omissions and item/byte budget before any prompt is rendered. See the <a href="/docs/agent-blueprints">agent deployment blueprints</a> and <a href="/docs/agent-scenarios">adoption scenarios</a>.</p>
 <h2>1. Local setup (stdio) — the 30-second path</h2>
 <p>Create a database, then register the server with your agent. The command is the same everywhere; only the config file differs:</p>
@@ -58,7 +61,7 @@
     "args": ["mcp", "--dir", "/abs/path/to/mydb"]
 } } }</code></pre>
 <pre class="language-sh"><code>lessdb init --dir mydb                     # one-time
-lessdb mcp --dir mydb                      # stdio server on mydb — 27 tools</code></pre>
+lessdb mcp --dir mydb                      # stdio server on mydb — 28 tools</code></pre>
 <p><strong>What you just got</strong>: the agent can now run SQL over your tables, create its own durable notes and links (<code>context_put</code>/<code>context_link</code>), keep hot lookup state in RAM tables (<code>memory_*</code>), run vector search over your embeddings, and query relationships with <code>lessdb_cypher</code> — and every call lands in <code>lessdb audit</code>.</p>
 <h2>2. Hosted setup (HTTP) — one server, many agents</h2>
 <p>Run the door once, let every agent (and every teammate) point at it:</p>
@@ -109,7 +112,7 @@ lessdb server --addr 0.0.0.0:7080 \
 <p>outcome for every MCP call; stream it to your SIEM for compliance.</p>
 </ul>
 <p>Tenant namespaces are not a universal row-level ACL for shared <code>less_*</code> SQL tables. Scope, consent, temporal filtering, packet budgets, handoffs, retention jobs and approval gates are application or broker responsibilities unless a separate native feature is explicitly documented. A model completion is not an approval or an action result.</p>
-<h2>4. The 27 tools</h2>
+<h2>4. The 28 tools</h2>
 <table><thead><tr><th>group</th><th>tools</th><th>purpose</th></tr></thead><tbody>
 <tr><td>SQL</td><td><code>lessdb_query</code> <code>lessdb_explain</code> <code>lessdb_schema</code> <code>lessdb_stats</code> <code>lessdb_tables</code> <code>lessdb_optimize</code></td><td>analytics over Firefly/FireflyCloud tables</td></tr>
 <tr><td>context</td><td><code>context_put</code> <code>context_find</code> <code>context_get</code> <code>context_link</code> <code>context_unlink</code> <code>context_neighbors</code> <code>context_path</code> <code>context_delete</code></td><td>durable linked notes with typed edges, BFS, shortest paths</td></tr>
@@ -136,10 +139,9 @@ curl -fsSL https://lessdb.dev/skills/lessdb/SKILL.md -o .claude/skills/lessdb/SK
 <footer class="docs-footer">
   <div class="footer-inner">
     <span>LessDB — one database for agents and humans. <a href='license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
-    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+    <a href="/docs/architecture" class="gh-link">Architecture ↗</a>
   </div>
 </footer>
 <script src="../app.js"></script>
-<script src="../github-stars.js"></script>
 </body>
 </html>

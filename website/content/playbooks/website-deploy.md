@@ -66,9 +66,9 @@ The same artifacts feed every installer:
   `/npm/`. Users install with
   `npm install -g lessdb --registry https://lessdb.dev/npm/` (or the
   tarball URL directly). Never `npm publish`.
-* **Homebrew** — tap `lessdb/homebrew-lessdb` (repo
-  `lessdb.dev/downloads/`); the formula fetches from
-  `/dl`. Bump the formula (url + sha256 + version) on each release.
+* **Homebrew** — a neutral public tap is not advertised yet. Keep any
+  private/internal formula synchronized with `/downloads/` and the `/dl`
+  checksum artifacts before publishing a public tap.
 * **GitHub Releases** — `gh release create v<ver> dist/*.tar.gz
   dist/*.tar.gz.sha256` attaches the same artifacts as a mirror.
 

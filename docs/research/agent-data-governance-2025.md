@@ -55,7 +55,7 @@ The architectural takeaway for LessDB: a single embedded store that is both the 
 - **Expert sentiment (paraphrased, not direct quotes)** — across HN/Reddit/Lobsters and vendor blogs, the recurring governance asks for agent data access are: (1) **immutable, tamper-evident audit** of every tool call/read/write; (2) **schema + constraints** so agents can't corrupt state; (3) **deterministic query results** for reproducible reasoning; (4) **per-agent credentials**, so a compromised agent is revocable without killing a human's access; (5) **approval gates** on destructive operations. *These are consolidated from multiple secondary sources above rather than a single named expert quote.*
 
 ### Gap analysis for LessDB
-- **Strong already:** LDAP/AD RBAC (human authZ), MCP server with 27 tools (surface for tool-level policy), single embedded store = unified record.
+- **Strong already:** LDAP/AD RBAC (human authZ), MCP server with 28 tools (surface for tool-level policy), single embedded store = unified record.
 - **Must add to credibly claim "agent governance":** per-agent OAuth 2.1 client credentials (SEP-1046), tool-level permissions keyed to MCP annotations (`readOnlyHint`/`destructiveHint`), an immutable/append-only audit log, and a policy layer (Cedar or Rego). Row-level security and data lineage are the two primitives most enterprise buyers will check first.
 
 ## Key sources

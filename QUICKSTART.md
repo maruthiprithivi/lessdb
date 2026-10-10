@@ -5,7 +5,7 @@ Get from zero to queries (and agents) in ~2 minutes.
 ## 1. Install
 
 ```bash
-# Build + install the `less` binary (Rust ≥ 1.85 required):
+# Build + install the `less` binary (Rust ≥ 1.89 required):
 cd /path/to/less
 export CARGO_HOME="$PWD/.cargo"          # keeps the toolchain local
 cargo install --path crates/less-cli --features cloud,gpu --locked
@@ -15,7 +15,7 @@ export PATH="$PWD/.cargo/bin:$PATH"                       # this shell
 echo "export PATH=\"$PWD/.cargo/bin:\$PATH\"" >> ~/.zshrc  # permanent
 ```
 
-Verify: `less version` → `lessdb 0.1.0`
+Verify: `less version` → `lessdb 0.6.0`
 
 ## 2. Your first database
 
@@ -97,7 +97,7 @@ Claude Desktop `claude_desktop_config.json`:
 { "mcpServers": { "lessdb": { "command": "less", "args": ["mcp", "--dir", "/abs/path/to/mydb"] } } }
 ```
 
-Agents get 27 tools: `less_query/explain/schema/stats/tables/optimize`,
+Agents get 28 tools: `less_query/explain/schema/stats/tables/optimize`,
 `context_*`, `memory_*`, `vector_*`.
 
 ## 8. Disk hygiene (dev machines)

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+<script>document.documentElement.classList.add("js");</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Binary distribution on Cloudflare (R2 + Pages) · LessDB</title>
@@ -13,11 +14,13 @@
 <link rel="stylesheet" href="../docs.css"/>
 </head>
 <body>
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="header-frame"><div class="header-inner">
     <a href="../" class="brand"><svg class="brand-mark" width="28" height="28" viewBox="0 0 21 24" fill="none" role="img" aria-label="Lumo mascot mark" id="mascotBrand"></svg>&nbsp;LessDB</a>
-    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="https://lessdb.dev/" class="github-link">GitHub <span data-github-stars aria-label="Loading star count"></span></a></nav>
+    <nav class="main-nav" aria-label="Primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="/docs/architecture" class="project-link">Architecture</a></nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-controls="mobileNav" aria-expanded="false"><span></span><span></span><span></span></button>
   </div></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile primary"><a href='../'>Home</a><a href='/docs/getting-started'>Docs</a><a href='/playbooks/'>Playbooks</a><a href='/use-cases/'>Use cases</a><a href='/downloads/'>Downloads</a><a href="/docs/architecture" class="project-link">Architecture</a></nav>
 </header>
 <div class="docs-layout">
   <aside class="docs-sidebar"><div class="side-group">Playbooks</div>
@@ -38,22 +41,22 @@
 <tr><td>Pages project <code>lessdb</code></td><td>the website (lessdb.dev)</td></tr>
 <tr><td>Pages Function <code>/dl/[[path]]</code></td><td>serves bucket objects at <code>/dl/&lt;file&gt;</code> via an R2 binding — no public bucket access needed</td></tr>
 <tr><td><code>packages/npm</code></td><td>npm wrapper whose postinstall fetches + verifies from <code>/dl</code></td></tr>
-<tr><td><code>homebrew-lessdb</code> tap</td><td>formula fetching from <code>/dl</code></td></tr>
+<tr><td><code>Homebrew formula</code></td><td>only advertise after a neutral public tap is verified</td></tr>
 </tbody></table>
 <h2>Releasing a version</h2>
 <pre class="language-sh"><code># 1. build on each platform (macOS arm64 and Linux x64 today)
-bash scripts/package-release.sh 0.1.0          # -&gt; dist/*.tar.gz + .sha256
+bash scripts/package-release.sh &lt;version&gt;      # -&gt; dist/*.tar.gz + .sha256
 # on the Linux box: same script, same version
 
 # 2. upload (note: --remote, the default is a local simulation)
 wrangler r2 object put lessdb-downloads/&lt;file&gt; --file dist/&lt;file&gt; --remote
 
-# 3. update packages/npm/platforms.json checksums, bump package.json
-cd packages/npm &amp;&amp; npm publish
+# 3. update packages/npm/platforms.json checksums, bump package.json,
+#    then upload the wrapper package and packument to the configured R2 keys
 
-# 4. bump the Homebrew formula (url + sha256 + version), push the tap
-# 5. mirror on GitHub Releases:
-gh release create v0.1.0 dist/*.tar.gz dist/*.tar.gz.sha256
+# 4. update a Homebrew formula only after a neutral public tap is verified
+# 5. optionally mirror on a verified release host:
+gh release create v&lt;version&gt; dist/*.tar.gz dist/*.tar.gz.sha256
 
 # 6. regenerate + deploy the site (downloads manifest.json reads dist/)
 python3 scripts/build-site.py
@@ -68,10 +71,9 @@ wrangler pages deploy . --project-name lessdb --branch main</code></pre>
 <footer class="docs-footer">
   <div class="footer-inner">
     <span>LessDB — one database for agents and humans. <a href='../docs/license' style='color:inherit'>MIT License</a>.<br/>⚗️ Experimental — built with coding agents: a DBMS for AI, with AI.</span>
-    <a href="https://lessdb.dev/" class="gh-link">GitHub ↗</a>
+    <a href="/docs/architecture" class="gh-link">Architecture ↗</a>
   </div>
 </footer>
 <script src="../app.js"></script>
-<script src="../github-stars.js"></script>
 </body>
 </html>

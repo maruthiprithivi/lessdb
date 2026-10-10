@@ -14,7 +14,7 @@ there from what exists today.
 |---|---|
 | LDAP/AD + file auth with roles (`admin`/`read`/`write`) | ✅ HTTP server only (`less-auth`) |
 | Fail-closed group→role mapping, injection-safe filters, auth-failure counters | ✅ HTTP server |
-| MCP server, 27 tools (`less_*` shared engine, `context_*`/`memory_*`/`vector_*` tenant-scoped) | ✅ |
+| MCP server, 28 tools (`less_*` shared engine, `context_*`/`memory_*`/`vector_*` tenant-scoped) | ✅ |
 | **Append-only audit log** (`<data_dir>/audit/`, NDJSON, `lessdb audit`) | ✅ **implemented** — every MCP tool call recorded (caller, tool, role, outcome, SQL detail, duration) |
 | **Agent tokens** (`lessdb token create/list`, SHA-256-hashed store at `auth/tokens.json`) | ✅ **implemented** |
 | **MCP-door auth + tool→permission map** (`lessdb mcp --require-auth`, role ladder admin>write>read, fail-closed) | ✅ **implemented** |

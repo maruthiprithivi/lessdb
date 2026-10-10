@@ -100,4 +100,4 @@ LessDB can help an embodied agent answer **“what do I know, where did it come 
 
 It should not answer **“is it safe to move this motor right now?”** without the independent controller, interlocks, approvals and deployment controls that own that decision.
 
-See the full [physical-AI blueprint](PHYSICAL-AI-BLUEPRINTS.md) in the source project and the [agent adoption scenarios](/docs/agent-scenarios). LessVille remains the public fictional simulation for observing these context, provenance and coordination ideas without operating real devices.
+See the [agent deployment blueprints](/docs/agent-blueprints) and the [agent adoption scenarios](/docs/agent-scenarios). LessVille remains the public fictional simulation for observing these context, provenance and coordination ideas without operating real devices.

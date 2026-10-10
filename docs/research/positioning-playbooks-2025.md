@@ -54,7 +54,7 @@ Takeaway: "memory layer" and "AI-native" have been strip-mined; the open whitesp
 
 ## Implications for LessDB (natural-fit synthesis)
 
-The natural, non-forced position satisfying both audiences: **"the analytical database your agents and your analysts share."** Core promise = one SQL/columnar system that is simultaneously (a) a serious analytical engine analysts/engineers already trust, and (b) a governed, MCP-native memory/knowledge store agents can query — with the *same* governance (LDAP, audit, RBAC) applied to both. Doorways: analysts → "columnar SQL, RAM tables, real-time analytics"; agent builders → "MCP server with 27 tools + vector/graph/knowledge-graph search under one governed API." Avoid "AI-native" and "memory layer" as the lead; lead with the shared-system-of-record concept, which is under-used and maps to real governance willingness-to-pay.
+The natural, non-forced position satisfying both audiences: **"the analytical database your agents and your analysts share."** Core promise = one SQL/columnar system that is simultaneously (a) a serious analytical engine analysts/engineers already trust, and (b) a governed, MCP-native memory/knowledge store agents can query — with the *same* governance (LDAP, audit, RBAC) applied to both. Doorways: analysts → "columnar SQL, RAM tables, real-time analytics"; agent builders → "MCP server with 28 tools + vector/graph/knowledge-graph search under one governed API." Avoid "AI-native" and "memory layer" as the lead; lead with the shared-system-of-record concept, which is under-used and maps to real governance willingness-to-pay.
 
 ## Key sources
 

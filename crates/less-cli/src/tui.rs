@@ -633,7 +633,7 @@ impl App {
                     Line::raw("  No tables yet. Get value in 60 seconds:"),
                     Line::raw("    lessdb demo            seeded data + showcase queries"),
                     Line::raw("    lessdb sql             interactive REPL"),
-                    Line::raw("    lessdb mcp             open it to AI agents (27 tools)"),
+                    Line::raw("    lessdb mcp             open it to AI agents (28 tools)"),
                     Line::raw(""),
                     Line::raw("  MIT License · lessdb.dev/docs/license"),
                 ]

@@ -40,15 +40,17 @@ navigate by its light: SQL, vectors, and shared data work, one glow at a time.
 
 - The site implements the positioning from [docs/POSITIONING.md](../docs/POSITIONING.md):
   *"the analytical database your agents and your analysts share"* — one
-  governed system of record, two front doors, one audit trail.
+  governed engine, two front doors, with audited MCP calls.
 - Pitch copy avoids engine-internal and borrowed terminology — no Firefly,
   no "AI-native"/"memory layer" language, and no other databases are
   mentioned anywhere in the marketing prose.
 - The literal `ENGINE = Firefly` syntax appears **only inside quickstart
   code blocks** (steps 3 and 10) because it is the real CREATE TABLE syntax
   the CLI accepts — those commands must be copy-pasteable and correct.
-- The governance section describes the product's control plane (roles on
-  every door, per-agent identity/tenancy, one audit trail, approval gates).
+- The governance section describes the implemented control surfaces: hosted
+  HTTP agent tokens and role checks, optional local stdio auth, scoped
+  context/memory/vector namespaces, and MCP audit entries. Universal SQL row
+  grants, approval gates and lineage remain application/roadmap work.
   Shipped-vs-roadmap status for each item is tracked truthfully in
   [docs/AGENT-GOVERNANCE.md](../docs/AGENT-GOVERNANCE.md) §1.
 
@@ -64,7 +66,7 @@ Edit the map, then preview with `python3 _mascot_preview.py`.
 ## Distribution — Cloudflare packages
 
 The site presents the curl-first distribution model: every release (CLI
-tarballs, Python wheels, Node packages) is published to a package host on
+CLI tarballs and Node wrapper packages) is published to a package host on
 Cloudflare and installed from there:
 
 ```bash

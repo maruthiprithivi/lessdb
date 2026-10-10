@@ -18,7 +18,7 @@ How LessDB positions itself — a fit that comes from what the product
 
 Supporting line (the two-doorway frame):
 
-> **One engine, two front doors.** Agents work it over 27 MCP tools;
+> **One engine, two front doors.** Agents work it over 28 MCP tools;
 > humans work it over SQL, the REPL, and the SDKs. Same engine, same data,
 > same control, one audit trail.
 
@@ -88,7 +88,7 @@ The product already *is* this in three verifiable ways:
 
 | | Agents | Humans |
 |---|---|---|
-| **Door** | MCP (stdio), 27 tools | CLI/REPL, Python/Node SDKs, HTTP API |
+| **Door** | MCP (stdio), 28 tools | CLI/REPL, Python/Node SDKs, HTTP API |
 | **Work** | Query, search, link, persist context across sessions | SQL analytics, ingestion, dashboards, pipelines |
 | **Needs** | Tool-shaped access, cheap calls, persistence, *permission to act* | Full SQL, ecosystem interop (Arrow/pandas), *visibility + control* |
 | **Shared** | The same tables, vectors, graph — and the same governance | |

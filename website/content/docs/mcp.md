@@ -2,7 +2,7 @@
 
 LessDB speaks the Model Context Protocol natively. The same engine your
 humans query with SQL, your agents drive through a typed tool interface —
-with per-token roles, tenant scoping, and a full audit trail. No
+with per-token roles, memory-tier tenant scoping, and an audit trail for MCP calls. No
 separate MCP proxy, no second database: one binary, two doors.
 
 ## The two ways to run it
@@ -16,7 +16,7 @@ separate MCP proxy, no second database: one binary, two doors.
 | Auth | Optional (`--require-auth`), open for local dev | **Always fail-closed** — agent tokens required |
 | Best for | Personal agents, laptops, air-gapped work | Team agents, CI agents, a "database as a service" for your org |
 
-Both doors expose the **same 27 tools** over the same engine: SQL
+Both doors expose the **same 28 tools** over the same engine; hosted HTTP is fail-closed while local stdio auth is optional for development: SQL
 (`lessdb_query`, `lessdb_explain`, `lessdb_schema`, `lessdb_stats`,
 `lessdb_tables`, `lessdb_optimize`), agent memory (`context_*`, `memory_*`),
 vector search (`vector_*`), and graph (`lessdb_cypher`).
@@ -46,7 +46,7 @@ is the same everywhere; only the config file differs:
 
 ```sh
 lessdb init --dir mydb                     # one-time
-lessdb mcp --dir mydb                      # stdio server on mydb — 27 tools
+lessdb mcp --dir mydb                      # stdio server on mydb — 28 tools
 ```
 
 **What you just got**: the agent can now run SQL over your tables,
@@ -113,7 +113,7 @@ retention jobs and approval gates are application or broker responsibilities
 unless a separate native feature is explicitly documented. A model completion
 is not an approval or an action result.
 
-## 4. The 27 tools
+## 4. The 28 tools
 
 | group | tools | purpose |
 |---|---|---|
