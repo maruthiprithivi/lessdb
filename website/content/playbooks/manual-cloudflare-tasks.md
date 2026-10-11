@@ -6,7 +6,7 @@ exactly which steps are done and which need a human. Work top to bottom.
 ## ✅ Already done (2026-08-28)
 
 - [x] `wrangler login` — authenticated as `team@lessdb.dev`
-      (account `154cd854…`). Re-auth with `npx wrangler login` when the
+      (account `<your-cloudflare-account-id>`). Re-auth with `npx wrangler login` when the
       token expires.
 - [x] Zone **lessdb.dev** exists in that account (DNS is managed by
       Cloudflare).
