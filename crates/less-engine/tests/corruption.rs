@@ -257,7 +257,7 @@ async fn torn_part_with_meta_only_errors_on_read() {
 // ---- 4. WAL torn/garbage tail record -------------------------------------
 
 #[test]
-fn wal_garbage_tail_is_ignored_and_good_records_recovered() {
+fn wal_garbage_tail_rejects_open_without_discarding_good_records() {
     let dir = temp_dir("wal-garbage");
     let engine = open_engine(&dir);
     engine.create_table(def("t", false)).unwrap();
@@ -275,16 +275,15 @@ fn wal_garbage_tail_is_ignored_and_good_records_recovered() {
         &ipc_bytes(&batch(vec![3], vec!["c"], vec![3.0])),
     );
     append_wal_record(&wal_path, 3, b"not-an-arrow-ipc-stream");
+    let before = std::fs::read(&wal_path).unwrap();
     drop(engine);
 
-    // Reopen: the good record (lsn 2 > max flushed 1) must be recovered and
-    // the garbage tail ignored, without failing the whole open.
-    let engine = open_engine(&dir);
-    assert_eq!(
-        engine.stats("t").unwrap().rows,
-        3,
-        "flushed 2 + recovered 1"
-    );
+    // Neither discard the bad tail nor publish a partially validated prefix.
+    let error = LessEngine::open(EngineConfig::with_data_dir(&dir))
+        .err()
+        .expect("malformed WAL must reject writable open");
+    assert!(error.to_string().contains("invalid WAL"));
+    assert_eq!(std::fs::read(&wal_path).unwrap(), before);
     std::fs::remove_dir_all(&dir).ok();
 }
 
@@ -313,12 +312,16 @@ fn wal_bogus_length_prefix_does_not_panic() {
             .unwrap();
         f.write_all(&u64::MAX.to_le_bytes()).unwrap();
     }
+    let before = std::fs::read(&wal_path).unwrap();
     drop(engine);
 
     // Without a length guard this would attempt an absurd allocation and
-    // panic; the torn tail must instead be ignored.
-    let engine = open_engine(&dir);
-    assert_eq!(engine.stats("t").unwrap().rows, 3);
+    // panic; reject the log before allocating while preserving its bytes.
+    let error = LessEngine::open(EngineConfig::with_data_dir(&dir))
+        .err()
+        .expect("malformed WAL must reject writable open");
+    assert!(error.to_string().contains("invalid WAL"));
+    assert_eq!(std::fs::read(&wal_path).unwrap(), before);
     std::fs::remove_dir_all(&dir).ok();
 }
 
