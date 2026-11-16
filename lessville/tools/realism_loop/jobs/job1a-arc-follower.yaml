@@ -1,0 +1,35 @@
+id: job1a-arc-follower
+item: BL-0148 step 2b part 1 of 3 (BL-0167 job 1 split after run 20261116-1525; see ROOT-CAUSE-iter1-parse-iter2-truncation.md)
+spec: |
+  Job 1a: replace waypoint chasing with an arc-length path follower, KEEPING CURRENT BEHAVIOUR
+  (same routes, same speeds, same arrival, same fading). Do NOT add avoidance yet (jobs 1b/1c do that;
+  the zebra-overlap checks stay failing after this job and that is expected).
+  - In _update_walkers and in _update_background, wherever a new path is built (goal change), also store
+    v["poly"] = [current v["pos"]] + the path points (Array of Vector2) and v["s"] = 0.0.
+  - Each tick advance v["s"] by the movement budget (clamped to the polyline length) and set
+    v["pos"] = the point at arc length s on v["poly"]. Add ONE small helper as a new function, e.g.
+    static func _poly_point(poly: Array, s: float) -> Vector2.
+  - Keep v["path"] as the REMAINING waypoints (pop the points whose arc position is <= s): other code
+    and the tests read it, and it must be empty on arrival.
+  - Facing: when moving, v["dir"] = direction of the poly segment that contains s (equal to the step).
+  - Where a walker is relocated silently (hidden) or its path is cleared, set v["poly"] = [] and v["s"] = 0.0.
+  - Initialise "poly": [] and "s": 0.0 in the dictionaries created for new walkers.
+  - No lateral displacement; positions only ever come from P(s) (G16: stay-on-nav by construction).
+  Target check 'walkers follow arc-length path (job 1a)' (suite.arc_follow): every visible walker with a
+  non-empty path has poly (>= 2 points) and s; feet == P(s) within 0.5 px; s never decreases while the
+  polyline is unchanged. Every check that passes now must keep passing (facing, stay-on-nav, bus, progress).
+  WHOLE-FUNCTION MODE (run 20261116-1653 root cause: splices landed in the wrong scope): send the complete new
+  _update_walkers and _update_background (every line, unchanged lines copied exactly) plus the complete new helper.
+  Keep the existing structure of each function and change only what the follower needs.
+edit_mode: whole_function        # harness swaps whole function spans; partial splices are rejected
+answer_format: code_blocks       # raw fenced GDScript per function, no JSON strings (run 20261116-2022)
+allow_new_functions: true        # new helpers are appended whole at the end of the file
+context_files:
+  - scripts/lessville/town_view.gd
+  - test/crossing_sim.gd
+read_only: [test/crossing_sim.gd]
+context_funcs:
+  scripts/lessville/town_view.gd: [_update_walkers, _update_background, _path, _along, _best_start]
+  test/crossing_sim.gd: [poly_point, _arc_measure]
+gates: [suite.arc_follow]
+must_keep: [suite.facing_matches_heading, suite.pedestrians_stay_on_nav, suite.bus_route_and_dwell, suite.walkers_progress]

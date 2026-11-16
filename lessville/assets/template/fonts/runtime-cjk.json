@@ -1,0 +1,29 @@
+{
+  "family": "Noto Sans SC",
+  "role": "glyph fallback after the template body font",
+  "subset": true,
+  "repertoire": "All 3,500 tier-one and 3,000 tier-two characters from the 2013 Table of General Standard Chinese Characters, plus 47 fixed UI/name extras, except U+20BB7 which upstream Noto Sans SC does not contain; plus Latin, general punctuation, currency, arrows, CJK punctuation and fullwidth forms. Third-tier/rare names and Traditional Chinese are not promised.",
+  "path": "assets/template/fonts/NotoSansSC-VF.subset.woff2",
+  "source": {
+    "sha256": "sha256:38f4c5f927f746b3dfa4c3a5d7edf0b7a3e828e27438418fa54f9e1565289412",
+    "size": 1869368,
+    "assetType": "font",
+    "groupId": "template"
+  },
+  "unicodeCodepoints": 6547,
+  "repertoireExceptions": [
+    134071
+  ],
+  "codepointManifestSha256": "12f677fdbc8c1890f9362d55b5090fc4d1c813f4e0150363bbae19528a82b92b",
+  "upstreamSourceSha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da",
+  "variationAxes": {
+    "wght": [
+      100,
+      900
+    ]
+  },
+  "license": "OFL-1.1",
+  "noticeRequired": true,
+  "licenseFile": "assets/template/fonts/NotoSansSC-OFL.txt",
+  "loaderPolicy": "Separate lightweight subsets of the same approved family, embedded in each Web loader."
+}

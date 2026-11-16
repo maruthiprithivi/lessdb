@@ -1,0 +1,30 @@
+{
+  "name": "lessville",
+  "version": "2.1.0",
+  "private": true,
+  "scripts": {
+    "verify": "./tools/verify.sh",
+    "scenario:test": "./tools/run_agent_scenarios.sh",
+    "scenario:sc03": "./tools/run_agent_scenarios.sh sc03_temporal_expiry",
+    "scenario:sc04": "./tools/run_agent_scenarios.sh sc04_zero_day_payload",
+    "scenario:traffic-chaos": "python3 tools/run_traffic_chaos.py --binary ${LESSVILLE_BINARY:-backend/agentd/target/debug/lessville-agentd}",
+    "security:injection:test": "python3 tools/run_embodied_injection_test.py",
+    "scenario:stability": "python3 tools/run_world_stability.py",
+    "physical:test": "cd tools && python3 -m unittest test_physical_ai_adapter.py",
+    "sim:security": "python3 tools/serve_security_lab.py --backend http://127.0.0.1:8812 --port 8810",
+    "sim:reachy-daemon": "python3 tools/serve_reachy_daemon_visual.py --model-root ${REACHY_MJCF_ROOT:-./.local/reachy_mjcf} --port 8804",
+    "sim:hub": "python3 tools/serve_embodied_lab.py --port 8799",
+    "sim:world": "python3 tools/serve_unified_embodied_world.py --port 8800",
+    "verify:release": "./tools/verify.sh --export",
+    "verify:clean": "./tools/verify_clean_scaffold.sh",
+    "export": "./tools/export_web.sh",
+    "dev": "./tools/run_local.sh",
+    "build": "./tools/export_web.sh",
+    "preview:build": "node scripts/manus/runtime-command.cjs ./preview-build.mjs",
+    "preview:status": "node scripts/manus/runtime-command.cjs ./preview-build.mjs --status",
+    "doctor": "node scripts/manus/runtime-command.cjs ./doctor.mjs",
+    "check": "./tools/verify.sh",
+    "inspect": "node scripts/manus/runtime-command.cjs ./inspect-file.mjs",
+    "assets:report": "node scripts/manus/runtime-command.cjs ./asset-provenance.mjs"
+  }
+}

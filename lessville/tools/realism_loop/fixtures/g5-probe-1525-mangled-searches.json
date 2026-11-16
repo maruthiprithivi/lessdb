@@ -1,0 +1,17 @@
+{
+ "p1-job1a-arc-follower": {
+  "file": "scripts/lessville/town_view.gd",
+  "search": "_vis[id] = {pos: start, path: [], goal: String(g[node]) + str(g[point]),",
+  "replace": "_vis[id] = {pos: start, path: [], poly: [], s: 0.0, goal: String(g[\"node\"]) + str(g[\"point\"]),\n\t\t\t\t\"alpha\": start_alpha, \"dir\": start_dir, \"hidden\": bool(g[\"hidden\"]),\n\t\t\t\t\"seated\": bool(sp.get(\"seated\", false)) if not sp.is_empty() else bool(g.get(\"seated\", false)),\n\t\t\t\t\"facing\": String(sp.get(\"facing\", g.get(\"facing\", \"s\"))) if not sp.is_empty() else String(g.get(\"facing\", \"s\")),\n\t\t\t\t\"moving\": false, \"phase\": 0.0, \"vel\": Vector2.ZERO}"
+ },
+ "p2-job1b-follow-gap": {
+  "file": "scripts/lessville/town_view.gd",
+  "search": "var path_now: Array = v[&quot;path&quot;] # placeholder to ensure unique context if needed, but we use the actual code below",
+  "replace": "var path_now: Array = v[&quot;path&quot;]"
+ },
+ "p3-job1c-zebra-reservation": {
+  "file": "scripts/lessville/town_view.gd",
+  "search": "var path_now: Array = v[\u201cpath\u201d]",
+  "replace": "var path_now: Array = v[\"path\"]\n\t\tvar poly: Array = v.get(\"poly\", [])\n\t\tvar s: float = float(v.get(\"s\", 0.0))\n\t\tvar budget := speed * delta\n\t\tvar start_pos: Vector2 = v[\"pos\"]\n\t\tif poly.size() >= 2:\n\t\t\tvar total_len := 0.0\n\t\t\tfor i in range(poly.size() - 1):\n\t\t\t\ttotal_len += (poly[i + 1] as Vector2).distance_to(poly[i] as Vector2)\n\t\t\tvar next_s := s + budget\n\t\t\tif next_s > total_len:\n\t\t\t\tnext_s = total_len\n\t\t\t\tv[\"s\"] = next_s\n\t\t\t\tv[\"pos\"] = _P(poly, next_s)\n\t\t\t\tif next_s >= total_len - 0.1:\n\t\t\t\t\tv[\"path\"] = []\n\t\t\t\t\tv[\"poly\"] = []\n\t\t\telse:\n\t\t\t\tv[\"s\"] = next_s\n\t\t\t\tv[\"pos\"] = _P(poly, next_s)\n\t\telse:\n\t\t\twhile budget > 0.0 and not path_now.is_empty():\n\t\t\t\tvar target: Vector2 = path_now[0]\n\t\t\t\tvar pos: Vector2 = v[\"pos\"]\n\t\t\t\tvar d := pos.distance_to(target)\n\t\t\t\tif d <= budget:\n\t\t\t\t\tv[\"pos\"] = target\n\t\t\t\t\tbudget -= d\n\t\t\t\t\tpath_now.pop_front()\n\t\t\t\telse:\n\t\t\t\t\tv[\"pos\"] = pos + (target - pos) / d * budget\n\t\t\t\t\tbudget = 0.0"
+ }
+}

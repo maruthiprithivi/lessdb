@@ -1,0 +1,28 @@
+[package]
+name = "less-storage"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+async-trait = "0.1.89"
+arrow = "59"
+base64 = "0.23.1"
+bytes = "1.12.1"
+chrono = "0.4.45"
+fastbloom = "0.17.0"
+futures = "0.3.34"
+less-common = { path = "../less-common" }
+lz4_flex = "0.14.0"
+object_store = "0.13"
+parquet = { version = "59", features = ["arrow", "zstd", "lz4", "snap"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+tokio = "1.53.1"
+url = "2.5.8"
+uuid = { version = "1.26.0", features = ["v4"] }
+zstd = "0.13.3"
+
+[features]
+cloud = ["object_store/aws", "object_store/gcp", "object_store/azure"]

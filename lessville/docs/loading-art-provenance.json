@@ -1,0 +1,15 @@
+{
+  "choice": "generic",
+  "prompt": "Use case: stylized-concept. Asset type: opaque game loading background, exactly 1536x1024 landscape. Create ONE premium text-free key-art image for a minimalist collection/chase arcade game. Scene: a precision graphite maze surface in a dark studio, low porcelain-white walls and a subtle path of tiny ice-blue energy beads. Subject: a smooth porcelain-white circular runner puck with a satin aluminum rim and single blue direction light escaping from a brushed silver rounded-diamond sentinel with a small coral light. No faces or limbs. Restrained industrial design, polished tactile materials, soft cool studio illumination, charcoal, porcelain and subtle blue palette. Composition: coherent close three-quarter view, actual chase action concentrated in upper half and outer sides; lower central third is calm dark graphite negative space for separate live loading text and a progress bar. Full-bleed opaque background, no borders. No words, letters, numbers, logos, UI, loading bars, engine branding, watermarks, busy particles or extra objects.",
+  "tool": "builtin image_gen",
+  "model": "unknown (not exposed by built-in tool)",
+  "generatedMasterSha256": "1cf21fdcd488293d673e82bd8029e3d5c302e76b010ad97a004a94e1e2b622c8",
+  "asset": "assets/template/ui/loading-background.png",
+  "assetSha256": "16dde3061f4e60802f8f0d1a6b875e72b6add05192237b03fef1fd313968a13a",
+  "embeddedWebpSha256": "56c1006ba75c18e3f76db87debbbcc144186be23a935f918807faa97764147bd",
+  "processing": "Aspect-preserving downscale to 1280px width; 256-color PNG boot image and quality-82 WebP embedded before PCK; no text baked into either image.",
+  "bytes": {
+    "png": 473356,
+    "webp": 41854
+  }
+}

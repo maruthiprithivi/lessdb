@@ -1,0 +1,52 @@
+{
+  "description": "G12 local Office bed-patch checks (BL-0148 step 4 a2). All masks, the 1a099fc reference art, plank seam rows and the nightstand-green rule are frozen from 1a099fc and must never be redrawn from the output under test.",
+  "source_commit": "1a099fc0919c1417741d4ce51f165a75a8290bf7",
+  "fail_first_commit": "c56c361ae16f73598194b332f94b462b8f191f47",
+  "reference_art": "config/office_art_1a099fc.png",
+  "desk_mask": "config/office_desk_mask.png",
+  "patch_mask": "config/office_bed_patch_mask.png",
+  "plank_seams": [
+    270,
+    284,
+    299,
+    317,
+    336,
+    353,
+    370,
+    390,
+    410,
+    430,
+    450,
+    471,
+    493
+  ],
+  "neighbor_dilate_px": 24,
+  "max_row_luma_delta": 10.0,
+  "max_row_hue_delta": 12.0,
+  "window_px": 40,
+  "dark_luma_margin": 16.0,
+  "min_dark_component_px": 40,
+  "min_dark_height": 3,
+  "min_edge_grad": 4.0,
+  "max_sharp_dark_px": 80,
+  "desk_channel_tol": 16,
+  "max_desk_mismatch_px": 40,
+  "green_roi": [
+    0,
+    250,
+    160,
+    400
+  ],
+  "chair_exclude": [
+    70,
+    200,
+    150,
+    286
+  ],
+  "max_nightstand_green_px": 8,
+  "max_failing_seam_rows": 1,
+  "min_seam_ycorr": 0.5,
+  "seam_jump_mult": 2.5,
+  "seam_jump_add": 1.5,
+  "left_end_support_roi": "config/office_left_end_roi.png"
+}

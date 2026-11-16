@@ -1,0 +1,3110 @@
+{
+  "assets": {
+    "assets/game/characters/ama_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:d2c9e733ecddf2652e49bff64945ce9a7c0755dc1bc1cd1d8d3991683cea9b13",
+      "shipped": null,
+      "size": 12758,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:215f45d6d8a73eb6328d46f3762a8a26156bb33bfa039095bb89cb4f42567a12",
+      "shipped": null,
+      "size": 13152,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:7722d28f1c39ee5f3dc424e8f0fe6fa067b1e333eecb050a80e4f06f8c3975d2",
+      "shipped": null,
+      "size": 12246,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:cbb7d76fe0db7b20722405b5391fe6b23468fd216d3436a831e42aee825f7c93",
+      "shipped": null,
+      "size": 12915,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_back_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:2a7d6c2c559f8decf894508fe76c25b18922a0ed3b4becd2919ec9f83546e4cd",
+      "shipped": null,
+      "size": 9812,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_back_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:4c4d99068c7dd7cb773be2693d2db98e3796ce9cea0e68cfaa0bb71a17e10fd1",
+      "shipped": null,
+      "size": 9895,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_free_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:23b74e04e8b22856fcc00d8af70c67e9e1d62c9485961407de2405a4ebaed181",
+      "shipped": null,
+      "size": 12417,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_free_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:d269024c687c8cde492c580d4cebd88ff7c4b4f4fdda88e8120dd522edf5c5be",
+      "shipped": null,
+      "size": 12766,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_free_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:e3c93f6a366d5628a370deffd4295b58ea5771b31f3dde974ce3f493c06f7d9a",
+      "shipped": null,
+      "size": 11909,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_free_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:6ff10a64dee5750dd91d17f68c966598d9815a9366951a5046d657afb8a444c9",
+      "shipped": null,
+      "size": 12609,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_seat_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:2131ef29cd97ebbc4d15942c9b625a985123d8a41c832714436ac40c0d7a8150",
+      "shipped": null,
+      "size": 9076,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/ama_seat_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:28a000f7a34af12e4c12ba7c9d879284e3035a4fd1b42a4688288204e1107b97",
+      "shipped": null,
+      "size": 9289,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:15f418b65b8e9dea01df578cd4553989bb4e83bc5ede7347fe594757350d7275",
+      "shipped": null,
+      "size": 10745,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:a659bbe69c3bb09887f83c52f610198b3d786e4021cbb3b7e4f988ee3f85a6bc",
+      "shipped": null,
+      "size": 11441,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:432d0552cc56756b0d7f47d47c7ab0ef12ced767d3572ddad0761946ca104c8f",
+      "shipped": null,
+      "size": 10637,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:ddafa8cc16ba200f336e90442300b943e19db8002be3706182ba97d223cb0c55",
+      "shipped": null,
+      "size": 11032,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_back_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:a4e6f20369337175fe13eb505516349ee524f954ea86e4b7e5eb29b8f2241142",
+      "shipped": null,
+      "size": 9726,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_back_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:dad51af3322ff7a41017f9cfa39f4c90250e5058b8773be4eb186ad1a347f635",
+      "shipped": null,
+      "size": 9889,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_free_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:0166c494083d182ef8303c52f798d2322799d1e7deaed92d34197f8f5e0fe882",
+      "shipped": null,
+      "size": 10659,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_seat_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:b93c2fbc718ff0ec2413d76177bb89180d19a735e713199583220a8545c34fa7",
+      "shipped": null,
+      "size": 8709,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/bo_seat_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:201b958b32d0b44d366e1e3b6110e213a585789e0254f407127ed541ce2690fa",
+      "shipped": null,
+      "size": 8851,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:2693eb8f31db383bd3865cfbd2b055a8957fee25dab06ec75eaabf951393372b",
+      "shipped": null,
+      "size": 11858,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:5b4586463ee05a26d62ed82fe7f24485db5810abecafd3f6faece3c401efeed6",
+      "shipped": null,
+      "size": 12530,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:3ad7de02c583348d7084a6afea0a73b2a37e5cbd2b0a05881275e7f62c4404cd",
+      "shipped": null,
+      "size": 10896,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:d7bbf2bb0328049951628f7a75d75f06a86965980d584dc2e57d1a3d3af00efe",
+      "shipped": null,
+      "size": 12210,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_back_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:db3f5424fb2adeb85602d95c5c7ba9dd3564d81020df7cde3d2b484dbd49854f",
+      "shipped": null,
+      "size": 9934,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_back_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:0646cc4630269bb2a210bb19d89cf1d119c4b7285c45a70a47bcaa164bab37c3",
+      "shipped": null,
+      "size": 9566,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_seat_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:e313a893b7c081cd0815f05e51100a7f726087e03052d79c453a34657c226f21",
+      "shipped": null,
+      "size": 8530,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_seat_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:347ada9a47868086b923e5017aad464d59f92824e2cd15971d018c14fa25f81f",
+      "shipped": null,
+      "size": 8623,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_seat_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:754142b55db8d4a22bd3de8485e36a4e7f6341cb8921e45d787a60e4a781aa76",
+      "shipped": null,
+      "size": 8116,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/lin_seat_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:977f78c458a72f2624d776995e1fb21843a543ea362e8a84421e40dfb99fdf78",
+      "shipped": null,
+      "size": 8132,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/maya_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:09c6bf1de83d58f4938c40d077d13739399ad50682fcdf80853f29c77e5f3389",
+      "shipped": null,
+      "size": 9927,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/maya_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:c3fa75ddcb737d569b433ade78d7a68e918ec7bd3f82063e2657707e8916b601",
+      "shipped": null,
+      "size": 10750,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/maya_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:58ac9a8450305f79d319b1d2e1cbb2817421a9fdfb08c053ca55cba5544c2bfa",
+      "shipped": null,
+      "size": 9779,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/maya_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:e1bfca3875e12dd106e73c18696e3026e23a53d72f56d01583c8b443ecf399f5",
+      "shipped": null,
+      "size": 10101,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/maya_back_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:88097f813d2a26dbe57c9cc4a6b3e5d5329f33a7e85a5bd141711860e2c62ef1",
+      "shipped": null,
+      "size": 8744,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/maya_back_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:5eb2793ec4956acf404b8826093b0fa8569052de58dcd47f8ade7b73a44c11b3",
+      "shipped": null,
+      "size": 8513,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/maya_seat_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:32625d41e8ef96ca1d1aeba97adf3db3af6af94dfd30a086ed72d5ba788f9500",
+      "shipped": null,
+      "size": 6607,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/maya_seat_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:59b706dffef84e196593032f59654ebed7ea7e1f6b96ff89113556eb639e3699",
+      "shipped": null,
+      "size": 6574,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/mochi_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [
+        "scripts/lessville/interior_view.gd"
+      ],
+      "regions": [],
+      "sha256": "sha256:efc85f13a6d2cb2a7414dfa9a5d09de17bceb84a055487868b635b3d26182d16",
+      "shipped": null,
+      "size": 3433,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "scripts/lessville/interior_view.gd"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/game/characters/mochi_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:d0a790e9bb0a704c9914caa656732cd1adf4a71111733ea2e3fc27b2ed98bd87",
+      "shipped": null,
+      "size": 3713,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/mochi_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:ef32cb6784c5153b4621eeab18e0355b8c94b7dae9c02b13095211feae6c27e8",
+      "shipped": null,
+      "size": 3321,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/mochi_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [
+        "scripts/lessville/interior_view.gd"
+      ],
+      "regions": [],
+      "sha256": "sha256:82b5621cd569d7184915dd9bc18eb061b91d322f99fdded7ec4d9046d8682902",
+      "shipped": null,
+      "size": 3471,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "scripts/lessville/interior_view.gd"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/game/characters/priya_typing_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:df492e98dd212576edff53f2b70645b2c28b72431d48d1d468d8dc6290c8f04e",
+      "shipped": null,
+      "size": 8098,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/priya_typing_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:a813afc406e8452fda491fca09674e8a149f3c5a913829450ff5e261ff16056d",
+      "shipped": null,
+      "size": 8029,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:31a8c8409a7d0bd511ff3924cc8e217b8e1e5e73bfea2026d077d2a9d8cbc18c",
+      "shipped": null,
+      "size": 9701,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:84834e8f6018cf94d68227e9090b651aed4ca0d08c639aed5ec733e470a6bb24",
+      "shipped": null,
+      "size": 10849,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:c6af7d97f43f80629be55a9f7a35427dbd41d6184b27664e8d6cb09b06c807a1",
+      "shipped": null,
+      "size": 9525,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:692ac28b889adaad33bfffbefaff2e64209ead2135fee3c14f2c69b9a16746c4",
+      "shipped": null,
+      "size": 10092,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_back_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:23082dad4f7944641fd0c10440b509271d68b67a2bca3b000d4dd3bcd89f8e07",
+      "shipped": null,
+      "size": 9373,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_back_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:b0a867a72c1a9687916229a7f6daf86ee09a6ec8b4f6051b4e4448ee10a97c77",
+      "shipped": null,
+      "size": 9213,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_free_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:96e9b824eb2969b35bfa217e9bbd954cdc3ba5ba7e242544e213b45caadc86eb",
+      "shipped": null,
+      "size": 9512,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_free_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:63603848909009c13f35b29a078306fb31035fe649bb40ad4eee703fca14f621",
+      "shipped": null,
+      "size": 10540,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_free_2.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:6933bdc19e69f3527c5c6104f8eb802105aec7c29d3b6bf2912e9f6b98d4d7ff",
+      "shipped": null,
+      "size": 9260,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_free_3.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:18a528602bad1e274fd3711dfe948ef17c61673af1ce4768a30d07c02b0b3883",
+      "shipped": null,
+      "size": 9910,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_seat_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:c5554a5e3ff30a3a41249b186540ca10145fafbbae1a6ba83754ec94d9f8138b",
+      "shipped": null,
+      "size": 8155,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_seat_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:71b38dac7d93014e4d2bfbea71a67fe42e05949058060dd8ab84b38f72d7c5a3",
+      "shipped": null,
+      "size": 7947,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_typing_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:3b30e164ded51d33d5776209316763f6f2a91aa93722ee21cf4f0ddd10467b1f",
+      "shipped": null,
+      "size": 8014,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/sam_typing_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:206a499aa7543447e5023d214dcef2e1fd4a623a637d5750d1dff070d20843de",
+      "shipped": null,
+      "size": 7874,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/tom_typing_0.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:a03ad63c9ca4ed36f5cb2ec121b5b6b156d54980864bd4f9bd4d797ff89c6441",
+      "shipped": null,
+      "size": 8471,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/characters/tom_typing_1.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:cbe16b69312fa3fb900285eaf5b4011f679fb1725745d7ee887e6585dc55de59",
+      "shipped": null,
+      "size": 8317,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/locations/bus.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:e8c5109190102a5d680eb51e0e0e0fa945641769762f4efd8e423ba7fc4602ee",
+      "shipped": null,
+      "size": 421644,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/locations/bus_scenery.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [
+        "scripts/lessville/interior_view.gd"
+      ],
+      "regions": [],
+      "sha256": "sha256:2557eeaad465cc78306c0a61f526b7b8d60a62a7a6f21589d8055deaec09c46d",
+      "shipped": null,
+      "size": 1130895,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "scripts/lessville/interior_view.gd"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/game/locations/cafe.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:a4d8b65bddb34fd11a51e74db1807ba6cdb84cb666ac97f309b933d8b974b757",
+      "shipped": null,
+      "size": 371178,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/locations/grocery.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:44d21e36676e4ff8f0867f7b7dc3f9b02f61385f9f3013323f50d0600cc116af",
+      "shipped": null,
+      "size": 402642,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/locations/gym.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:362ca84aa317e741c11db8b44d76b5d7563e05263b7eb58450f974e323b3e78b",
+      "shipped": null,
+      "size": 413514,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/locations/home.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:88711ddd29becf82179a085dcc8b28925a8080519b5b6f659ca5a285dc20f0ed",
+      "shipped": null,
+      "size": 393208,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/locations/office.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:c8897688e545c952141f6dd0209b474565ffa4e844c0d7c09a28b02e52a8e559",
+      "shipped": null,
+      "size": 513159,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/locations/school.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0",
+      "shipped": null,
+      "size": 374190,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/locations/town.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [
+        "scripts/lessville/town_view.gd",
+        "scripts/main.gd"
+      ],
+      "regions": [],
+      "sha256": "sha256:fb48128fa9b36bbd82c2009c1265e6bd594fc0ab4ac1e82e793875a879e2f0cf",
+      "shipped": null,
+      "size": 2352039,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "scripts/lessville/town_view.gd",
+        "scripts/main.gd"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/game/locations/trail.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:7459b8205af0c51e1fa56788f3f81133c5c745500931e3a1ded8545c770c945f",
+      "shipped": null,
+      "size": 688299,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/props/backpack.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:1c54f926bb83d24824cbc3d6d44204e9f4deea29d0125232dd30a7f464c5c654",
+      "shipped": null,
+      "size": 2944,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/props/bus.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [
+        "scripts/lessville/town_view.gd"
+      ],
+      "regions": [],
+      "sha256": "sha256:945a908762dbb30f0315606798627b3a2e262aaecf73c68fbe3967938c5df702",
+      "shipped": null,
+      "size": 40769,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "scripts/lessville/town_view.gd"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/game/props/coffee.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:ec31ba456eec634b884187d3f219956f9b36208cfe427a9b7fe4a3af9bd62371",
+      "shipped": null,
+      "size": 1576,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/props/grocery_bag.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:7b4333189a621b92c862dc3c0d2af90a9585b2ae0991c7e6927b52a2ce92837b",
+      "shipped": null,
+      "size": 1950,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/props/milk.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:0bf6975e370e788d7d385d05be6583700795badca751618373337e30d51ab531",
+      "shipped": null,
+      "size": 1882,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/share/favicon.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [
+        "game-sharing.json",
+        "project.godot"
+      ],
+      "regions": [],
+      "sha256": "sha256:be5d171bc71ebd995e44ad44d1f01dab468c414b547d249ab91c87a0834397e3",
+      "shipped": null,
+      "size": 8049,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "game-sharing.json",
+        "project.godot"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/share/og.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [
+        "game-sharing.json"
+      ],
+      "regions": [],
+      "sha256": "sha256:f91506068063bab231d8b9ad09b338f7de49e848dea368fa1b72f2cb8548f05a",
+      "shipped": null,
+      "size": 1307322,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "game-sharing.json"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/template/characters/runner.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:c88485773d6ff9361e036f37d8ac76fb77b8c3f7c041c3f52c8dd222adc8cc21",
+      "shipped": null,
+      "size": 68885,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/characters/sentinel.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:0d9fb751bca5507ba14f7090573e6605a94753390a9e7c53bf2f590f0a24918d",
+      "shipped": null,
+      "size": 64998,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/environment/backdrop.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:ec4ab7867e60fb483dd438459f587b478aac4c1e71ec4fe509ce74a18de34216",
+      "shipped": null,
+      "size": 971282,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/environment/foreground.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:4b6916024c69961fbfa7cdc929c68f547fea4561e61ebdb3405b3aba0efbd94d",
+      "shipped": null,
+      "size": 58603,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/fonts/Figtree-VF.subset.woff2": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [
+        "assets/template/fonts/ui_bold.tres",
+        "assets/template/fonts/ui_medium.tres",
+        "assets/template/fonts/ui_regular.tres"
+      ],
+      "regions": [],
+      "sha256": "sha256:b3976c5969c8b1afd81dc3e314b61d8ffe3f3f58cf40906443105d330e6e0bdf",
+      "shipped": null,
+      "size": 23660,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "assets/template/fonts/ui_bold.tres",
+        "assets/template/fonts/ui_medium.tres",
+        "assets/template/fonts/ui_regular.tres"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/template/fonts/NotoSansSC-VF.subset.woff2": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {
+        "id": "OFL-1.1",
+        "url": "https://openfontlicense.org/open-font-license-official-text/"
+      },
+      "origin": "template",
+      "referenceEvidence": [
+        "assets/template/fonts/noto_sans_sc_bold.tres",
+        "assets/template/fonts/noto_sans_sc_medium.tres",
+        "assets/template/fonts/noto_sans_sc_regular.tres"
+      ],
+      "regions": [],
+      "sha256": "sha256:38f4c5f927f746b3dfa4c3a5d7edf0b7a3e828e27438418fa54f9e1565289412",
+      "shipped": null,
+      "size": 1869368,
+      "source": {
+        "name": "NotoSansSC-VF.subset.woff2",
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "assets/template/fonts/noto_sans_sc_bold.tres",
+        "assets/template/fonts/noto_sans_sc_medium.tres",
+        "assets/template/fonts/noto_sans_sc_regular.tres"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/template/fonts/display/Sora-VF.subset.woff2": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:438fbf4582548e76b266a738f2c11bcbd5137978f2d2e2f3aaabd49df69186f2",
+      "shipped": null,
+      "size": 41696,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/powerups/energy.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:ffd7906f240f928e785d7c19a9e7a7b5dfab0d7483be5205dda3e4ba17ebe06a",
+      "shipped": null,
+      "size": 50950,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/powerups/magnet.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:6e7354aa6510a462717218b09b9d784bb161b87878bff62ef4f2a9d03c053de7",
+      "shipped": null,
+      "size": 53724,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/powerups/overdrive.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:6a48a85886c0551c1af0df576b0225f0ec3ae86b326fd84fc614083fbfe2908b",
+      "shipped": null,
+      "size": 37238,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/powerups/shield.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:8cebf0cf730ca35c8c8697192ef78121c926442328a0725e0bd3e31701d64f13",
+      "shipped": null,
+      "size": 39659,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/powerups/slow_field.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:96874c000866b2e7503b40da73888afb918ae36e462f51488415157da52a8637",
+      "shipped": null,
+      "size": 49145,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/ui/loading-background.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [
+        "project.godot"
+      ],
+      "regions": [],
+      "sha256": "sha256:16dde3061f4e60802f8f0d1a6b875e72b6add05192237b03fef1fd313968a13a",
+      "shipped": null,
+      "size": 473356,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [
+        "project.godot"
+      ],
+      "used": true,
+      "usedBy": []
+    },
+    "assets/template/ui/pause_glass.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:c88a4725838df85e72c7270865848f275b62c525c5679a2a8b7ecefb1af82d4b",
+      "shipped": null,
+      "size": 115691,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/template/ui/title_glass.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "template",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:8860db07768f093d4effea10b51431f76a1552d4bc7fd4e57757f189c51f0429",
+      "shipped": null,
+      "size": 155592,
+      "source": {
+        "starterId": "game-generic-v56"
+      },
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "deploy/cloudflare/public/index.apple-touch-icon.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:0700f96b225536deef043e436cc9aa36bfb4fe79fe3e8048df42250040b5223e",
+      "shipped": null,
+      "size": 14277,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "deploy/cloudflare/public/index.icon.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:c7aba9ada73b42c3720dc0ef35769be4e4a0319c9a9eb35ac8702d667f05418f",
+      "shipped": null,
+      "size": 8195,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "deploy/cloudflare/public/index.png": {
+      "declaredUseEvidence": [],
+      "generator": {},
+      "inputs": [],
+      "license": {},
+      "origin": "unknown",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:5743a648b82437e0e60db5e4aa08103cea96b01e110961082223c0e7fa819ebf",
+      "shipped": null,
+      "size": 1010767,
+      "source": {},
+      "status": "present",
+      "transformations": [],
+      "useEvidence": [],
+      "used": false,
+      "usedBy": []
+    },
+    "assets/game/seats/fg/cafe.table_lower.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/cafe.png",
+          "sha256": "sha256:a4d8b65bddb34fd11a51e74db1807ba6cdb84cb666ac97f309b933d8b974b757"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:6e77127a50a7441f465803823810bc9ca97647f452925878864dfc89bde937aa",
+      "shipped": null,
+      "size": 9976,
+      "source": {
+        "path": "assets/game/locations/cafe.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/cafe.table_upper.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/cafe.png",
+          "sha256": "sha256:a4d8b65bddb34fd11a51e74db1807ba6cdb84cb666ac97f309b933d8b974b757"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:af6eb0c00472772f69232d0fa53f9b6bb2fb1b421980751367f9dbfebf6615f8",
+      "shipped": null,
+      "size": 10237,
+      "source": {
+        "path": "assets/game/locations/cafe.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/home.coffee_table.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/home.png",
+          "sha256": "sha256:88711ddd29becf82179a085dcc8b28925a8080519b5b6f659ca5a285dc20f0ed"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:e0474210ed12af71fb06e66d9e69071c779b7dcff9e64f85cbb7abbf13c3e65d",
+      "shipped": null,
+      "size": 16896,
+      "source": {
+        "path": "assets/game/locations/home.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/home.dining_table.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/home.png",
+          "sha256": "sha256:88711ddd29becf82179a085dcc8b28925a8080519b5b6f659ca5a285dc20f0ed"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:fc23a5b08b182f361d88dd6bead3633b01a02e9131d7a2ab85205d92ca5379a0",
+      "shipped": null,
+      "size": 11265,
+      "source": {
+        "path": "assets/game/locations/home.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/office.desk_left.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/office.png",
+          "sha256": "sha256:c8897688e545c952141f6dd0209b474565ffa4e844c0d7c09a28b02e52a8e559"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:1fe5acc445a70feac7d5792f49a43c8fa1450c531b6c5e2f172fd4baf8c1f821",
+      "shipped": null,
+      "size": 18641,
+      "source": {
+        "path": "assets/game/locations/office.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/office.desk_right.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/office.png",
+          "sha256": "sha256:c8897688e545c952141f6dd0209b474565ffa4e844c0d7c09a28b02e52a8e559"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:46000dd2a2390afb5ff3cf30f3a14bc1a3c5fc5c50e7b13972914bf36701ceab",
+      "shipped": null,
+      "size": 16190,
+      "source": {
+        "path": "assets/game/locations/office.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r0c0.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:05bbe53f4d64def949ea7d66aab881de8574ca9cfc1715277e9eb6dabd8cfa53",
+      "shipped": null,
+      "size": 4286,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r0c1.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:baf623a1bde0db53c7d98f4f4b3544fe4825f044d685a52cc502c56e657748b1",
+      "shipped": null,
+      "size": 4324,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r0c2.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:e405134096c259eea71a8f3d7076894a30a4dd80dde564966b78ae938e70e545",
+      "shipped": null,
+      "size": 4389,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r1c0.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:8b1e80aebfbeeb058eab2e42550df3c37409f7cd6644d9cceb5ebdd479a3f77b",
+      "shipped": null,
+      "size": 4151,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r1c1.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:a96c4384251316897f534fca3652c66fcbb3c1033928829a29ff5c2e6b2b66c9",
+      "shipped": null,
+      "size": 4339,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r1c2.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:125e0d7f6a9b1eb684104e6c40955b7708f19ef89872eefa0fadd78847598c82",
+      "shipped": null,
+      "size": 4380,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r2c0.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:3469bfd955a35413976c81ce338726ccdb33b9961b415c24529731d89537ba45",
+      "shipped": null,
+      "size": 4289,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r2c1.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:0dbf2daf00251f32929667b8205a0bdaf5b6973f18265474e81d2f9b58818863",
+      "shipped": null,
+      "size": 4410,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.desk_r2c2.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:b9a81bce555e17d72d407596ef95587aa875b7466b1e268b5efc30107f573607",
+      "shipped": null,
+      "size": 4367,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/school.teacher_desk.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/school.png",
+          "sha256": "sha256:780bf0198c02bf258ab90cb58083e926fc5216e840aacdd4a6b52600bf1a01d0"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:81b970792709820b2252690f4ff317253c458ede7cff34d4968da437da48e251",
+      "shipped": null,
+      "size": 10236,
+      "source": {
+        "path": "assets/game/locations/school.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/town.cafe_table_a.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/town.png",
+          "sha256": "sha256:fb48128fa9b36bbd82c2009c1265e6bd594fc0ab4ac1e82e793875a879e2f0cf"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:aefcee3d31e56ea758740b4747d006b849a2709f99e796048c54027206b8f650",
+      "shipped": null,
+      "size": 10937,
+      "source": {
+        "path": "assets/game/locations/town.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/seats/fg/town.cafe_table_b.png": {
+      "declaredUseEvidence": [],
+      "generator": {
+        "tool": "tools/build_seat_layers.py",
+        "purpose": "furniture foreground for seating z-order"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/locations/town.png",
+          "sha256": "sha256:fb48128fa9b36bbd82c2009c1265e6bd594fc0ab4ac1e82e793875a879e2f0cf"
+        }
+      ],
+      "license": {},
+      "origin": "derived",
+      "referenceEvidence": [],
+      "regions": [],
+      "sha256": "sha256:636d9b0286eb26ba63058b21ba1c2d70961405b0d070be57d7bcfc04e0cf2632",
+      "shipped": null,
+      "size": 11057,
+      "source": {
+        "path": "assets/game/locations/town.png"
+      },
+      "status": "present",
+      "transformations": [
+        {
+          "type": "extract-foreground",
+          "description": "Copied existing pixels from the location background inside a desk/table polygon so sitters can be drawn behind that furniture. No new art invented.",
+          "at": "2026-11-15T12:30:00+08:00"
+        }
+      ],
+      "useEvidence": [],
+      "used": true,
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd"
+      ]
+    },
+    "assets/game/characters/maya_seat_e.png": {
+      "sha256": "sha256:6c210e51b0691eb15167a85538ca2670e08e9d26f6d0a22393565cfe3cf0d9d3",
+      "size": 4888,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/maya_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/maya_seat_w.png": {
+      "sha256": "sha256:3a30b3177d99a43bd73d55359b9b013506dc57b0f5f3df2d0a2af6e69c1c2fee",
+      "size": 4924,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/maya_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/maya_type_e.png": {
+      "sha256": "sha256:68f7d86d7e05bed2b849cdc2f904510be6755b012b2c6e81ca0008d7ad7d1c38",
+      "size": 5198,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/maya_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/maya_type_w.png": {
+      "sha256": "sha256:58562623c591f6941f2e06a06f40709a827d380a1d19abb9b7d2f5f9dfc70e25",
+      "size": 5160,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/maya_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/sam_seat_e.png": {
+      "sha256": "sha256:f35a7c84b7cd7198c7e88f5803b339a8ce75d390303a66b98497c1df4441e63a",
+      "size": 4998,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/sam_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/sam_seat_w.png": {
+      "sha256": "sha256:4009e1c5d308592711eb1f8ee9a47b2ae062e5d10b8a07648d4fd8760700aa0d",
+      "size": 4998,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/sam_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/sam_type_e.png": {
+      "sha256": "sha256:a5a9506d84e451a3d90a71a6392732259f4e0b77352b69e0738da64b0351c50c",
+      "size": 5166,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/sam_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/sam_type_w.png": {
+      "sha256": "sha256:cec1e52aba30512d6235f77c7869bb83d3752726a2537d4348dcf7c7e4c46b79",
+      "size": 5180,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/sam_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/lin_seat_e.png": {
+      "sha256": "sha256:b58c3fcbc82523347d64e05bc782563bd9eb3e9b3a263b66f33b4cad96e1bb26",
+      "size": 4910,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/lin_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/lin_seat_w.png": {
+      "sha256": "sha256:f9a3727ce905a100caa2a0f7d30c31936ecb3933fa8e2029725335537cccbbaf",
+      "size": 4898,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/lin_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/lin_type_e.png": {
+      "sha256": "sha256:0831684b10dadf06c4a00db3bc068e1ca4ea0b239002dc970dbff309b1c94fb6",
+      "size": 5144,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/lin_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/lin_type_w.png": {
+      "sha256": "sha256:46233f0381f66a7c5dc444d3ff58ea2dad6a4ae248e58e37d1596245a1f22f41",
+      "size": 5096,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/lin_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/ama_seat_e.png": {
+      "sha256": "sha256:9a0223ea47c7c2c09d46ba5f2a14d0e044ed6ded48301f6b562bfc2cc46dff45",
+      "size": 4623,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/ama_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/ama_seat_w.png": {
+      "sha256": "sha256:b75980bd688ddf07cbfc5ae43e3c499875a9c52dc6e7f2faffed9e6054e12937",
+      "size": 4677,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/ama_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/ama_type_e.png": {
+      "sha256": "sha256:a5b6e16dc6700ce1892045a36d1f7392b63ddcc1cbfba7dd192ff7fdca0d962c",
+      "size": 4854,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/ama_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/ama_type_w.png": {
+      "sha256": "sha256:c2739df48ff24f212fa7914fdd337b87cb291950549980d3a455458c1a312eb4",
+      "size": 4832,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/ama_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/bo_seat_e.png": {
+      "sha256": "sha256:1eb1780bfd5673cacac9831f5e1ec3b635a4eff511c771e49d5e537bec61396e",
+      "size": 4649,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/bo_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/bo_seat_w.png": {
+      "sha256": "sha256:08153933045f8c60cb8b442e21aa6b3af8e83cb8b8dba029af3753990c3992d3",
+      "size": 4639,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/bo_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/bo_type_e.png": {
+      "sha256": "sha256:274a80252f7bc43205ac53a294224c4534e30f572482caf430c53a836a9c0ed6",
+      "size": 4880,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/bo_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    },
+    "assets/game/characters/bo_type_w.png": {
+      "sha256": "sha256:95f59a5f08a584684b12d2b7ecf111881c5698b0dd13a0586a6849a2899c83f8",
+      "size": 4832,
+      "used": true,
+      "generator": {
+        "tool": "manus-run2 (task 5DsDzvnnvkvfTx4sH7iCVK)",
+        "purpose": "side-profile sit and sit-type frames, existing sprite style"
+      },
+      "inputs": [
+        {
+          "path": "assets/game/characters/bo_seat_0.png",
+          "note": "existing character frames + style spec; west may be a mirror of east"
+        }
+      ],
+      "usedBy": [
+        "scripts/lessville/interior_view.gd",
+        "scripts/lessville/town_view.gd",
+        "tools/seatlib.py"
+      ]
+    }
+  },
+  "discoveries": {},
+  "downloads": {},
+  "procedures": {},
+  "summary": {
+    "ancestry": {
+      "ai": {
+        "retained": 0,
+        "shipped": null,
+        "used": 0
+      },
+      "catalog": {
+        "retained": 0,
+        "shipped": null,
+        "used": 0
+      },
+      "procedural": {
+        "retained": 0,
+        "shipped": null,
+        "used": 0
+      }
+    },
+    "derivatives": {
+      "retained": 0,
+      "shipped": null,
+      "used": 0
+    },
+    "exportedHostMedia": null,
+    "files": {
+      "downloaded": 0,
+      "retained": 96,
+      "shipped": null,
+      "used": 10
+    },
+    "origins": {
+      "ai": {
+        "retained": 0,
+        "shipped": null,
+        "used": 0
+      },
+      "catalog": {
+        "retained": 0,
+        "shipped": null,
+        "used": 0
+      },
+      "derivative": {
+        "retained": 0,
+        "shipped": null,
+        "used": 0
+      },
+      "external": {
+        "retained": 0,
+        "shipped": null,
+        "used": 0
+      },
+      "procedural": {
+        "retained": 0,
+        "shipped": null,
+        "used": 0
+      },
+      "template": {
+        "retained": 15,
+        "shipped": null,
+        "used": 3
+      },
+      "unknown": {
+        "retained": 81,
+        "shipped": null,
+        "used": 7
+      }
+    },
+    "packs": {
+      "discovered": 0,
+      "downloaded": 0,
+      "shipped": null,
+      "used": 0
+    },
+    "proceduralSystems": {
+      "retained": 0,
+      "used": 0
+    },
+    "spriteRegions": {
+      "retained": 0,
+      "shipped": null,
+      "used": 0
+    },
+    "visualCoverage": {
+      "approvedRevision": 3,
+      "blueprintId": "gbp_f36ab28147904ceec086a1e6",
+      "committedRoles": 8,
+      "expectedDigest": "90d0217866c6f3868257401ec73f84a1efacd00cdfcfb8f6ac84e684295b033a",
+      "fulfilledRoles": 0,
+      "roles": [
+        {
+          "id": "core-character-cast",
+          "reasons": [
+            "unresolved"
+          ],
+          "status": "unresolved"
+        },
+        {
+          "id": "character-action-animation",
+          "reasons": [
+            "unresolved"
+          ],
+          "status": "unresolved"
+        },
+        {
+          "id": "daily-life-locations",
+          "reasons": [
+            "unresolved"
+          ],
+          "status": "unresolved"
+        },
+        {
+          "id": "commute-and-bus",
+          "reasons": [
+            "unresolved"
+          ],
+          "status": "unresolved"
+        },
+        {
+          "id": "corgi-and-interaction-props",
+          "reasons": [
+            "unresolved"
+          ],
+          "status": "unresolved"
+        },
+        {
+          "id": "conversation-and-memory-cues",
+          "reasons": [
+            "unresolved"
+          ],
+          "status": "unresolved"
+        },
+        {
+          "id": "simulation-observability-ui",
+          "reasons": [
+            "unresolved"
+          ],
+          "status": "unresolved"
+        },
+        {
+          "id": "day-night-state-treatment",
+          "reasons": [
+            "unresolved"
+          ],
+          "status": "unresolved"
+        }
+      ],
+      "search": {
+        "checkedPages": 0,
+        "outcomes": 0,
+        "overflowEvents": 0,
+        "requests": 0
+      },
+      "selectedButUnusedAssets": [],
+      "staleRenderedEvidence": [],
+      "status": "incomplete",
+      "unexplainedFallbacks": [],
+      "unresolvedRoles": [
+        "core-character-cast",
+        "character-action-animation",
+        "daily-life-locations",
+        "commute-and-bus",
+        "corgi-and-interaction-props",
+        "conversation-and-memory-cues",
+        "simulation-observability-ui",
+        "day-night-state-treatment"
+      ],
+      "visualQuality": "requires_agent_review"
+    }
+  },
+  "version": 1,
+  "visualCoverage": {
+    "attempts": {},
+    "expected": {
+      "approvedRevision": 3,
+      "blueprintId": "gbp_f36ab28147904ceec086a1e6",
+      "digest": "90d0217866c6f3868257401ec73f84a1efacd00cdfcfb8f6ac84e684295b033a",
+      "roles": [
+        {
+          "description": "Preserve and refine your approved Owner, Sam, Customer, Family and background barista characters as clearly distinguishable 2D pixel identities, using the recovered character sheets and their established visual language.",
+          "id": "core-character-cast",
+          "label": "Distinct core character cast"
+        },
+        {
+          "description": "Use and adapt your approved rear-walk and typing animation coverage, adding only the action readability needed for travel, conversations, shopping, work and memory-driven routine changes.",
+          "id": "character-action-animation",
+          "label": "Character movement and work animations"
+        },
+        {
+          "description": "Preserve your approved neighbourhood, caf\u00e9, office, grocery and hiking scenes, and cover the required home, school and gym spaces in the same 2D pixel-world perspective and town continuity.",
+          "id": "daily-life-locations",
+          "label": "Daily-life location set"
+        },
+        {
+          "description": "Give your agents a readable bus and commute presentation that connects scheduled movement to the shared Asia/Singapore clock and spatial-memory events without becoming decorative scenery.",
+          "id": "commute-and-bus",
+          "label": "Commute and bus coverage"
+        },
+        {
+          "description": "Use your approved corgi and prop sheets to make coffee, milk, computers, home life, shopping and hiking actions visually legible, adapting existing art before adding anything new.",
+          "id": "corgi-and-interaction-props",
+          "label": "Corgi and interaction props"
+        },
+        {
+          "description": "Provide restrained in-world pixel cues for speaking, sharing context, recalling stored experiences and acting on memory, while keeping detailed provenance and scope in the interface rather than pretending decorative effects are database guarantees.",
+          "id": "conversation-and-memory-cues",
+          "label": "Conversation and memory cues"
+        },
+        {
+          "description": "Build your polished game interface around clock controls, agent focus, conversations, action execution, native LessDB activity, stored visits, memory type, scope, provenance and influenced behavior, with clear labels for deterministic policy and unverified boundaries.",
+          "id": "simulation-observability-ui",
+          "label": "Simulation and LessDB observability UI"
+        },
+        {
+          "description": "Adapt the established environments with readable day and night treatments driven by your persisted Asia/Singapore clock, preserving pixel-art consistency and gameplay clarity across locations.",
+          "id": "day-night-state-treatment",
+          "label": "Day and night state treatment"
+        }
+      ]
+    },
+    "overflowEvents": 0,
+    "resolutions": {},
+    "version": 1
+  }
+}

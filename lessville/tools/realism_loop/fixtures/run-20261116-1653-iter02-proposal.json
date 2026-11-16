@@ -1,0 +1,47 @@
+{
+  "plan": "Replace waypoint-chasing loops in `_update_walkers` and `_update_background` with arc-length parameterization. When a goal changes, build `v[poly]` (current pos + path points) and reset `v[s]` to 0.0. Each tick, advance `s` by the movement budget (clamped to polyline length), set `v[pos]` to the point at arc length `s` on `v[poly]`, and update `v[dir]` to the segment direction. Maintain `v[path]` by popping waypoints whose arc position is <= `s`. Initialize `poly` and `s` in new walker dictionaries. Add a static helper `_poly_point` to compute position/direction at arc length `s`. This ensures `feet == P(s)` and `s` never decreases, fixing `suite.arc_follow` while preserving existing behavior (routes, speeds, arrival, fading).",
+  "edits": [
+    {
+      "file": "scripts/lessville/town_view.gd",
+      "func": "_update_walkers",
+      "search": "var v: Dictionary = _vis[id]",
+      "replace": "var v: Dictionary = _vis[id]\n\tif not v.has(\"poly\"):\n\t\tv[\"poly\"] = []\n\t\tv[\"s\"] = 0.0"
+    },
+    {
+      "file": "scripts/lessville/town_view.gd",
+      "func": "_update_walkers",
+      "search": "v[hidden] = bool(g[hidden]) or (bool(g.get(arrive_hidden, false)))",
+      "replace": "v[hidden] = bool(g[hidden]) or (bool(g.get(arrive_hidden, false)))\n\tif bool(g[hidden]) and float(v[alpha]) <= 0.01:\n\t\tv[pos] = g[point]\n\t\tv[path] = []\n\t\tv[poly] = []\n\t\tv[s] = 0.0\n\t\tv[moving] = false\n\t\tv[vel] = Vector2.ZERO\n\t\tcontinue"
+    },
+    {
+      "file": "scripts/lessville/town_view.gd",
+      "func": "_update_walkers",
+      "search": "var path_now: Array = v[path]",
+      "replace": "var path_now: Array = v[path]\n\tvar budget := speed * delta\n\tvar start_pos: Vector2 = v[pos]\n\tvar fading_in: bool = float(v[alpha]) < 1.0 and not path_now.is_empty()\n\tif fading_in:\n\t\tv[alpha] = minf(1.0, float(v[alpha]) + delta * FADE_RATE)\n\t\tbudget *= float(v[alpha])\n\tif not v[poly].is_empty():\n\t\tvar total_len := 0.0\n\t\tfor i in range(1, v[poly].size()):\n\t\t\ttotal_len += (v[poly][i] as Vector2).distance_to(v[poly][i - 1])\n\t\tvar new_s := minf(float(v[s]) + budget, total_len)\n\t\tvar pd := _poly_point(v[poly], new_s)\n\t\tv[pos] = pd[0]\n\t\tv[s] = new_s\n\t\tif new_s > 0.0:\n\t\t\tv[dir] = pd[1]\n\t\t\tv[phase] = float(v[phase]) + (new_s - float(v[s])) / WALK_STRIDE\n\t\twhile not path_now.is_empty():\n\t\t\tvar wp: Vector2 = path_now[0]\n\t\t\tvar wp_s := 0.0\n\t\t\tfor i in range(1, v[poly].size()):\n\t\t\t\tif v[poly][i] == wp:\n\t\t\t\t\twp_s = 0.0\n\t\t\t\t\tfor j in range(1, i + 1):\n\t\t\t\t\t\twp_s += (v[poly][j] as Vector2).distance_to(v[poly][j - 1])\n\t\t\t\t\tbreak\n\t\t\tif wp_s <= new_s + 0.001:\n\t\t\t\tpath_now.pop_front()\n\t\t\telse:\n\t\t\t\tbreak"
+    },
+    {
+      "file": "scripts/lessville/town_view.gd",
+      "func": "_update_background",
+      "search": "var v: Dictionary = _bg_vis[id]",
+      "replace": "var v: Dictionary = _bg_vis[id]\n\tif not v.has(\"poly\"):\n\t\tv[\"poly\"] = []\n\t\tv[\"s\"] = 0.0"
+    },
+    {
+      "file": "scripts/lessville/town_view.gd",
+      "func": "_update_background",
+      "search": "v[path] = trimmed",
+      "replace": "v[path] = trimmed\n\t\tv[poly] = [v[pos]] + trimmed\n\t\tv[s] = 0.0"
+    },
+    {
+      "file": "scripts/lessville/town_view.gd",
+      "func": "_update_background",
+      "search": "var path_now: Array = v[path]",
+      "replace": "var path_now: Array = v[path]\n\tvar budget := speed * delta\n\tvar start_pos: Vector2 = v[pos]\n\tif not v[poly].is_empty():\n\t\tvar total_len := 0.0\n\t\tfor i in range(1, v[poly].size()):\n\t\t\ttotal_len += (v[poly][i] as Vector2).distance_to(v[poly][i - 1])\n\t\tvar new_s := minf(float(v[s]) + budget, total_len)\n\t\tvar pd := _poly_point(v[poly], new_s)\n\t\tv[pos] = pd[0]\n\t\tv[s] = new_s\n\t\tif new_s > 0.0:\n\t\t\tv[dir] = pd[1]\n\t\t\tv[phase] = float(v[phase]) + (new_s - float(v[s])) / BG_STRIDE\n\t\twhile not path_now.is_empty():\n\t\t\tvar wp: Vector2 = path_now[0]\n\t\t\tvar wp_s := 0.0\n\t\t\tfor i in range(1, v[poly].size()):\n\t\t\t\tif v[poly][i] == wp:\n\t\t\t\t\twp_s = 0.0\n\t\t\t\t\tfor j in range(1, i + 1):\n\t\t\t\t\t\twp_s += (v[poly][j] as Vector2).distance_to(v[poly][j - 1])\n\t\t\t\t\tbreak\n\t\t\tif wp_s <= new_s + 0.001:\n\t\t\t\tpath_now.pop_front()\n\t\t\telse:\n\t\t\t\tbreak"
+    },
+    {
+      "file": "scripts/lessville/town_view.gd",
+      "func": "",
+      "search": "func _along(points: Array, t: float) -> Array:",
+      "replace": "static func _poly_point(poly: Array, s: float) -> Array:\n\tif poly.is_empty():\n\t\treturn [Vector2.ZERO, Vector2.RIGHT]\n\tvar left := maxf(0.0, s)\n\tfor i in range(1, poly.size()):\n\t\tvar a: Vector2 = poly[i - 1]\n\t\tvar b: Vector2 = poly[i]\n\t\tvar l := a.distance_to(b)\n\t\tif left <= l:\n\t\t\treturn [a + (b - a) * (left / maxf(l, 0.000001)), (b - a).normalized()]\n\t\tleft -= l\n\treturn [poly[-1], Vector2.RIGHT]\n\nfunc _along(points: Array, t: float) -> Array:"
+    }
+  ]
+}

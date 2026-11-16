@@ -1,0 +1,11 @@
+# Keep Cloudflare container builds small and deterministic while explicitly
+# including the release binary, which remains ignored by Git by design.
+*
+!Dockerfile
+!.dockerignore
+!data/
+!data/**
+!bin-parts/
+!bin-parts/**
+!start.sh
+!release-marker.txt

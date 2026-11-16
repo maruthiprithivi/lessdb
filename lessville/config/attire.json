@@ -1,0 +1,395 @@
+{
+  "version": 1,
+  "schema": "lessville-attire/v1",
+  "notes": "Attire follows role and place. Aprons (and Bo's bar towel) appear only on caf\u00e9 staff while at work inside the caf\u00e9 or on its town terrace during their shift. Lin's cap and backpack are commute and outdoor gear and come off when she is settled indoors, especially at home. Sam and Ama have no work-only baked layers; their hand props are already gated by presence.",
+  "terrace_stations": [
+    "terrace",
+    "table_a",
+    "table_b",
+    "cafe_table_a",
+    "cafe_table_b",
+    "town.cafe.table_a",
+    "town.cafe.table_b",
+    "cafe_table"
+  ],
+  "indoor_settled_locations": [
+    "home",
+    "cafe",
+    "office",
+    "grocery",
+    "school",
+    "gym"
+  ],
+  "characters": {
+    "maya": {
+      "name": "Maya",
+      "role": "cafe_owner",
+      "title": "Owner",
+      "shift": {
+        "start_minute": 390,
+        "end_minute": 1200
+      },
+      "base_layers": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "work_layers": {
+        "apron": true
+      }
+    },
+    "bo": {
+      "name": "Bo",
+      "role": "barista",
+      "title": "Barista",
+      "shift": {
+        "start_minute": 420,
+        "end_minute": 900
+      },
+      "base_layers": {
+        "apron": false,
+        "cap": true,
+        "backpack": false,
+        "towel": false
+      },
+      "work_layers": {
+        "apron": true,
+        "towel": true,
+        "cap": true
+      },
+      "notes": "The navy cap is treated as personal signature attire and stays on and off shift. The teal apron and white bar towel are work-only."
+    },
+    "lin": {
+      "name": "Lin",
+      "role": "student",
+      "title": "Student",
+      "base_layers": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "commute_layers": {
+        "cap": true,
+        "backpack": true
+      }
+    },
+    "sam": {
+      "name": "Sam",
+      "role": "analyst",
+      "title": "Analyst",
+      "base_layers": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      }
+    },
+    "ama": {
+      "name": "Ama",
+      "role": "parent",
+      "title": "Parent",
+      "base_layers": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "maya-cafe-1230",
+      "character": "maya",
+      "location": "cafe",
+      "station": "till",
+      "minute": 750,
+      "label": "12:30",
+      "activity": "Running the counter",
+      "activity_kind": "serving",
+      "expected": {
+        "apron": true,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "bo-cafe-1230",
+      "character": "bo",
+      "location": "cafe",
+      "station": "espresso",
+      "minute": 750,
+      "label": "12:30",
+      "activity": "Pulling espresso shots",
+      "activity_kind": "serving",
+      "expected": {
+        "apron": true,
+        "cap": true,
+        "backpack": false,
+        "towel": true
+      },
+      "view": "interior"
+    },
+    {
+      "id": "maya-town-street-1230",
+      "character": "maya",
+      "location": "town",
+      "station": "",
+      "minute": 750,
+      "label": "12:30",
+      "activity": "Supplier run",
+      "activity_kind": "walking",
+      "travel": {
+        "from": "cafe",
+        "to": "grocery",
+        "mode": "walk"
+      },
+      "expected": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "town"
+    },
+    {
+      "id": "bo-town-street-1230",
+      "character": "bo",
+      "location": "town",
+      "station": "",
+      "minute": 750,
+      "label": "12:30",
+      "activity": "Walking through Town",
+      "activity_kind": "walking",
+      "travel": {
+        "from": "cafe",
+        "to": "trail",
+        "mode": "walk"
+      },
+      "expected": {
+        "apron": false,
+        "cap": true,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "town"
+    },
+    {
+      "id": "maya-park-2200",
+      "character": "maya",
+      "location": "town",
+      "station": "park_bench",
+      "minute": 1320,
+      "label": "22:00",
+      "activity": "Sitting by the fountain",
+      "activity_kind": "rest",
+      "expected": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "town"
+    },
+    {
+      "id": "bo-town-2200",
+      "character": "bo",
+      "location": "town",
+      "station": "bus_bench",
+      "minute": 1320,
+      "label": "22:00",
+      "activity": "Out in Town",
+      "activity_kind": "rest",
+      "expected": {
+        "apron": false,
+        "cap": true,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "town"
+    },
+    {
+      "id": "lin-home-2200",
+      "character": "lin",
+      "location": "home",
+      "station": "dining",
+      "minute": 1320,
+      "label": "22:00",
+      "activity": "Back at the house",
+      "activity_kind": "rest",
+      "expected": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "lin-commute-town-0730",
+      "character": "lin",
+      "location": "town",
+      "station": "",
+      "minute": 450,
+      "label": "07:30",
+      "activity": "Walking to the bus",
+      "activity_kind": "walking",
+      "travel": {
+        "from": "bus_stop",
+        "to": "cafe",
+        "mode": "walk"
+      },
+      "expected": {
+        "apron": false,
+        "cap": true,
+        "backpack": true,
+        "towel": false
+      },
+      "view": "town"
+    },
+    {
+      "id": "lin-bus-0740",
+      "character": "lin",
+      "location": "bus",
+      "station": "seat",
+      "minute": 460,
+      "label": "07:40",
+      "activity": "Riding the bus",
+      "activity_kind": "studying",
+      "travel": {
+        "from": "bus_stop",
+        "to": "cafe",
+        "mode": "bus"
+      },
+      "expected": {
+        "apron": false,
+        "cap": true,
+        "backpack": true,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "lin-cafe-study-1830",
+      "character": "lin",
+      "location": "cafe",
+      "station": "table2",
+      "minute": 1110,
+      "label": "18:30",
+      "activity": "Studying at a table",
+      "activity_kind": "studying",
+      "expected": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "maya-grocery-1400",
+      "character": "maya",
+      "location": "grocery",
+      "station": "aisle",
+      "minute": 840,
+      "label": "14:00",
+      "activity": "Supplier run",
+      "activity_kind": "shopping",
+      "expected": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "bo-trail-1515",
+      "character": "bo",
+      "location": "trail",
+      "station": "path",
+      "minute": 915,
+      "label": "15:15",
+      "activity": "Walking home via the trail",
+      "activity_kind": "walking",
+      "expected": {
+        "apron": false,
+        "cap": true,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "sam-office-1230",
+      "character": "sam",
+      "location": "office",
+      "station": "desk",
+      "minute": 750,
+      "label": "12:30",
+      "activity": "Midday report work",
+      "activity_kind": "typing",
+      "expected": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "sam-home-2200",
+      "character": "sam",
+      "location": "home",
+      "station": "dining",
+      "minute": 1320,
+      "label": "22:00",
+      "activity": "Late dinner",
+      "activity_kind": "rest",
+      "expected": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "ama-home-2200",
+      "character": "ama",
+      "location": "home",
+      "station": "living",
+      "minute": 1320,
+      "label": "22:00",
+      "activity": "Winding down",
+      "activity_kind": "rest",
+      "expected": {
+        "apron": false,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "interior"
+    },
+    {
+      "id": "maya-terrace-1230",
+      "character": "maya",
+      "location": "town",
+      "station": "cafe_table",
+      "minute": 750,
+      "label": "12:30",
+      "activity": "On the caf\u00e9 terrace",
+      "activity_kind": "serving",
+      "expected": {
+        "apron": true,
+        "cap": false,
+        "backpack": false,
+        "towel": false
+      },
+      "view": "town"
+    }
+  ]
+}

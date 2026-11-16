@@ -1,0 +1,39 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/less-agent",
+    "crates/less-catalog",
+    "crates/less-common",
+    "crates/less-engine",
+    "crates/less-gpu",
+    "crates/less-query",
+    "crates/less-storage",
+    "crates/less-telemetry",
+    "crates/less-vector",
+]
+
+[workspace.package]
+version = "0.6.0"
+edition = "2024"
+rust-version = "1.89"
+license = "MIT"
+authors = ["LessDB contributors"]
+repository = "https://github.com/maruthiprithivi/lessdb"
+homepage = "https://github.com/maruthiprithivi/lessdb"
+
+[workspace.dependencies]
+less-common = { path = "crates/less-common" }
+less-storage = { path = "crates/less-storage" }
+less-catalog = { path = "crates/less-catalog" }
+less-engine = { path = "crates/less-engine" }
+less-query = { path = "crates/less-query" }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+opt-level = 3
+panic = "unwind"
+
+[profile.bench]
+lto = "thin"
+codegen-units = 1

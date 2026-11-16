@@ -1,0 +1,78 @@
+{
+  "notes": "Absolute atmosphere gates for BL-0148 step 2 (G12). Luminance is 0-255 (0.2126R+0.7152G+0.0722B) in the sky band of a 1536x1024 Town render (map pixels = image pixels). Hue: night means mean B>R+4; warm means mean R>B+4. Wind displacement is the mean absolute luma difference in flag_roi between two frames 0.40s apart when scheduled wind_kmh>0. Day 2 of the client seeded schedule is used: 07:30 cloudy 12 km/h, 12:30 windy 28, 18:30 clear 8, 22:00 windy 28. Attempt-2 additions (art-derived, not from TOWN_WINDOWS/LAMPS): (a) lit-window pixels must lie in the glass mask derived from town.png, with a tiny spill tolerance; (b) each substantial glow centroid must sit within N px of an art-derived lamp sprite, and the caf\u00e9-front ROI glow centroid must also sit on a lamp (no orphan halo on the terrace); (c) every art-derived lamp has a circular halo after dark; (d) 18:30 town body (below the sky band) has an absolute warmth (R-B) and saturation floor. Attempt-3 additions: (b) glow-on-lamp also runs on the whole building band, treating wall-coloured lit pixels outside a real window pane as a glow (so a stray facade patch is flagged even if the glass mask leaked); (e) every art-derived lamp is off in daylight (07:30 and 12:30) \u2014 the lamp-head sprite itself must not read as a lit bulb.",
+  "map_size": [
+    1536,
+    1024
+  ],
+  "sky_band": [
+    0,
+    0,
+    1536,
+    56
+  ],
+  "flag_roi": [
+    748,
+    488,
+    820,
+    560
+  ],
+  "day": 2,
+  "world_seed": "0x4C45535356494C4C",
+  "wind_frame_dt": 0.4,
+  "wind_min_mae": 2.0,
+  "times": {
+    "0730": {
+      "label": "07:30",
+      "minute": 450,
+      "lum_min": 55,
+      "lum_max": 140,
+      "hue": "warm"
+    },
+    "1230": {
+      "label": "12:30",
+      "minute": 750,
+      "lum_min": 95,
+      "lum_max": 255,
+      "hue": "any"
+    },
+    "1830": {
+      "label": "18:30",
+      "minute": 1110,
+      "lum_min": 40,
+      "lum_max": 120,
+      "hue": "warm"
+    },
+    "2200": {
+      "label": "22:00",
+      "minute": 1320,
+      "lum_min": 0,
+      "lum_max": 52,
+      "hue": "night"
+    }
+  },
+  "lighting": {
+    "night_key": "2200",
+    "night_darkness": 0.74,
+    "max_spill_frac": 0.03,
+    "max_spill_pixels": 400,
+    "glow_centroid_max_dist": 28,
+    "glow_extent_max_dist": 48,
+    "glow_extent_max_far_frac": 0.08,
+    "glow_extent_max_far_pixels": 200,
+    "lamp_annulus_radius": 28,
+    "lamp_min_pixels": 40,
+    "lamp_min_sectors": 10,
+    "dusk_key": "1830",
+    "dusk_body_warm_min": 16.0,
+    "dusk_body_sat_min": 0.14,
+    "wall_glow_max_far_pixels": 80,
+    "wall_glow_max_far_frac": 0.08,
+    "day_keys": [
+      "0730",
+      "1230"
+    ],
+    "day_lamp_warm_max": 28.0,
+    "day_lamp_sat_max": 0.16,
+    "day_lamp_head_r": 6.0
+  }
+}

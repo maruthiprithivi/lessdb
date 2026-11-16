@@ -1,0 +1,96 @@
+# BL-0167 Lessville realism loop config.  Limits are Machine Steward's slot terms
+# (INVENTORY.md, 2026-11-16 13:55 SGT) and are enforced in loop.py (class Limits).
+repo: /workspace/lessville-godot-src/work
+base_branch: loop/base            # main + step2b tests + step3-attire + step4-office-bed (local)
+worktree: /workspace/lessville-godot-src/work-loop-run
+runs_dir: /workspace/shared/ai-hq/results/lessville/BL-0167/runs
+spec: /workspace/shared/ai-hq/results/lessville/BL-0167/realism-spec.yaml
+godot: /tmp/godot-4.7.2/Godot_v4.7.2-stable_linux.x86_64
+author: Maruthi Prithivirajan <maruthiprithivi@gmail.com>
+allowed_edit_prefixes: [scripts/, test/, tools/realism_checks/, config/]
+
+endpoints:
+  - {name: megatron-qwen38, role: text, url: "http://127.0.0.1:18000/v1", model: qwen3.8-27b-nvfp4, box: megatron, max_concurrent: 2}
+  - {name: bumble-qwen38, role: text, url: "http://127.0.0.1:18001/v1", model: qwen3.8-27b-nvfp4, box: bumble, max_concurrent: 2, fallback_only: true}  # never 01:45-03:00 SGT
+  - {name: megatron-vl, role: vision, url: "http://127.0.0.1:18002/v1", model: qwen3-vl-8b, box: megatron, max_concurrent: 2}
+
+limits:
+  megatron_ssh: megatron
+  megatron_mem_pause_pct: 85      # pause (back off, retry) above this
+  megatron_mem_stop_pct: 95       # stop
+  backoff_s: 30
+  backoff_tries: 40
+  box_parallel_godot: 3           # renders/sims run on the box today (see README: megatron executor)
+  megatron_render: {enabled: false, slice: bench.slice, max_cpus: 6, max_mem_gib: 12, gpu: false}
+
+llm: {max_tokens: 16000, thinking: true, temperature: 0.2, timeout_s: 2400, context_chars: 160000,
+      # fix proposals (ROOT-CAUSE-unparseable-patch.md, run 20261116-1409): thinking off, strict JSON schema, output-only budget
+      fix_thinking: false, fix_max_tokens: 8192, fix_plan_chars: 2000, fix_max_edits: 8,
+      # run 20261116-1525 (ROOT-CAUSE-iter1-parse-iter2-truncation.md): minimal edits only, rejected before apply
+      fix_max_replace_chars: 2500, fix_max_total_replace_chars: 6000,
+      # run 20261116-1653 (ROOT-CAUSE-job1a-scope.md): whole-function jobs (edit_mode: whole_function)
+      fix_max_func_chars: 6000, fix_max_total_func_chars: 12000, fix_max_funcs: 6,
+      # run 20261116-2022 (ROOT-CAUSE-job1a-arc-follower.md): stream fix calls, abort on degenerate repetition
+      fix_stream: true}
+max_attempts_per_target: 2        # G1: park a target after this many rejected attempts (each gets at most 1 repair pass)
+# only_targets: [job1a-arc-follower]   # optional: restrict a run to these targets
+
+# Seconds-long Godot --check-only pre-gate after edits: edited .gd files plus these dependents.
+parse_also: [scripts/main.gd, test/test_suite.gd, tools/sim_crossings.gd]
+suite_timeout_s: 600              # healthy suite is ~50 s on the box
+
+vision:
+  enabled: true
+  images_per_request: 4           # hard cap 4 (enforced)
+  max_side_px: 1024               # hard cap 1024 (enforced); crops only, never whole frames
+  max_tokens: 400                 # hard cap 512 (enforced)
+  max_crops_per_eval: 16
+  prompt: "You review zoomed crops from a 2D pixel-art town simulation for physical realism. Be strict and literal."
+
+stop:
+  n_seeds: 3
+  k_no_progress: 3
+  max_iterations: 12
+  require_coverage: 100.0
+  clock_times: ["0530", "0800", "1230", "1830", "2200", "0230"]   # dawn, morning, noon, dusk, night, late night
+
+sim: {seeds: [1, 2, 3], seconds: 10800, settle: 240, background: 10, minute: 480, timeout_s: 2400}
+
+renders:
+  - {id: atmosphere, script: res://tools/render_atmosphere.gd, env: {LESSVILLE_ATMOS_OUT: "{out}/atmosphere", LESSVILLE_ATMOS_TIMES: "{times}"}}
+  - {id: attire, script: res://tools/render_attire.gd, env: {LESSVILLE_ATTIRE_OUT: "{out}/attire"}}
+  - {id: terrace, script: res://tools/render_terrace.gd, env: {LESSVILLE_TERRACE_OUT: "{out}/terrace"}}
+  - {id: office_step4, script: res://tools/render_office_step4.gd, env: {LESSVILLE_OFFICE_OUT: "{out}/office_step4"}}
+  - {id: step2_motion, script: res://tools/render_step2_motion.gd, env: {LESSVILLE_MOTION_OUT: "{out}/step2_motion"}}
+  - {id: crossings, script: res://tools/render_crossings.gd, env: {CROSS_OUT: "{out}/crossings", CROSS_SEED: "{seed}", CROSS_SCAN: "240", CROSS_SKIP: "30"}}
+
+checks:   # run from tools/; exit 0 = pass
+  - {id: render.seats, cmd: "python3 check_seat_render.py"}
+  - {id: render.atmosphere, cmd: "python3 check_atmosphere.py --dir {out}/atmosphere"}
+  - {id: render.attire, cmd: "python3 check_attire.py --dir {out}/attire"}
+  - {id: render.lin_hair, cmd: "python3 check_lin_profile_hair.py --renders {out}/attire --scratch {out}/lin-heads"}
+  - {id: render.terrace_layers, cmd: "python3 check_terrace_sitter_layers.py"}
+  - {id: render.office, cmd: "python3 score_office_bed_known_limitations.py --dir {out}/office_step4"}
+
+time_dependent_checks: [render.atmosphere, suite.atmosphere]
+
+gallery:
+  crossing_boxes: {crossing_west: [130, 640, 310, 940], crossing_east: [1190, 640, 1400, 940]}
+  crossing_ask: "Zebra crossing at a busy moment. FAIL if any two people overlap or merge into one shape, if anyone faces sideways or backwards to their walking direction, or if anyone stands on the road outside the stripes or pavement."
+  extra_crops:
+    "attire/*/crop@4x.png": "One character in a scene. FAIL if the body floats, is cut off, or the outfit is wrong for the place and time."
+    "terrace/*@4x.png": "Café terrace sitter. FAIL if the sitter floats above the seat or furniture covers the head or face."
+
+targets:   # in priority order; job 1 first
+  # Job 1 split into 3 sub-jobs, each with its own fail-before target check (run 20261116-1525 root cause).
+  - {id: job1a-arc-follower, kind: fix, job: job1a-arc-follower.yaml, title: "Arc-length path follower (keep current behaviour)", checks: [suite.arc_follow]}
+  - {id: job1b-follow-gap, kind: fix, job: job1b-follow-gap.yaml, title: "Speed-only gap keeping on shared segments", checks: [suite.follow_gap], after: [job1a-arc-follower]}
+  - {id: job1c-zebra-reservation, kind: fix, job: job1c-zebra-reservation.yaml, title: "Zebra reservation + deadlock breaker (wait cap 10 s)", checks: [suite.crossing_overlap, sim.crossings_multihour], after: [job1b-follow-gap]}
+  - {id: gen-wind-leaf-rustle, kind: generate_check, attribute: environment.wind.normal_day_leaf_rustle_not_tree_sway}
+  - {id: gen-sky-sg-twilight, kind: generate_check, attribute: environment.sky.keyed_to_sg_sunrise_sunset_twilight}
+
+# Advisory: counted for "done" (every review passes) but never triggers a revert (VLM verdicts are noisy; G4 is CoS).
+advisory_checks: [vision.crop_review]
+
+# Suite checks that are aggregated in the log (no per-case PASS line) map to suite.other_checks.
+check_aliases: {suite.assets: suite.other_checks, suite.routing: suite.other_checks, suite.realism: suite.other_checks, suite.seating: suite.other_checks, suite.main_scene: suite.other_checks}

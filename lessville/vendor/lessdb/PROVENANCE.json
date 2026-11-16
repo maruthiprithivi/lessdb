@@ -1,0 +1,461 @@
+{
+  "schema": "lessville-vendored-source/v1",
+  "source_commit": "0367d81d935a452f28cb2a15a62ecce2463698b1",
+  "source_description": "Reconstructed private archive 84ae452 plus less-agent contracts; isolated from the parent public LessDB engine.",
+  "selected_crates": [
+    "less-agent",
+    "less-catalog",
+    "less-common",
+    "less-engine",
+    "less-gpu",
+    "less-query",
+    "less-storage",
+    "less-telemetry",
+    "less-vector"
+  ],
+  "upstream_worktree_patch": {
+    "path": "UPSTREAM-WORKTREE.patch",
+    "sha256": "f1174e9869c9ad994ab88b765951f08ddf0adeffd457952163cb8ed0c165323c"
+  },
+  "files": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "9ba950f47613311719e5fa1afa2f4e69c3b9a49c2b96cd39c6e43a1b045ccfd4",
+      "upstream_sha256": "fdafd20a28f0ed18f710e43ad3cc3c1118a8292e6dbf4c0a94fb5234ceb5aa2d",
+      "modified_from_commit": true,
+      "reason": "Restrict workspace members to the nine-crate Lessville dependency closure; retain package, dependency and profile metadata."
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "ed73f9ef8327749427e0c4a6f3013afa761a1f6ee5d371e56bf56dab7b294584",
+      "upstream_sha256": "ed73f9ef8327749427e0c4a6f3013afa761a1f6ee5d371e56bf56dab7b294584",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-agent/Cargo.toml",
+      "sha256": "69c86f3504a0ee5eb5fcd58f658db12faa68e78eb4b9e8de654b8f8aa1430a26",
+      "upstream_sha256": "69c86f3504a0ee5eb5fcd58f658db12faa68e78eb4b9e8de654b8f8aa1430a26",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-agent/src/lib.rs",
+      "sha256": "b7284933453a0cbd2160d5e023e057c875e3b4efc689c9c6de4bd503176f71e7",
+      "upstream_sha256": "f025d4339e000fa23755f7cc4eaf54f513411a29cf36709422a2d86f83806357",
+      "modified_from_commit": true
+    },
+    {
+      "path": "crates/less-catalog/Cargo.toml",
+      "sha256": "cf9514fec9181b87e4787c5945c88b46c1763afa1b04d6795624a6eb7da635fc",
+      "upstream_sha256": "cf9514fec9181b87e4787c5945c88b46c1763afa1b04d6795624a6eb7da635fc",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-catalog/src/catalog.rs",
+      "sha256": "1900488ccc26882d7ce45f9ade25d7f68de54e00906df21924f757443c574cad",
+      "upstream_sha256": "1900488ccc26882d7ce45f9ade25d7f68de54e00906df21924f757443c574cad",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-catalog/src/ddl.rs",
+      "sha256": "4fca40a015a1e7f6c0f75a28d7abb426843ce72aca062f4e2a2b363fa6477a0b",
+      "upstream_sha256": "4fca40a015a1e7f6c0f75a28d7abb426843ce72aca062f4e2a2b363fa6477a0b",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-catalog/src/lib.rs",
+      "sha256": "2e2a5ff950369f455ff325abeb9453c5e7af3bd0af04e1a232a9ed79939e7bf9",
+      "upstream_sha256": "2e2a5ff950369f455ff325abeb9453c5e7af3bd0af04e1a232a9ed79939e7bf9",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-catalog/src/metastore.rs",
+      "sha256": "1162902ad86eb366ef5e981e8dbef157221c214bc4793f932064a4f777aea630",
+      "upstream_sha256": "1162902ad86eb366ef5e981e8dbef157221c214bc4793f932064a4f777aea630",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-catalog/src/schema.rs",
+      "sha256": "1c0913705c9564d2e13119b991f9cd6f1210aaec5b9ca6c0a6d55cc94ade99b4",
+      "upstream_sha256": "1c0913705c9564d2e13119b991f9cd6f1210aaec5b9ca6c0a6d55cc94ade99b4",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-catalog/src/shared.rs",
+      "sha256": "57b7e8a93e0a52e8c30440bd1e486c6b99bfd02fc430be4dfa0d843e455f4f16",
+      "upstream_sha256": "57b7e8a93e0a52e8c30440bd1e486c6b99bfd02fc430be4dfa0d843e455f4f16",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-common/Cargo.toml",
+      "sha256": "f7c9366579f39b9207daf9b349a2e62d39e13fd989613df1fffd20b7b799b6ff",
+      "upstream_sha256": "f7c9366579f39b9207daf9b349a2e62d39e13fd989613df1fffd20b7b799b6ff",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-common/src/auth.rs",
+      "sha256": "51c5c9f3a6b4a684bff89dd1eb5aa69222b542343a9a9487aeb4e8c6579192b3",
+      "upstream_sha256": "51c5c9f3a6b4a684bff89dd1eb5aa69222b542343a9a9487aeb4e8c6579192b3",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-common/src/config.rs",
+      "sha256": "d701d811d4223c266ca8b6f95f4106796c58e4290eedb282588ccdcb701b50c1",
+      "upstream_sha256": "d701d811d4223c266ca8b6f95f4106796c58e4290eedb282588ccdcb701b50c1",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-common/src/durability.rs",
+      "sha256": "a273e5d769d15b2c3be5fa60e889f00e6037bc07955fa54734e24f185931e35d",
+      "upstream_sha256": "a273e5d769d15b2c3be5fa60e889f00e6037bc07955fa54734e24f185931e35d",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-common/src/error.rs",
+      "sha256": "c1605ed8637ca3881ba3029b1ab23983b3c7771ae56ca5acbf54c40daa303a5b",
+      "upstream_sha256": "c1605ed8637ca3881ba3029b1ab23983b3c7771ae56ca5acbf54c40daa303a5b",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-common/src/lib.rs",
+      "sha256": "885f73b1837697bf1a47c5af174e7f881471f8389dc6def73f5f5fbf3a4fcc05",
+      "upstream_sha256": "885f73b1837697bf1a47c5af174e7f881471f8389dc6def73f5f5fbf3a4fcc05",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/Cargo.toml",
+      "sha256": "b5b7ee7ac1f8ae54129bf59d564ee29f6238985c0f9d35049e868427f31a4e3b",
+      "upstream_sha256": "b5b7ee7ac1f8ae54129bf59d564ee29f6238985c0f9d35049e868427f31a4e3b",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/src/engine.rs",
+      "sha256": "702a5fc2704174843a3b812e5ca6757044533491e13efc0909c4a4ac9a1fa7f3",
+      "upstream_sha256": "702a5fc2704174843a3b812e5ca6757044533491e13efc0909c4a4ac9a1fa7f3",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/src/gate.rs",
+      "sha256": "c29b8ec6fefcabc2540262208176194eded5e8c907f749ac1c4da2dd3073b6b0",
+      "upstream_sha256": "c29b8ec6fefcabc2540262208176194eded5e8c907f749ac1c4da2dd3073b6b0",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/src/lib.rs",
+      "sha256": "1e7a242cbd7fd4c4bfec3ba599a8377fff3435a99dbf9fb6f565f7bdbd827692",
+      "upstream_sha256": "1e7a242cbd7fd4c4bfec3ba599a8377fff3435a99dbf9fb6f565f7bdbd827692",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/src/live.rs",
+      "sha256": "9675510ad332b42af2c3f8388f5f5bd1ea586834707c4b1fdc649bd5640a9f56",
+      "upstream_sha256": "9675510ad332b42af2c3f8388f5f5bd1ea586834707c4b1fdc649bd5640a9f56",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/src/merge.rs",
+      "sha256": "2d3eb6aecc0361cea455e0f978a51fc5a7845724cd707ef9c563f0b129c77e03",
+      "upstream_sha256": "2d3eb6aecc0361cea455e0f978a51fc5a7845724cd707ef9c563f0b129c77e03",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/src/part.rs",
+      "sha256": "b68ffc291f1ecfe33a997cf7f7e20c4e1ab4c8653d6e0ad617b770c2948ba7f3",
+      "upstream_sha256": "b68ffc291f1ecfe33a997cf7f7e20c4e1ab4c8653d6e0ad617b770c2948ba7f3",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/src/wal.rs",
+      "sha256": "5ab33d6b837c8a295dbb06ab48e1d06ef71e263a63edd80bee9357d0bb805ead",
+      "upstream_sha256": "5ab33d6b837c8a295dbb06ab48e1d06ef71e263a63edd80bee9357d0bb805ead",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/tests/corruption.rs",
+      "sha256": "c28acba5fe9d353e84259ec7175d695e03e306bfb17a8b2a55886eac1c84ca2f",
+      "upstream_sha256": "c28acba5fe9d353e84259ec7175d695e03e306bfb17a8b2a55886eac1c84ca2f",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/tests/live_parts.rs",
+      "sha256": "e3218934542fea508f4eab966ba9b190f6698c34e08853bbb247ac3a4cb63c25",
+      "upstream_sha256": "e3218934542fea508f4eab966ba9b190f6698c34e08853bbb247ac3a4cb63c25",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/tests/merge_bounds.rs",
+      "sha256": "ab4d9c731c15212f58223c135e9b9c97ab57f23db9dd6caff629d186219a05f9",
+      "upstream_sha256": "ab4d9c731c15212f58223c135e9b9c97ab57f23db9dd6caff629d186219a05f9",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-engine/tests/wal_recovery.rs",
+      "sha256": "6095759f2c9f4ab6ebded5bab245cc84038d144e73f0731983f6dc96ec7b0d73",
+      "upstream_sha256": "6095759f2c9f4ab6ebded5bab245cc84038d144e73f0731983f6dc96ec7b0d73",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-gpu/Cargo.toml",
+      "sha256": "fd2104f487e02c029cba1bde09e6497c3908c6170727134f6dc6ed93888da922",
+      "upstream_sha256": "fd2104f487e02c029cba1bde09e6497c3908c6170727134f6dc6ed93888da922",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-gpu/src/lib.rs",
+      "sha256": "cd1621a477eec9117e940a74adcb951333b4a53f4efe0c20a9ca3d62afafde0e",
+      "upstream_sha256": "cd1621a477eec9117e940a74adcb951333b4a53f4efe0c20a9ca3d62afafde0e",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-gpu/src/shaders.wgsl",
+      "sha256": "4a8e246a38b8302e9c6127594dd7c8f7c000f5e7fa8eed3cf28c89388d4c53ee",
+      "upstream_sha256": "4a8e246a38b8302e9c6127594dd7c8f7c000f5e7fa8eed3cf28c89388d4c53ee",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/Cargo.toml",
+      "sha256": "332060b7665b8e9e56d2e651ecc5e252131c677d32ca84337c4667a0e5c35e7d",
+      "upstream_sha256": "332060b7665b8e9e56d2e651ecc5e252131c677d32ca84337c4667a0e5c35e7d",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/examples/synthetic_worker.rs",
+      "sha256": "2aa93d61eebafa75f0f010a64418ca4518f078770c18b150a320cc7f6ecc2f7a",
+      "upstream_sha256": "2aa93d61eebafa75f0f010a64418ca4518f078770c18b150a320cc7f6ecc2f7a",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/access.rs",
+      "sha256": "5f43fc3bf0cc913852a20955deb46308f24336f73f52bf14bff13437f7c93c09",
+      "upstream_sha256": "5f43fc3bf0cc913852a20955deb46308f24336f73f52bf14bff13437f7c93c09",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/gpu_udaf.rs",
+      "sha256": "d1fec2373f7637cde382c36d0c3c62637ad84d34ca2a27d28db0cb22f0183704",
+      "upstream_sha256": "d1fec2373f7637cde382c36d0c3c62637ad84d34ca2a27d28db0cb22f0183704",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/insert.rs",
+      "sha256": "5ccc0444156f00be23e578ea739125e74074c550d510a5d3f4838286882bb4fe",
+      "upstream_sha256": "5ccc0444156f00be23e578ea739125e74074c550d510a5d3f4838286882bb4fe",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/lib.rs",
+      "sha256": "4fc0aa08c62d7ae731fda8af32d7cf09fad15915083446856996543162bd459b",
+      "upstream_sha256": "4fc0aa08c62d7ae731fda8af32d7cf09fad15915083446856996543162bd459b",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/live_scan.rs",
+      "sha256": "76f969f64fa0d3f521b589888b87a901074212a1af1b72058b88cf0c5d2bd3f7",
+      "upstream_sha256": "76f969f64fa0d3f521b589888b87a901074212a1af1b72058b88cf0c5d2bd3f7",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/mutation.rs",
+      "sha256": "69bb5e65457cff6e43dea29bf5f7cd2a1ae328c55a2a34766c67f01f9dfdeb2c",
+      "upstream_sha256": "69bb5e65457cff6e43dea29bf5f7cd2a1ae328c55a2a34766c67f01f9dfdeb2c",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/provider.rs",
+      "sha256": "cd3ec9dfd01ebf320ea9a0086e19b10e0db0b4c73bb5c82a2fa27f9f6071c606",
+      "upstream_sha256": "cd3ec9dfd01ebf320ea9a0086e19b10e0db0b4c73bb5c82a2fa27f9f6071c606",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/prune.rs",
+      "sha256": "5db39f521c4678063683d5d65690d7bc8c7d8a66d62243122e329b5d6cc795e1",
+      "upstream_sha256": "5db39f521c4678063683d5d65690d7bc8c7d8a66d62243122e329b5d6cc795e1",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/scan_cache.rs",
+      "sha256": "87d55003e74a0ecf647308d18af799ad993ef5fe5360841cc01a6dd9d2659896",
+      "upstream_sha256": "87d55003e74a0ecf647308d18af799ad993ef5fe5360841cc01a6dd9d2659896",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/session.rs",
+      "sha256": "46575f86b8f90adb18e8f55da600507a4f3cc0ba135dc1ce3e6456bd38ff0899",
+      "upstream_sha256": "46575f86b8f90adb18e8f55da600507a4f3cc0ba135dc1ce3e6456bd38ff0899",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/shard.rs",
+      "sha256": "9ed79d724ddff294fdddd1d8f32ff5245bc2ee519bdc4233ecb22281e22f7f3d",
+      "upstream_sha256": "9ed79d724ddff294fdddd1d8f32ff5245bc2ee519bdc4233ecb22281e22f7f3d",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/stats_optimizer.rs",
+      "sha256": "f065d13d99a98cfd39b6af675377caeb4984eb283868dbd398b7b9769b05cb37",
+      "upstream_sha256": "f065d13d99a98cfd39b6af675377caeb4984eb283868dbd398b7b9769b05cb37",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/src/vector_udtf.rs",
+      "sha256": "759b58d6ef8cb9cc085814bd6c0a62ae8bf57d09aab809fafa04bd057100f62d",
+      "upstream_sha256": "759b58d6ef8cb9cc085814bd6c0a62ae8bf57d09aab809fafa04bd057100f62d",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/tests/native_statements.rs",
+      "sha256": "47354622c228065ec473a021526f2eb06f83e7b5243856433b5508f4df6ee0cb",
+      "upstream_sha256": "47354622c228065ec473a021526f2eb06f83e7b5243856433b5508f4df6ee0cb",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-query/tests/pruning_proptest.rs",
+      "sha256": "16f5ea162938ece6d53f9f6fca8b7d553636b83249a052712866ae003771d52d",
+      "upstream_sha256": "16f5ea162938ece6d53f9f6fca8b7d553636b83249a052712866ae003771d52d",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-storage/Cargo.toml",
+      "sha256": "072a973286a1f3a6a8af0958515c2dad4a87abf76350fff044d22931ab973114",
+      "upstream_sha256": "072a973286a1f3a6a8af0958515c2dad4a87abf76350fff044d22931ab973114",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-storage/src/block_cache.rs",
+      "sha256": "78465ba6cccffc3b6d7f1f22ed8b61a9635e37e05cb1b6eb77726a467ef4a69e",
+      "upstream_sha256": "78465ba6cccffc3b6d7f1f22ed8b61a9635e37e05cb1b6eb77726a467ef4a69e",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-storage/src/bloom.rs",
+      "sha256": "f89cb09e07bcc7f8aee553f9dcc1d27e4ea4c5aed9914361965d7a3b0f4c9791",
+      "upstream_sha256": "f89cb09e07bcc7f8aee553f9dcc1d27e4ea4c5aed9914361965d7a3b0f4c9791",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-storage/src/codec.rs",
+      "sha256": "b391f3a0016daeca06a8d3a65deaa460a19a20fe914745ddd726e6bd97f8662b",
+      "upstream_sha256": "b391f3a0016daeca06a8d3a65deaa460a19a20fe914745ddd726e6bd97f8662b",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-storage/src/lib.rs",
+      "sha256": "d61d19b19c3257417ec2ab3a17c3274feae6ce4c2ec8cefb4a3c31762f7e479c",
+      "upstream_sha256": "d61d19b19c3257417ec2ab3a17c3274feae6ce4c2ec8cefb4a3c31762f7e479c",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-storage/src/object.rs",
+      "sha256": "b9d5ae5734989220f7d7b78ab61ac53bb18cdbd2aeb5f89d06e78400dd2c2421",
+      "upstream_sha256": "b9d5ae5734989220f7d7b78ab61ac53bb18cdbd2aeb5f89d06e78400dd2c2421",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-storage/src/part_io.rs",
+      "sha256": "2573889ff53985443e16238a5eed2a130fbbacac1e90868fc4d99c7c8e8d1180",
+      "upstream_sha256": "2573889ff53985443e16238a5eed2a130fbbacac1e90868fc4d99c7c8e8d1180",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-storage/src/part_meta.rs",
+      "sha256": "b834c6ea963e6f9aa7e7fbe7f8ca5c8ff85d8f4124f0a03f37c5f42006002f79",
+      "upstream_sha256": "b834c6ea963e6f9aa7e7fbe7f8ca5c8ff85d8f4124f0a03f37c5f42006002f79",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-telemetry/Cargo.toml",
+      "sha256": "1d100980ebe62a514202e790a5430af360ff590a07d91b79eefe66a5c916b10e",
+      "upstream_sha256": "1d100980ebe62a514202e790a5430af360ff590a07d91b79eefe66a5c916b10e",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-telemetry/src/audit.rs",
+      "sha256": "f345e0e661437d5428bc6857238402f7ae89263b366f4d1ce08c08ed82a51335",
+      "upstream_sha256": "f345e0e661437d5428bc6857238402f7ae89263b366f4d1ce08c08ed82a51335",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-telemetry/src/lib.rs",
+      "sha256": "59c48236cb1991e7dc01326388962c5a0d5841207b7e97a728111d85e9d852b8",
+      "upstream_sha256": "59c48236cb1991e7dc01326388962c5a0d5841207b7e97a728111d85e9d852b8",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-telemetry/src/logging.rs",
+      "sha256": "b8b0fad772e44ae75aabfdfe1b2f872af978cb3440d29c97c214b37bf2b8c27b",
+      "upstream_sha256": "b8b0fad772e44ae75aabfdfe1b2f872af978cb3440d29c97c214b37bf2b8c27b",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/Cargo.toml",
+      "sha256": "1226db8a619fb0bf84c5d05d9659b924b4df6deaa040195dfcf7832b0d72f07c",
+      "upstream_sha256": "1226db8a619fb0bf84c5d05d9659b924b4df6deaa040195dfcf7832b0d72f07c",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/src/flat.rs",
+      "sha256": "3d176848df1a8e5532f768cddbcada4b44db13caff93550c0ba0a7363e70c1f3",
+      "upstream_sha256": "3d176848df1a8e5532f768cddbcada4b44db13caff93550c0ba0a7363e70c1f3",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/src/ivf.rs",
+      "sha256": "fadc1b248ce14dd3cf247caf6da86c7501e6e1302b061c073a17e5f56f165278",
+      "upstream_sha256": "fadc1b248ce14dd3cf247caf6da86c7501e6e1302b061c073a17e5f56f165278",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/src/lib.rs",
+      "sha256": "65964a7a850bb47b5fed3f3937454895c9dc9d37bcd7d5b46d0ce6d46c1ddfb9",
+      "upstream_sha256": "65964a7a850bb47b5fed3f3937454895c9dc9d37bcd7d5b46d0ce6d46c1ddfb9",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/src/metric.rs",
+      "sha256": "f180d64078c9cc4068814f7cd2f8a4b06a67bb17983d6aa7498103dad91a89e1",
+      "upstream_sha256": "f180d64078c9cc4068814f7cd2f8a4b06a67bb17983d6aa7498103dad91a89e1",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/src/registry.rs",
+      "sha256": "f4c65fd417b0c326af7e5e4aaa0bd4746bdc155392d3e1e986d80058ac77b3d7",
+      "upstream_sha256": "f4c65fd417b0c326af7e5e4aaa0bd4746bdc155392d3e1e986d80058ac77b3d7",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/src/rng.rs",
+      "sha256": "f7599e19b7ab7d2c6f77c528a03b2acffec92de80fac1eb2bd56c5097c17ab7f",
+      "upstream_sha256": "f7599e19b7ab7d2c6f77c528a03b2acffec92de80fac1eb2bd56c5097c17ab7f",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/src/space.rs",
+      "sha256": "aaa4052d5c0190f9e5af1cc41bd6be2b892e3cc531e7665407317e10edff57b6",
+      "upstream_sha256": "aaa4052d5c0190f9e5af1cc41bd6be2b892e3cc531e7665407317e10edff57b6",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/tests/common/mod.rs",
+      "sha256": "c402b32c1a84f5f91525a012b60bd1a152b81b33db0c4adb7cef20da4bfd4445",
+      "upstream_sha256": "c402b32c1a84f5f91525a012b60bd1a152b81b33db0c4adb7cef20da4bfd4445",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/tests/recall.rs",
+      "sha256": "c16ccf7e3449b98930c7fd0416397024432084f8daa5eae8575f8180356ea903",
+      "upstream_sha256": "c16ccf7e3449b98930c7fd0416397024432084f8daa5eae8575f8180356ea903",
+      "modified_from_commit": false
+    },
+    {
+      "path": "crates/less-vector/tests/registry.rs",
+      "sha256": "516510edf2e6ed424b38649aa5d83beb4767b4c274973320ed4fa41450bfe068",
+      "upstream_sha256": "516510edf2e6ed424b38649aa5d83beb4767b4c274973320ed4fa41450bfe068",
+      "modified_from_commit": false
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "sha256": "3435b160321202a0f3ed5eb2e77ac3a39b8a47a68e69c937744f753e1b347592",
+      "upstream_sha256": "3435b160321202a0f3ed5eb2e77ac3a39b8a47a68e69c937744f753e1b347592",
+      "modified_from_commit": false
+    }
+  ]
+}
