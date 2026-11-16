@@ -1,0 +1,39 @@
+name: Lessville Linux release
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/lessville-linux.yml
+      - lessville/backend/**
+      - lessville/vendor/lessdb/**
+      - lessville/tools/build_cloudflare_linux.py
+      - lessville/deploy/cloudflare/container/Dockerfile
+      - lessville/deploy/cloudflare/container/start.sh
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build the pinned Linux agent
+        run: python3 lessville/tools/build_cloudflare_linux.py --jobs 4
+      - name: Package release evidence and binary chunks
+        run: |
+          git rev-parse HEAD > lessville-source-commit.txt
+          tar -cf lessville-linux.tar lessville-source-commit.txt \
+            -C lessville deploy/cloudflare/container/bin-parts \
+            deploy/cloudflare/container/release-marker.txt \
+            .local/cloudflare-build/build-manifest.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: lessville-linux
+          path: lessville-linux.tar
+          if-no-files-found: error
+          retention-days: 7

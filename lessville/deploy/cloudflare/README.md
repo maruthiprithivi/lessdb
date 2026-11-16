@@ -14,11 +14,18 @@ python3 tools/build_cloudflare_linux.py --image-tag lessville-agent:local
 ```
 
 The helper freezes the backend and vendored engine into a temporary source tree,
+checks the engine files against their provenance hashes,
 builds with the locked dependencies using Rust 1.96.1 in the pinned official
 Debian 12 image, and targets Linux/amd64 even on Apple Silicon. One compiler job
 is the default for Docker VMs with 2 GB RAM; `--jobs N` changes that limit.
 The first build downloads the locked crates and can take substantially longer
 under CPU emulation. No credentials or world directories are mounted.
+
+The parent repository also provides the **Lessville Linux release** GitHub Actions
+workflow for native x86 builds. It runs the same helper with four jobs and publishes
+only binary chunks, the release marker and source manifest as a seven-day artifact.
+It has read-only repository access and does not deploy or receive Cloudflare credentials.
+Validate the downloaded artifact and image before deployment, just as for a local build.
 
 The build uses Docker volumes `lessville-cargo-registry` and
 `lessville-linux-amd64-target` as caches. It preserves `Cargo.lock`. It validates

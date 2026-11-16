@@ -61,7 +61,13 @@ def main():
             destination.parent.mkdir(parents=True, exist_ok=True)
             content = source.read_bytes()
             destination.write_bytes(content)
-            manifest[str(relative)] = sha256(content)
+            manifest[relative.as_posix()] = sha256(content)
+        provenance = json.loads((work / "vendor/lessdb/PROVENANCE.json").read_text())
+        if provenance["schema"] != "lessville-vendored-source/v1":
+            raise SystemExit("Unsupported vendored engine provenance schema")
+        for entry in provenance["files"]:
+            if manifest.get("vendor/lessdb/" + entry["path"]) != entry["sha256"]:
+                raise SystemExit("Vendored engine differs from its provenance: " + entry["path"])
         source_sha = sha256(json.dumps(manifest, sort_keys=True, separators=(",", ":")).encode())
         output = work / "output"
         output.mkdir()
