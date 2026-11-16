@@ -37,6 +37,21 @@ have deliberately different behavior depth.
   merge order cannot discard later checkpoints. Legacy rows are read before compaction.
   Snapshot read/parse failure now aborts instead of silently reseeding. This change
   does not establish transactional atomicity of separate event/snapshot writes.
+- The persisted `World → serde_json::Value → JSON → World` boundary preserves
+  finite resident need values exactly, including their `f64` bits. The
+  [`serde_json` dependency](../Cargo.toml) enables `float_roundtrip`; a one-ULP
+  change is a restart defect, not an accepted tolerance. Feed retention and
+  explicit startup hydration/reconciliation are separate from JSON fidelity.
+- Live weather takes precedence while `LESSVILLE_LIVE_WEATHER=1` and the persisted
+  `weather_live_until` is later than Unix wall time. The deadline is observation
+  time plus twice `LESSVILLE_WEATHER_REFRESH_SECS` (default 3,600 seconds, minimum
+  900), independent of accelerated simulation time. Weather bookkeeping runs
+  before the overnight shortcut, so fresh live rain/storm survives 45 sim-minutes.
+  A dry observation clears the old rain timer/reason and retains wet-ground history.
+  Expiry, disabling live weather or a legacy live checkpoint without a deadline
+  returns to seeded weather with source `seeded-fallback`, code -1 and zeroed
+  observation/deadline metadata on the next weather tick. Observer rain nudges
+  clear live provenance so their 45-minute duration stays bounded.
 - Remote restore runs before the engine opens and only when `catalog/` has no
   entries. HTTP 404 permits fresh initialization; other HTTP or extraction errors
   abort startup. A populated local catalog skips remote restore. Consequently a
@@ -69,3 +84,13 @@ From `backend/agentd`: `cargo +1.96 test --locked -- --test-threads=2`.
 Daily-life focus: `cargo +1.96 test --locked sim::daily_life`.
 Native day evidence includes exact clock delta, population, final state and frames.
 Timetable snapshot regression: `cargo +1.96 test --locked timetable`.
+
+Focused weather regressions in [sim.rs](sim.rs):
+`cargo +1.96 test --locked weather -- --test-threads=2` covers dry observations,
+wall-time precedence/expiry, disabled/legacy fallback and bounded observer rain.
+The JSON regression `world_checkpoint_preserves_accumulated_life_values_exactly`
+in [sim.rs](sim.rs) exercises 100 residents and three roundtrips, asserting all
+need-value bits and the full persisted value; run it with
+`cargo +1.96 test --locked world_checkpoint_preserves_accumulated_life_values_exactly`.
+These focused tests do not replace copied-checkpoint qualification of the exact
+Linux image; current release status remains in [release qualification](../../../docs/RELEASE-QUALIFICATION.md).

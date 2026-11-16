@@ -3,12 +3,17 @@
 This candidate is intended for `maruthiprithivi/lessdb` and the existing
 `https://ville.lessdb.dev` deployment. Source publication, a successful build and
 an existing live URL are distinct from deploying and verifying this candidate.
-Native restoration of a copied R2 checkpoint, the client checks and the exact
-Linux release-image qualification have passed. Cloudflare completed the candidate
-rollout at 2026-11-16 19:11:45.518 UTC. Initial live restore and population hydration
-are observed; **final post-checkpoint verification remains pending**. The deployed
-page references the candidate pack and the sampled immutable asset hashes match.
-Rollout completion is not yet a claim that all production verification gates passed.
+The first release passed native copied-checkpoint restoration, client checks and
+exact Linux-image qualification, then rolled out at 2026-11-16 19:11:45.518 UTC.
+Restore, population hydration and a subsequent R2 checkpoint are verified, but the
+settled probe failed its live-health gate. The second candidate, `38cd159`, corrects
+weather precedence and stages a `basic` capacity trial. Its strict copied-checkpoint
+restart gate exposed a JSON float-roundtrip defect. Parser correction `4bc21af` is
+committed and pushed. Its focused regression and Linux CI `43943678663` passed.
+Artifact integrity, the full native backend suite and exact Linux-image
+qualification also passed. **Corrective deployment and production health/checkpoint
+verification remain pending.** Earlier
+artifact and recording evidence below identifies the version it actually covers.
 
 ## Portable commands and operator setup
 
@@ -81,8 +86,9 @@ junction, including bends. Corner lookahead ignores strongly opposing headings,
 avoiding reciprocal U-turn waits. Final focused checks and dense seeds 1/7/19/23
 pass their follower, crossing and progress gates; see the
 [learning log](egm/LEARNING-LOG.md). Shared stationary destinations and general
-narrow-sidewalk head-on passing remain open. A fresh full-day native capture now
-records this candidate; its sampled frames do not establish collision-free behavior.
+narrow-sidewalk head-on passing remain open. The full-day native capture records
+the final movement fix but predates the weather correction; its sampled frames do
+not establish collision-free behavior or qualify the second candidate's weather.
 Backend passenger scheduling still does not follow visual traffic delays.
 
 ## Existing Cloudflare identity
@@ -292,8 +298,8 @@ authoritative weather kind/temperature instead of reintroducing seeded rain.
 
 Focused validation passed: six native weather tests (four new, two existing; 51
 filtered out), 16 Godot weather checks and diff checking. `tools/verify.sh` now
-includes the Godot check. Refreshed Linux/Web artifacts and a corrective rollout
-remain pending; the first rollout is not the final candidate.
+includes the Godot check. The second-candidate qualification status follows below;
+the first rollout is not the final candidate.
 
 The initial probe reported zero uploads, but the independent read-only R2 check
 `cloudflare-checkpoint-after-rollout-20261116T191835Z.json` confirms a new checkpoint
@@ -305,3 +311,115 @@ verified candidate assets, stable 100-resident identities and advancing sampled 
 but all three live-health requests returned 503. The new checkpoint is confirmed;
 full live-health qualification remains unpassed. Worker healthz and cached state alone
 do not establish it.
+
+### Precision-corrected candidate `4bc21af`: qualified; deployment pending
+
+Source `38cd1593f1db2b4ed92de05c2b6ff239c142fa0c` contains the weather correction
+above and changes the existing single Container to the `basic` instance type as a
+capacity trial after the first rollout's live-health failures. It retains the same
+Worker, singleton and R2 identities; increased capacity is not yet a demonstrated
+resolution of those failures.
+
+The pre-trial baseline at 2026-11-16 19:34:39 UTC, roughly 23 minutes after startup,
+returned health 503 in 8.531 seconds (Worker timeout 8,000 ms). Nine complete metric
+buckets from 19:23 through 19:31 UTC reported weighted CPU utilization of 104.32% of
+allocation, averaging 0.06521 cores. These lagging metrics make CPU saturation
+plausible but do not establish the cause of the health timeout. Evidence is
+`cloudflare-pre-trial-baseline-20261116T193439Z.json` and its `-summary.json`.
+
+[Actions run 43939193796](https://github.com/maruthiprithivi/lessdb/actions/runs/43939193796)
+succeeded with the same pinned helper. Artifact integrity passed: all 92 source
+inputs match candidate `38cd159`; verified synthetic merge
+`76eb5315c83e967a47181a3de1e23e35a49e5459` has parents main `44d823b` and candidate
+`38cd159`. The refreshed artifacts are:
+
+| Artifact | SHA-256 |
+|---|---|
+| Backend source | `4b6b15807563732bc5946ae9045f2a062b368e1350c8cfa07a58d04a79ca1d73` |
+| Linux binary (176,410,160 bytes) | `267787639c9c9414c4de7237866c7b7264e06e5524744d765aad6fa753066d1f` |
+
+Image `sha256:1cc7302a7d31254d44b27f160a3a08b74d0f5473b0672abbdd976b6d1f4ab624`
+was built from those artifacts. At 256 MiB, the fresh phase passed, but the strict
+copied-checkpoint restart gate failed resident equality; the image is **not qualified**.
+The optional CPU probe was omitted. Build integrity alone does not qualify runtime
+restoration or production `basic` performance.
+
+The first failed run did not save its differing snapshots. A captured diagnostic
+repeat at minute 585,202 reproduced 99 changes, all `life.social_need`:
+`15.350000000000005` became `15.350000000000003` (one ULP, about 1.776×10⁻¹⁵).
+Four focal and 95 supporting residents were affected; the entire paused clock and
+all other resident fields matched. A standalone probe using the exact captured
+values reproduced all 99 changes among 300 Life floats with `serde_json` 1.0.151's
+parser lacking `float_roundtrip`. Durable evidence is
+`restore-float-roundtrip/summary.json`, with probe source, inputs and results beside it.
+A different paused minute passed, which does not clear the reproduced defect.
+
+Correction `4bc21af` is committed and pushed; Linux CI
+[43943678663](https://github.com/maruthiprithivi/lessdb/actions/runs/43943678663)
+succeeded. Artifact `14263359801` passed all 92 source-input, merge-parent and
+reconstructed-chunk checks. Its verified identities are:
+
+| Artifact | SHA-256 |
+|---|---|
+| Backend source | `449e1bc9da3a97141ea7ee4bb352ce7bdea54af2dbf195f71ec7dd6cadea9da0` |
+| Linux binary (176,447,336 bytes) | `9fea632cac6909229b65370d909f699620a85d83e3933a0e21a4f98505c23edb` |
+| Image index | `bba85f9fdabf1c2ce1008486863feb38ae70a4d25d79cf262fe6cd8335441ed5` |
+| Linux platform manifest | `774d8a82980c73f0d35c8fa48603f75d677e8cf7d8eb511239f162c4ddb5c604` |
+| Image config | `394386e0d43d6cc9918d8ad1450fa7707a4d2b2496319c3cb1cc7eaeb6673c46` |
+
+The correction enables
+`serde_json`'s `float_roundtrip` feature at the same 1.0.151 version. A regression
+accumulates Life values for all 100 residents,
+asserts the captured value's exact bits, and checks three persisted-World JSON
+roundtrips against all need-value bits and the entire persisted value. Independent
+review found no actionable issue. The focused precision regression passed (one test,
+57 filtered, 0.32 seconds). The full native backend suite then passed: 57 passed,
+zero failed and one ignored, 767.12 seconds of test execution (789.467 seconds for
+the command), exit 0. The existing ignored `external_envelope_file_replays_into_lessdb`
+requires simulator-generated JSONL. Evidence: `native-backend-tests-4bc21af.json`
+and `.log`. No assertion or exact-state contract was relaxed; this was a JSON reload
+precision defect, not evidence of weather-driven resident normalization.
+
+The exact image above passed both fresh and copied-checkpoint phases at 256 MiB
+with networking disabled and UID 10001. Paused step/restart preserved the complete
+clock and all 100 resident snapshots: fresh minute 393→398; restored 585,197→585,202.
+At the previously failing minute 585,202, all 99 captured `social_need` values stayed
+exactly `15.350000000000005` after restart. Fresh/restored memory observations were
+60.56/87.82 MiB; both exited 0 without OOM. The original archive remained unchanged,
+and all owned containers/volumes were removed. No CPU probe ran; these results do
+not qualify production `basic` performance. Evidence:
+`linux-container-verification-4bc21af-43943678663.json` and
+`qualified-image-provenance-4bc21af.json`, with all six before/after/reopened
+snapshots retained. Corrective deployment and live health/checkpoint verification
+remain pending.
+
+The fresh pre-trial backup in
+`cloudflare-checkpoint-before-second-rollout-20261116T193226Z.json` matched stable R2
+metadata and ETag: written 2026-11-16 19:32:13.290 UTC, 363,711 bytes, SHA-256
+`a2ac2070242f2c6db9e196fd51c576d556a9682e31486555951ab2842595fdbd`.
+Its multirow archive does not establish an exact latest world minute. A separate
+API sample showed minute 592,312 and the same 100 resident IDs; it was marked stale
+by the Worker and is not proof of the archive's latest row. Prior archives remained
+unchanged.
+
+A later pre-corrective-rollout backup,
+`cloudflare-checkpoint-before-corrective-rollout-20261116T200907Z.json`, matched stable
+R2 metadata/ETag: written 20:07:11.994 UTC (modified 20:07:12.468), 431,445 bytes,
+SHA-256 `52861aa445304555ecfd158b2b95c2c42b54bdf0726211957857f97c08e8136e`.
+Eight earlier archives stayed unchanged. Its 65 rows have minute bounds 590,280–595,334;
+these are not an exact latest-row query. The independent 20:09:19 stale-cache sample
+showed minute 595,424 (Day 414 11:44), unpaused, with the same 100 resident IDs.
+One live health request returned 200 in 7.099 seconds (Worker 6,963 ms), with 11
+checkpoint uploads and zero reported failures. This later success does not erase
+the repeated earlier 503s or establish sustained health; `basic` remains a capacity trial.
+
+The refreshed Web pack is `525042e0…afe2f`; the operator verified its immutable
+GET returned 200 with 15,563,640 bytes and the expected hash. The operator inspected
+`weather-client-local.png` and reported consistent weather rendering with zero
+browser console errors. The sandboxed full Godot run (`weather-client-check.log`)
+failed two native fixture launches while the hair-ratio checks passed. The native
+macOS rerun exited zero: `weather-client-check-native.log` records **388 checks with
+four expected office-art failures**, followed by **16 passing weather checks**.
+Two live-local API checks were skipped because `127.0.0.1:8790` was unreachable;
+those two checks account for the earlier 390 count. Production API verification is
+separate. Corrective deployment and live health/checkpoint verification remain pending. The full-day video predates this weather correction.

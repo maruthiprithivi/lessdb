@@ -127,3 +127,21 @@ No drift detected.
 ## docs/WORLD-SCALE.md — final movement/clearance review
 
 No drift detected.
+
+## backend/agentd/src/EGM.md — weather and JSON checkpoint contract refresh
+
+- Major: omitted the implemented live-weather precedence and persisted Unix-time
+  freshness deadline, including dry-rain cleanup, expiry/disabled/legacy fallback
+  and bounded observer rain. Resolved with the current rules and focused test link.
+- Major: omitted exact resident floating-point fidelity at the persisted World JSON
+  boundary. Candidate `38cd159` reproduced a one-ULP restart defect; correction
+  `4bc21af` enables `float_roundtrip` and adds the three-roundtrip, 100-resident
+  regression. Focused/full native tests, Linux CI `43943678663`, artifact integrity
+  and exact-image qualification passed. The formerly failing minute now preserves
+  all 99 values exactly. Corrective deployment and live verification remain pending.
+
+## scripts/lessville/EGM.md — weather precedence contract refresh
+
+- Major: omitted `world_atmosphere.gd` and its authority order: explicit rain flag,
+  weather kind, then seeded fallback. Resolved with dry-weather suppression,
+  supplied kind/temperature/wind behavior and the targeted regression link.

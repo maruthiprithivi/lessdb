@@ -503,7 +503,7 @@ The runtime `@cloudflare/containers` SDK stays at `0.3.7`, and this check perfor
 no deployment. A fresh isolated native day capture was then started on local port
 8826 to replace the stale-video limitation; completion evidence follows below.
 
-### Fresh final-candidate native day recording
+### Native day recording of the movement candidate
 
 The later authorized recording replaces the stale-video limitation above. It used
 a fresh scratch world at `.local/release-day-world-a8jeiopv`, loopback port 8826,
@@ -539,8 +539,9 @@ frame; successful snapshots continued. The logs do not establish a backend outag
 or isolate the cause. The indicators remain visible in the video/contact sheet;
 this is not an uninterrupted-client run. No product change was made in response.
 General narrow-path head-on/shared-destination overlaps and the
-known office-art failures remain open. The capture does not replace the dense
-collision oracle or qualify a Linux image/live rollout; the separate Linux result follows.
+known office-art failures remain open. This video predates the later weather
+correction. The capture does not replace the dense collision oracle or qualify a
+Linux image/live rollout; the separate Linux result follows.
 
 The parent repository's `.github/workflows/lessville-linux.yml` uses the same
 pinned `tools/build_cloudflare_linux.py` helper on a native Ubuntu runner. It
@@ -601,8 +602,8 @@ live weather restores seeded provenance, code -1 and observation time 0; observe
 rain nudges clear live provenance to remain bounded. The renderer honors explicit
 rain state and authoritative kind/temperature. Six native weather tests passed
 (four new, two existing; 51 filtered out), along with 16 Godot checks and diff checking;
-`tools/verify.sh` includes the Godot check. Refreshed Linux/Web artifacts and corrective
-rollout remain pending.
+`tools/verify.sh` includes the Godot check. The second candidate's artifact and rollout
+status is recorded below.
 
 The initial zero-upload observation was followed by an independently verified R2
 checkpoint written at 2026-11-16 19:16:56.083 UTC: 258,216 bytes, SHA-256
@@ -613,3 +614,91 @@ but not an exact latest world minute. The settled 19:17 probe
 and advancing sampled time, while all three live-health requests returned 503.
 Checkpoint persistence is confirmed; full live-health qualification remains unpassed.
 Worker healthz and cached state alone do not establish it.
+
+### Second candidate: weather correction and `basic` capacity trial
+
+Source `38cd1593f1db2b4ed92de05c2b6ff239c142fa0c` contains the correction above and
+stages the existing singleton on the `basic` instance type after repeated live-health
+503s. This is a capacity trial with unchanged Worker, singleton and R2 identities;
+its deployment and effect on health remain pending. Actions run `43939193796`
+succeeded, and artifact integrity passed with all 92 inputs matching `38cd159`.
+Verified synthetic merge `76eb5315c83e967a47181a3de1e23e35a49e5459` has parents
+main `44d823b` and candidate `38cd159`. Source hash `4b6b1580…a1d73` and Linux binary
+`26778763…66d1f` (176,410,160 bytes) are recorded in full in
+[release qualification](../RELEASE-QUALIFICATION.md). Image `1cc7302a…ab624` passed its
+fresh phase at 256 MiB but failed strict copied-checkpoint resident equality; it is
+not qualified. No CPU probe ran. Build integrity does not qualify runtime restoration
+or `basic` performance.
+
+At 2026-11-16 19:34:39 UTC, roughly 23 minutes after startup, the pre-trial health
+request still returned 503 in 8.531 seconds. Nine complete 19:23–19:31 UTC metric
+buckets reported weighted CPU use of 104.32% of allocation, averaging 0.06521 cores.
+These lagging metrics support a capacity trial but do not prove the timeout's cause.
+Evidence: `cloudflare-pre-trial-baseline-20261116T193439Z.json` and `-summary.json`.
+
+`cloudflare-checkpoint-before-second-rollout-20261116T193226Z.json` records a fresh
+backup matching stable R2 metadata/ETag: written 19:32:13.290 UTC, 363,711 bytes,
+SHA-256 `a2ac2070242f2c6db9e196fd51c576d556a9682e31486555951ab2842595fdbd`.
+The multirow archive's exact latest minute is unknown. A separate stale-cache API
+sample showed minute 592,312 and the same 100 IDs; that does not prove archive
+contents. Prior backups stayed unchanged.
+
+The refreshed Web pack is `525042e0…afe2f`; its immutable GET returned 200,
+15,563,640 bytes and the expected hash. The operator inspected `weather-client-local.png`,
+with matching weather presentation and zero console errors. The sandboxed full suite
+in `weather-client-check.log` failed two native fixture launches; hair-ratio checks
+passed. The native macOS rerun exited zero: `weather-client-check-native.log` reports
+388 checks with four expected office-art failures, plus 16 passing weather checks.
+Two live-local API checks were skipped because `127.0.0.1:8790` was unreachable,
+explaining the difference from the earlier 390 count; production has a separate
+probe. Corrective rollout and live health/checkpoint results remain pending. The full-day video covers the movement fix and predates this weather
+correction.
+
+### Strict restart gate exposed a JSON float-roundtrip defect
+
+The first failed run lacked snapshot capture. A diagnostic repeat at minute 585,202
+captured exactly 99 changed values: `life.social_need` in four focal and 95 supporting
+residents changed from `15.350000000000005` to `15.350000000000003`, one ULP
+(about 1.776×10⁻¹⁵). The full paused clock and every other resident field were equal.
+A separate paused minute passed; that does not invalidate the captured failure.
+
+The standalone probe in `restore-float-roundtrip/` reproduced those 99 differences
+from the 300 captured Life float values using `serde_json` 1.0.151 without
+`float_roundtrip`. The precision loss occurs during JSON reload, not resident
+normalization by the weather change. Correction `4bc21af` is committed and pushed;
+Linux CI `43943678663` succeeded; artifact `14263359801` passed all 92 source-input,
+merge-parent and reconstructed-chunk checks. Source hash `449e1bc9…9da0`, binary
+`9fea632c…23edb` (176,447,336 bytes), image index `bba85f9f…41ed5`, Linux manifest
+`774d8a82…5c604` and config `394386e0…73c46` are recorded in full in
+[release qualification](../RELEASE-QUALIFICATION.md). The correction enables the parser's `float_roundtrip` feature at the
+same version. Its regression accumulates actual Life values for all 100 residents,
+asserts the captured value's bits, then checks all need
+bits and the entire persisted value through three World JSON roundtrips. Independent
+review found no actionable issue. The focused precision regression passed (one test,
+57 filtered, 0.32 seconds). The full native backend suite passed: 57 passed, zero
+failed and one ignored in 767.12 seconds (789.467 seconds for the command), exit 0.
+The existing ignored `external_envelope_file_replays_into_lessdb` needs a simulator
+JSONL fixture. Evidence: `native-backend-tests-4bc21af.json` and `.log`.
+
+Exact-image qualification also passed at 256 MiB with no network and UID 10001:
+fresh 393→398 and copied-checkpoint 585,197→585,202 preserved the full paused clock
+and all 100 resident snapshots through step/restart. At the reproduced failure
+minute 585,202, all 99 `social_need` values remained exactly `15.350000000000005`.
+Fresh/restored memory observations were 60.56/87.82 MiB; both exited 0 without OOM.
+The original archive stayed unchanged, all owned containers/volumes were removed,
+and all six phase snapshots were retained. No CPU probe ran. Evidence:
+`linux-container-verification-4bc21af-43943678663.json` and
+`qualified-image-provenance-4bc21af.json`. Assertions and the exact resident-state
+contract remain unchanged; deployment and production health/checkpoint verification
+remain pending.
+
+The later pre-corrective backup evidence,
+`cloudflare-checkpoint-before-corrective-rollout-20261116T200907Z.json`, records a
+stable R2/ETag match: 431,445 bytes, written 20:07:11.994 UTC (modified 20:07:12.468),
+SHA-256 `52861aa445304555ecfd158b2b95c2c42b54bdf0726211957857f97c08e8136e`.
+Eight older archives were unchanged. The 65-row bounds 590,280–595,334 do not identify
+the latest world row. A separate 20:09:19 stale-cache sample showed minute 595,424,
+Day 414 11:44, unpaused, and the same 100 IDs. One health request returned 200 in
+7.099 seconds (Worker 6,963 ms), with 11 uploads and zero reported checkpoint failures.
+The earlier repeated 503s remain historical evidence; this single success establishes
+neither sustained health nor the benefit of the still-pending `basic` capacity trial.

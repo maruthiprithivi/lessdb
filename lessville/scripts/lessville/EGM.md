@@ -15,8 +15,12 @@ interior coordinate spaces. Interior views are intentional close-ups.
 - [road_traffic.gd](road_traffic.gd): shared, paused-safe per-lane visual queues for
   bus/traffic, body-length clearance and offscreen turns. Queue delays do not alter
   backend timetable/passenger state.
-- [town_animals.gd](town_animals.gd): five bounded ambient animals, driven by the
-  simulation clock; no autonomous needs or persistent animal-agent state.
+- [town_animals.gd](town_animals.gd): five bounded ambient animals (two cats, a
+  rabbit and two sparrows), visible from 07:00 until 19:00 on the simulation clock;
+  no autonomous needs or persistent animal-agent state. Mochi is a separate
+  companion drawable in `town_view.gd`, shown when `presence.companion == "mochi"`.
+- [world_atmosphere.gd](world_atmosphere.gd): snapshot-driven weather presentation
+  and clock-driven daylight, with seeded fallback for absent weather fields.
 - [town_art.gd](town_art.gd): cached transparent atlas frames, stable resident appearance,
   front/back distance-based walking frames, aspect-preserving traffic artwork.
 - [world_scale.gd](world_scale.gd): actor, supporting adult, dog, vehicle, signal
@@ -28,6 +32,13 @@ interior coordinate spaces. Interior views are intentional close-ups.
 
 ## Invariants
 - Positions are presentation interpolation; the server owns travel and actions.
+- Explicit `clock.raining` wins for precipitation, including `false`. If absent,
+  `clock.weather` supplies rain/storm state; only when both fields are absent does
+  seeded rain apply. Kind uses `clock.weather`, or rain/clear from an explicit
+  rain flag, then the seeded kind. Temperature and wind use supplied values with
+  per-field seeded fallback. The renderer does not expire live observations
+  independently or combine authoritative dry weather with seeded rain; the
+  [service weather contract](../../backend/agentd/src/EGM.md) owns freshness.
 - People share an art-space adult height and foot radius regardless of focal/supporting
   tier, with at most one pixel of sprite gutter allowance. Main/supporting residents
   and the dog share depth sorting. The backend’s district/visibility field controls
@@ -70,3 +81,10 @@ The same suite checks junction retention, bent approaches, focal/supporting goal
 changes, eventual arrival at the new goal and reciprocal U-turn progress. Current
 focused and dense-seed outcomes are recorded in the learning log; shared stationary
 destinations remain outside the no-overlap claim.
+
+Run `--headless --script res://test/weather_consistency.gd` for
+[weather precedence regressions](../../test/weather_consistency.gd): authoritative
+clear/fog/wet-after-rain suppress seeded precipitation, rain/storm legacy snapshots
+remain supported, and supplied temperature/wind survive unchanged. The test is
+also included in [tools/verify.sh](../../tools/verify.sh); deployment qualification
+is tracked separately in [release qualification](../../docs/RELEASE-QUALIFICATION.md).
