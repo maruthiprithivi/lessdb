@@ -3,8 +3,8 @@
 This candidate is intended for `maruthiprithivi/lessdb` and the existing
 `https://ville.lessdb.dev` deployment. Source publication, a successful build and
 an existing live URL are distinct from deploying and verifying this candidate.
-Native restoration of a copied R2 checkpoint and the client checks have passed.
-The exact Linux release-image qualification and Cloudflare rollout are **pending**.
+Native restoration of a copied R2 checkpoint, the client checks and the exact
+Linux release-image qualification have passed. Cloudflare rollout is **pending**.
 The new static pack has been uploaded to an immutable R2 asset key but is not
 activated. Its upload is not evidence of a Worker or Container rollout.
 Update this record with actual results and identifiers when those steps finish;
@@ -23,6 +23,17 @@ Manus runtime; experimental robot/art tools can retain their original prerequisi
 The [Cloudflare guide](../deploy/cloudflare/README.md) covers the separate pinned
 Linux build. `tools/prepare_cloudflare_web.py` stages local Web delivery artifacts;
 staging artifacts is not a remote deployment.
+
+The parent repository's `.github/workflows/lessville-linux.yml` builds Linux
+artifacts on a native Ubuntu runner with the same pinned
+`tools/build_cloudflare_linux.py` helper. It uses no deployment credentials and
+uploads binary chunks and build evidence without deploying them.
+
+The release tooling pins Wrangler `4.163.0`. After that development-dependency
+update, the Worker reviewer reports zero `npm audit` vulnerabilities, passing
+TypeScript checks, all 14 Worker tests and a successful deployment dry run with
+Container rollout disabled. The runtime `@cloudflare/containers` SDK remains
+`0.3.7`; this tooling update did not deploy or alter the world.
 
 The release operator completed Cloudflare MCP setup, installed 22 official
 Cloudflare skills and refreshed the existing Wrangler OAuth session. Agent tools
@@ -70,9 +81,9 @@ junction, including bends. Corner lookahead ignores strongly opposing headings,
 avoiding reciprocal U-turn waits. Final focused checks and dense seeds 1/7/19/23
 pass their follower, crossing and progress gates; see the
 [learning log](egm/LEARNING-LOG.md). Shared stationary destinations and general
-narrow-sidewalk head-on passing remain open. No new full-day native video validates
-this candidate, and backend passenger scheduling still does not follow visual
-traffic delays.
+narrow-sidewalk head-on passing remain open. A fresh full-day native capture now
+records this candidate; its sampled frames do not establish collision-free behavior.
+Backend passenger scheduling still does not follow visual traffic delays.
 
 ## Existing Cloudflare identity
 
@@ -162,7 +173,7 @@ distinction rather than calling it an end-to-end R2 restore test. Startup and sh
 write to the scratch copy, so never mount the original archive or an active world as
 the writable data directory.
 
-## Evidence still required
+## Qualification evidence and pending rollout
 
 The native copied-checkpoint rehearsal passed against archive SHA-256
 `51cb9d33f6ca320c0883b3a73225a0d33a84434ff34e83aa5850c75369a393ba`
@@ -177,6 +188,39 @@ uploaded nothing. The original archive remained unchanged and all test processes
 stopped. Evidence is `native-cloudflare-restore-verification.json` under the local
 `outputs/lessville-live` evidence directory, outside the source repository.
 
+Native Ubuntu [Actions run 43932509106](https://github.com/maruthiprithivi/lessdb/actions/runs/43932509106)
+succeeded using the pinned build helper. The operator verified its synthetic merge
+`d40a1ce`, with parents main `44d823b` and candidate `2b50572`, and all 92 build-input
+hashes against the candidate. The qualified artifacts are:
+
+| Artifact | SHA-256 |
+|---|---|
+| Backend source | `61878972d7493d61e18ad0f9ee0cffa15eeea30fdf89013e303986523ce0a7df` |
+| Linux binary | `0539717c754114a2ddb116e08bf3fb6e35a60f9093c62847dd74d365897fd6fb` |
+| Image `lessville-agent:native-2b50572` | `8fdf192a9a7c86a85c95f319207b2f2920addc73f5bdace9b93e53d29b123ae6` |
+
+`linux-container-verification.json` records **passed** for this immutable image:
+fresh and copied-checkpoint starts, paused five-minute steps, graceful shutdown and
+restart preserved exact clocks and resident arrays. Both phases retained 100 unique
+residents (5/95, town/surrounding 17/83), ran as UID 10001 with networking disabled
+and a 256 MiB limit, exited zero and had no OOM. Reported memory was 59.66 MiB fresh
+and 80.82 MiB restored. The restored process logged Day 407 09:15, 597 memories and
+22 messages; its paused observation was minute 585,196, then 585,201 after the step
+and restart. The readonly source archive was unchanged and all owned containers
+and volumes were removed. This checks extracted-checkpoint compatibility; the
+separate native rehearsal above exercised HTTP restoration.
+
+The optional 0.0625-CPU emulated probe was **inconclusive** at its 90-second deadline.
+First readiness was observed at 66.418 seconds, and sampled clock values advanced
+403 → 434. These are bounded observations, not production performance proof.
+
+Before rollout, `cloudflare-checkpoint-before-rollout-20261116T190525Z.json` records
+a separate read-only backup matching the current R2 ETag: minute 589,562 (Day 410
+10:02), 529,798 bytes, SHA-256
+`2d51a342078c17710fac002a0f63fffc05410ad723df5b2bbcee730f28a6daa3`.
+The original rehearsal archive remained untouched; this backup is not a deployed
+candidate's restore result.
+
 `release-client-check.log` records 390 passing checks with four existing expected
 office-art failures. The current Web export passed with Godot 4.7.2. Those results
 do not validate the Linux binary or the deployed world.
@@ -187,11 +231,31 @@ tests and one ignored simulator-input test in 569.47 seconds, 14 Worker tests,
 TypeScript and deployment dry-run success, and a clean imported Web-client boot
 with zero browser console errors. `release-clean-import.log` records fresh Godot
 resource import. The operator also reports a passing native scale-atlas run.
-These recorded checks are separate from the still-pending Linux image and rollout;
-the dry run did not deploy a replacement Worker or Container.
+These recorded checks are separate from the Linux qualification above and the
+pending rollout; the dry run did not deploy a replacement Worker or Container.
 
-The exact Linux image still needs its own copied-checkpoint result. Deployment
-evidence must identify the committed source revision,
+The new `release-day-recording/run.json` records minute 399 → 1839 (Day 1 06:39 to
+Day 2 06:39), exactly 1,440 simulated minutes, with 838 native Apple M5/OpenGL frames
+over 344.698 wall seconds. All 69 sampled states plus initial/final state retained
+the same 100 IDs and population split. A fresh scratch world on port 8826 had cloud,
+model and live-weather integrations disabled; both processes exited zero after
+graceful flush. Existing local and production worlds were untouched.
+
+`release-24-hours.mp4` is 1280×720 H.264, 344.766667 seconds and 26,589,115 bytes;
+SHA-256 `74c41f4de0a24fb9b78de0a8968c6f7ee1eb0111fe986fc01ef70ce78c473935`.
+Full decode passed. The 30 fps output holds frames for their measured durations;
+the largest capture interval was 8.662 seconds, so this is not 30 independent native
+captures per second or a wall-clock endurance run. `frames.jsonl`, `frames.ffconcat`,
+`source-manifest.json`, `verification.json` and `ffprobe.json` preserve the evidence.
+`release-day-contact-sheet.png` contains four real captured frames, indexed by
+`contact-sheet.json`. Four transient offline indicators appeared during native
+capture under load, including the 23:09 contact-sheet frame; successful snapshots
+continued. The logs do not establish a backend outage or isolate the cause.
+Morning/evening clear frames and the midday rain frame showed matching weather
+labels in the inspected samples. These
+observations do not clear the known shared-destination, head-on or office-art limits.
+
+Deployment evidence must identify the committed source revision,
 Worker version, image, uploaded asset manifest and post-rollout health/state checks.
 Check actual resumed identities and time; preserve R2 history. Until those records
 exist, deployment and live restore remain pending.

@@ -87,9 +87,16 @@ end, population, final state and renderer. `frames.jsonl` contains actual captur
 timestamps; encode those durations rather than assuming a constant capture rate.
 This is accelerated simulated time, not a 24-hour wall-clock endurance test.
 
-The run requested in this chat is recorded under
-`../outputs/lessville-live/day-recording-reviewed`; the reviewable MP4 is
-`../outputs/lessville-live/lessville-24-hours.mp4`.
+The final release-candidate run is recorded under
+`../outputs/lessville-live/release-day-recording`; the reviewable MP4 is
+`../outputs/lessville-live/release-24-hours.mp4`, with a four-frame
+`release-day-contact-sheet.png` beside it. It covers minute 399 → 1839 in an
+isolated fresh world, exactly 1,440 simulated minutes, over 344.698 wall seconds.
+The earlier `day-recording-reviewed` and `lessville-24-hours.mp4` predate the final
+movement fix. Four transient offline indicators appeared during native capture
+under load; successful snapshots continued. The logs do not establish a backend
+outage or isolate the cause. Completion does not imply uninterrupted polling or
+collision-free crowds.
 
 ## Checks
 

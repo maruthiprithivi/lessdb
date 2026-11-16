@@ -2,7 +2,7 @@
 
 Decision: 2026-11-17, responding to the undersized supporting residents and traffic.
 Owner: `scripts/lessville/world_scale.gd`. Evidence: native scale atlas and the
-native 24-hour recording in `../outputs/lessville-live/day-recording-reviewed` relative to the checkout.
+native 24-hour recording in `../outputs/lessville-live/release-day-recording` relative to the checkout.
 
 ## Units and reference
 
@@ -143,7 +143,14 @@ overlaps, with every final goal reached. Minimum crossing-zone margin across tho
 runs was approximately 1.24 px; the 44 px lane-centre separation does not guarantee
 a 4 px margin throughout the approaches. Shared stationary destinations and general
 head-on passing remain unresolved, so there is no general collision-free claim.
-The native 24-hour video above predates these crossing and rerouting repairs.
+The final native recording includes these crossing and rerouting repairs. Its
+838 captured frames span exactly 1,440 simulated minutes and preserve actual frame
+timing; it is sampled visual evidence, not a replacement for the collision oracle.
+Four transient offline indicators appeared during native capture under load;
+successful snapshots continued. The logs do not establish a backend outage or
+isolate the cause.
+The older `day-recording-reviewed` video remains historical evidence from before
+the repairs.
 
 `town_animals.gd` adds two cats (Miso and Pepper), Clover the garden rabbit, and
 two sparrows. All are ambient, clock-driven routines rather than autonomous agents.

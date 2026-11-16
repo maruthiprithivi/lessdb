@@ -422,7 +422,7 @@ upload occurred. The local server stopped and the input archive hash was unchang
 Evidence: `native-cloudflare-restore-verification.json`,
 `native-cloudflare-http-restore.log` and `native-cloudflare-local-reopen.log` in the
 evidence root above. This qualifies the native candidate against the copied archive;
-the exact Linux release image and live deployment are still pending.
+the exact Linux result is recorded below. Live deployment remains pending.
 
 The root also removed the old sibling-engine launch guard and the blanket media
 ignore rules. `npm run dev`, `check`, `build` and `export` now use local repository
@@ -461,9 +461,9 @@ authoritative backend activity/location/station/pose. The retained legacy helper
 is available for rollback. The Worker agent reports 14 fixture/persistence/routing
 tests passing, TypeScript checks passing and helper parity against the downloaded
 bundle. No identity, secret or checkpoint namespace changed. The root uploaded the
-new immutable static pack to R2; it is not yet activated. Linux-image qualification,
-Worker/Container rollout and live-world continuation remain pending for the root's
-final release entry.
+new immutable static pack to R2; it is not yet activated. The later Linux-image
+qualification is recorded below; Worker/Container rollout and live-world continuation
+remain pending for the root's final release entry.
 
 ### Final bounded drift review before Linux qualification
 
@@ -480,8 +480,8 @@ changed test/manifest metadata stale, and vendor files untracked by the index. D
 source was therefore authoritative. Inspected `run_local.sh`, `verify.sh`,
 `export_web.sh`, `build_cloudflare_linux.py`, manifests, Dockerfile/start script,
 `_walker_path`, `_follow_budget` and the fixture-render helper. All 73 vendored file
-hashes and the upstream patch hash match recorded provenance. The build guide remains
-accurate while Linux compilation/qualification is pending.
+hashes and the upstream patch hash match recorded provenance. The build guide matched
+the implementation; Linux qualification had not run at this review checkpoint.
 
 The report appends resolved command/prerequisite mismatches to
 [2026-11-17_DRIFT_REPORT.md](2026-11-17_DRIFT_REPORT.md). In particular, the unsupported
@@ -492,6 +492,83 @@ for this bounded review. The operator's `release-checks.json` supplies the curre
 52-pass/one-ignored backend result, 14 Worker tests, dry run and zero-error Web boot;
 the client log directly confirms 390 checks with four expected office-art failures.
 The imported source commit is `9dec5558803a163a4dafb865c56b7ff00bd36ec7` in PR #3.
-Linux-image restore and live rollout remain pending. General head-on/shared-destination
+The later Linux-image result follows below; live rollout remains pending. General head-on/shared-destination
 overlap and known office artwork remain open, and no new 24-hour video was claimed
 at this review checkpoint.
+
+The Worker reviewer subsequently pinned Wrangler to `4.163.0` and refreshed its
+development dependency lockfile. `npm audit` reports zero vulnerabilities;
+TypeScript, all 14 Worker tests and a dry run with Container rollout disabled pass.
+The runtime `@cloudflare/containers` SDK stays at `0.3.7`, and this check performed
+no deployment. A fresh isolated native day capture was then started on local port
+8826 to replace the stale-video limitation; completion evidence follows below.
+
+### Fresh final-candidate native day recording
+
+The later authorized recording replaces the stale-video limitation above. It used
+a fresh scratch world at `.local/release-day-world-a8jeiopv`, loopback port 8826,
+with model, live weather and cloud checkpoints disabled. The existing paused local
+world and production were untouched. The initial health state was minute 390;
+startup advanced before the recorder's pause, so the actual baseline is **399**,
+not 390. `run.json` confirms minute **399 → 1839**, Day 1 06:39 → Day 2 06:39,
+exactly **1,440 simulated minutes** and a paused final state. Both recorder and
+backend exited zero, with graceful save/flush.
+
+The evidence root contains `release-day-recording` and `release-24-hours.mp4`.
+Godot 4.7.2 captured **838 native frames over 344.698 wall seconds**, using Apple
+M5 OpenGL. All **69 sampled API states** plus initial/final state preserve the
+same 100 distinct IDs and 5/95, 17/83 population split. The source manifest records
+the native binary SHA-256
+`6b9bd80056e05c0fb942d5b27180a47c976d43e4b25b58fa74a918fd26ec5a15`
+and actual source hashes; none of those source files changed during capture.
+
+The H.264 MP4 is **1280×720, 344.766667 seconds, 26,589,115 bytes**. SHA-256:
+`74c41f4de0a24fb9b78de0a8968c6f7ee1eb0111fe986fc01ef70ce78c473935`.
+A complete decode passed. Encoding uses `frames.ffconcat`, derived from the actual
+`frames.jsonl` durations, then a 30 fps hold filter. Capture interval median was
+0.272 seconds and maximum 8.662 seconds; the video does not claim 30 independently
+captured frames per second or 24 hours of wall-clock endurance. `verification.json`
+and `ffprobe.json` record those checks.
+
+`release-day-contact-sheet.png` directly composes downscaled native frames at
+08:13, 12:13, 18:08 and 23:09. `contact-sheet.json` identifies exact PNGs and elapsed
+times. Inspected morning/evening clear frames show no visible rain, while the midday
+rain frame has a matching Rain label. Read-only review found four transient offline
+indicators during native capture under load, including the night contact-sheet
+frame; successful snapshots continued. The logs do not establish a backend outage
+or isolate the cause. The indicators remain visible in the video/contact sheet;
+this is not an uninterrupted-client run. No product change was made in response.
+General narrow-path head-on/shared-destination overlaps and the
+known office-art failures remain open. The capture does not replace the dense
+collision oracle or qualify a Linux image/live rollout; the separate Linux result follows.
+
+The parent repository's `.github/workflows/lessville-linux.yml` uses the same
+pinned `tools/build_cloudflare_linux.py` helper on a native Ubuntu runner. It
+builds and uploads binary chunks and evidence without deployment credentials;
+artifact production does not qualify restoration or activate a deployment.
+
+### Exact Linux image qualification and pre-rollout backup
+
+Native Ubuntu Actions run `43932509106` succeeded using that helper. The operator
+verified synthetic merge `d40a1ce` (parents main `44d823b`, candidate `2b50572`) and
+all 92 build-input hashes. Source hash `61878972…0a7df`, binary `0539717c…fd6fb` and
+immutable image `8fdf192a…123ae6` are recorded in full in
+[release qualification](../RELEASE-QUALIFICATION.md).
+
+`linux-container-verification.json` passed fresh and copied-checkpoint pause/step/
+restart checks at 256 MiB, UID 10001, networking disabled. Both phases preserved
+100 unique residents, the 5/95 and 17/83 splits, exact paused clocks and resident
+arrays; exits were zero with no OOM. Reported memory was 59.66 MiB fresh and
+80.82 MiB restored. Restore logged Day 407 09:15 with 597 memories and 22 messages;
+the paused minute 585,196 advanced to 585,201 and survived restart. The original
+archive stayed unchanged, and all owned containers/volumes were removed. This is
+extracted-checkpoint compatibility; native HTTP restoration is separate evidence.
+The optional 0.0625-CPU emulated probe was inconclusive at its 90-second deadline:
+readiness took 66.418 seconds and sampled time advanced 403 → 434. It is observational,
+not production performance proof.
+
+`cloudflare-checkpoint-before-rollout-20261116T190525Z.json` records a separate
+read-only backup matching R2's current ETag, minute 589,562 (Day 410 10:02),
+529,798 bytes, SHA-256 `2d51a342078c17710fac002a0f63fffc05410ad723df5b2bbcee730f28a6daa3`.
+The rehearsal archive was untouched. Worker/Container rollout and live candidate
+continuation remain pending; these local checks and backup did not deploy it.
