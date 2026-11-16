@@ -106,7 +106,7 @@ def main():
         shutil.copytree(parts, old_parts)
         provenance_sha = manifest["vendor/lessdb/PROVENANCE.json"]
         marker = (
-            "lessville cost guardrail checkpoint=300s archive=168h instance=lite\n"
+            "lessville runtime checkpoint=300s archive=168h instances=1\n"
             f"build platform={PLATFORM} rust={RUST_TOOLCHAIN} image={BUILD_IMAGE}\n"
             f"backend source sha256={source_sha} vendor-provenance sha256={provenance_sha} "
             "checkpoint-prefix=lessville/v3\n"

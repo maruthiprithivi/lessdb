@@ -1,6 +1,6 @@
 # Prepare the exact vendored backend with tools/build_cloudflare_linux.py first.
 # Lessville agent service: embedded LessDB, isolated from the parent public engine.
-# Cost guardrail release: lite instance, five-minute checkpoints, seven-day R2 rollback window.
+# One instance, five-minute checkpoints, seven-day R2 rollback window; size is in wrangler.jsonc.
 # Ubuntu 24.04 (compatible with the Debian 12 build image) with curl, tar, gzip and CA
 # certificates preinstalled, so the image needs no RUN step or build-time network.
 FROM buildpack-deps:noble-curl@sha256:ff017c6ddb753a820436187146da5035237aca43e0ac53cd64cf5cb18241b733

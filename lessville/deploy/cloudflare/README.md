@@ -5,6 +5,14 @@ authoritative Rust simulation in one `LessvilleAgent` container. R2 checkpoints
 use the existing `lessville/v3/` prefix. The parent repository's Cloudflare Pages
 website is a separate deployment.
 
+The current configuration tests one `basic` instance (1/4 vCPU, 1 GiB memory,
+4 GB disk). The previous `lite` deployment repeatedly timed out at eight seconds
+while using 80–89% of its 1/16-vCPU allowance. Capacity is a hypothesis to verify
+with live health and checkpoint checks, not an established root cause. This keeps
+the single writer, five-minute checkpoints and seven-day history. At continuous
+30-day runtime, the extra provisioned memory/disk cost about $5.22 before shared
+allowances; CPU is usage-billed. See [current pricing](https://developers.cloudflare.com/containers/platform/pricing/).
+
 ## Build the Linux agent
 
 From the Lessville project root, with Python 3 and Docker running:

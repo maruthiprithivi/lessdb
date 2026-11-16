@@ -13,7 +13,7 @@
   "ai": { "binding": "AI" },
   "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "lessville-data" }],
   "ratelimits": [{ "name": "RL", "namespace_id": "4207", "simple": { "limit": 400, "period": 60 } }],
-  "containers": [{ "class_name": "LessvilleAgent", "image": "./container/Dockerfile", "max_instances": 1, "instance_type": "lite" }],
+  "containers": [{ "class_name": "LessvilleAgent", "image": "./container/Dockerfile", "max_instances": 1, "instance_type": "basic" }],
   "durable_objects": { "bindings": [
     { "name": "AGENT", "class_name": "LessvilleAgent" },
     { "name": "BUDGET", "class_name": "Budget" }
