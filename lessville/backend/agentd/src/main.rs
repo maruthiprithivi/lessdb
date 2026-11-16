@@ -499,8 +499,15 @@ fn spawn_live_weather(app: &App) {
                     .map(|d| d.as_secs() as i64)
                     .unwrap_or(0);
                 let mut sim = weather_app.sim.lock().await;
-                sim.apply_external_weather(code, temperature, wind, observed_at, "open-meteo-free")
-                    .await;
+                sim.apply_external_weather(
+                    code,
+                    temperature,
+                    wind,
+                    observed_at,
+                    "open-meteo-free",
+                    refresh_secs,
+                )
+                .await;
                 sim.persist().await;
                 drop(sim);
                 refresh(&weather_app).await;

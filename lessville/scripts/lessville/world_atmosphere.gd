@@ -85,9 +85,16 @@ static func snapshot(clock: Dictionary, sim_t: float = -1.0) -> Dictionary:
 	var day := day_index(clock)
 	var seed := world_seed(clock)
 	var wx := scheduled_weather(day, md, seed)
-	var raining := bool(clock.get("raining", false)) or String(wx["kind"]) == "rain"
-	if clock.has("weather"):
-		raining = raining or String(clock.get("weather")) == "rain"
+	var kind := String(clock.get("weather", wx["kind"]))
+	if not clock.has("weather") and clock.has("raining"):
+		kind = "rain" if bool(clock["raining"]) else "clear"
+	var raining: bool
+	if clock.has("raining"):
+		raining = bool(clock["raining"])
+	elif clock.has("weather"):
+		raining = kind in ["rain", "storm"]
+	else:
+		raining = String(wx["kind"]) == "rain"
 	var wind := wind_kmh(clock, sim_t)
 
 	# Key sky / ambient colours.
@@ -162,8 +169,8 @@ static func snapshot(clock: Dictionary, sim_t: float = -1.0) -> Dictionary:
 		"window": window,
 		"wind_kmh": wind,
 		"raining": raining,
-		"weather_kind": String(wx["kind"]),
-		"temperature_c": int(wx["temperature_c"]),
+		"weather_kind": kind,
+		"temperature_c": int(clock.get("temperature_c", wx["temperature_c"])),
 	}
 
 

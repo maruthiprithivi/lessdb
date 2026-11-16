@@ -4,11 +4,11 @@ This candidate is intended for `maruthiprithivi/lessdb` and the existing
 `https://ville.lessdb.dev` deployment. Source publication, a successful build and
 an existing live URL are distinct from deploying and verifying this candidate.
 Native restoration of a copied R2 checkpoint, the client checks and the exact
-Linux release-image qualification have passed. Cloudflare rollout is **pending**.
-The new static pack has been uploaded to an immutable R2 asset key but is not
-activated. Its upload is not evidence of a Worker or Container rollout.
-Update this record with actual results and identifiers when those steps finish;
-do not infer success from the existing live URL.
+Linux release-image qualification have passed. Cloudflare completed the candidate
+rollout at 2026-11-16 19:11:45.518 UTC. Initial live restore and population hydration
+are observed; **final post-checkpoint verification remains pending**. The deployed
+page references the candidate pack and the sampled immutable asset hashes match.
+Rollout completion is not yet a claim that all production verification gates passed.
 
 ## Portable commands and operator setup
 
@@ -173,7 +173,7 @@ distinction rather than calling it an end-to-end R2 restore test. Startup and sh
 write to the scratch copy, so never mount the original archive or an active world as
 the writable data directory.
 
-## Qualification evidence and pending rollout
+## Qualification evidence and rollout
 
 The native copied-checkpoint rehearsal passed against archive SHA-256
 `51cb9d33f6ca320c0883b3a73225a0d33a84434ff34e83aa5850c75369a393ba`
@@ -232,7 +232,7 @@ TypeScript and deployment dry-run success, and a clean imported Web-client boot
 with zero browser console errors. `release-clean-import.log` records fresh Godot
 resource import. The operator also reports a passing native scale-atlas run.
 These recorded checks are separate from the Linux qualification above and the
-pending rollout; the dry run did not deploy a replacement Worker or Container.
+actual rollout below; the dry run did not deploy a replacement Worker or Container.
 
 The new `release-day-recording/run.json` records minute 399 → 1839 (Day 1 06:39 to
 Day 2 06:39), exactly 1,440 simulated minutes, with 838 native Apple M5/OpenGL frames
@@ -255,7 +255,53 @@ Morning/evening clear frames and the midday rain frame showed matching weather
 labels in the inspected samples. These
 observations do not clear the known shared-destination, head-on or office-art limits.
 
-Deployment evidence must identify the committed source revision,
-Worker version, image, uploaded asset manifest and post-rollout health/state checks.
-Check actual resumed identities and time; preserve R2 history. Until those records
-exist, deployment and live restore remain pending.
+### Cloudflare rollout and initial live restore
+
+Source `67ce334be6f6e8e92f732fdfb3185dee9c8ecbb4` deployed as Worker version
+`d1b2a6fa-7473-4e25-a2c4-7c0b98ce8060`. Container application version 27 completed
+its rollout at **2026-11-16 19:11:45.518 UTC**, retaining the existing singleton
+and R2 namespace. Evidence: `cloudflare-deploy.json`, `cloudflare-deploy.log` and
+`cloudflare-container-after-rollout.json`.
+
+The deployed Linux/amd64 manifest is
+`sha256:e4ba2fd220ce256635cddae1f58fe60fe337f6c35377a2497c736003a4249970`.
+`cloudflare-image-equivalence.json` confirms it belongs to qualified image index
+`8fdf192a…123ae6` above, with matching runtime configuration and all 29 filesystem
+layers. These different index/platform digests identify the same qualified runtime.
+
+The first probe, `cloudflare-probe-20261116T191119919514Z.json`, deliberately remains
+failed evidence of the transition: old cached 13-resident state and an initial health
+503 were followed by live `lessville-agentd` health 200 reporting restoration of
+531,340 bytes from the existing R2 checkpoint. The new state logged **Day 410 21:06,
+minute 590,226**, with 618 memories and 27 messages, then reached minute 590,238.
+Hydration expanded 13 residents to 100 unique IDs while preserving the original 13,
+with 5 focal/95 supporting and 17 town-centre/83 surrounding residents. The root page
+referenced the candidate pack/Wasm, and both immutable asset hashes matched; the
+probe also rejected the canonical `/index.html` redirect, which needs correct
+handling in final page verification.
+
+The same live sample exposed a weather contradiction: `weather: foggy` coexisted
+with `raining: true` and an older seeded-rain reason. The local correction clears
+stale rain timers/reasons on dry observations while preserving wet-ground history.
+Persisted `weather_live_until` is Unix time equal to the observation time plus twice
+the existing refresh interval: fresh live weather takes precedence through simulated
+rain deadlines and overnight updates; expiry or disabled live weather restores seeded
+provenance, code -1 and observation time 0. Observer rain nudges clear live provenance
+and retain their bounded duration. The renderer respects explicit rain state and
+authoritative weather kind/temperature instead of reintroducing seeded rain.
+
+Focused validation passed: six native weather tests (four new, two existing; 51
+filtered out), 16 Godot weather checks and diff checking. `tools/verify.sh` now
+includes the Godot check. Refreshed Linux/Web artifacts and a corrective rollout
+remain pending; the first rollout is not the final candidate.
+
+The initial probe reported zero uploads, but the independent read-only R2 check
+`cloudflare-checkpoint-after-rollout-20261116T191835Z.json` confirms a new checkpoint
+written at **2026-11-16 19:16:56.083 UTC**, 258,216 bytes, SHA-256
+`4e0f07e0672651616d80fa8f7fad34f370aacb12a2bff8f82a7cd0409ae3109c`.
+Its ETag matched the downloaded backup; archive statistics do not prove an exact
+latest world minute. The settled 19:17 probe (`cloudflare-probe-20261116T191717183010Z.json`)
+verified candidate assets, stable 100-resident identities and advancing sampled time,
+but all three live-health requests returned 503. The new checkpoint is confirmed;
+full live-health qualification remains unpassed. Worker healthz and cached state alone
+do not establish it.

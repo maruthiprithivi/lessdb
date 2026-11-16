@@ -569,6 +569,9 @@ pub struct World {
     pub weather_source: String,
     #[serde(default)]
     pub weather_observed_at: i64,
+    /// Unix seconds, independent of the accelerated simulation clock.
+    #[serde(default)]
+    pub weather_live_until: i64,
     #[serde(default)]
     pub weather_code: i32,
     #[serde(default)]
@@ -901,6 +904,7 @@ impl World {
             weather_changed_at: DAY_START,
             weather_source: "seeded-fallback".into(),
             weather_observed_at: 0,
+            weather_live_until: 0,
             weather_code: 0,
             world_seed: 0x4c455353_56494c4c_u64 ^ generation as u64,
             stock,
@@ -2813,6 +2817,8 @@ impl Sim {
         if md == DAY_END {
             self.night().await;
         }
+        // Live precipitation and rain expiry also advance outside business hours.
+        self.weather().await;
         if !(DAY_START..DAY_END).contains(&md) {
             self.tick_background();
             self.tick_traffic_lights();
@@ -2826,7 +2832,6 @@ impl Sim {
         if md == DAY_START {
             self.morning().await;
         }
-        self.weather().await;
         self.explore_novelty().await;
         self.buses().await;
         self.run_plans().await;
@@ -3011,9 +3016,24 @@ impl Sim {
     }
 
     async fn weather(&mut self) {
+        let unix_now = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_secs() as i64)
+            .unwrap_or(0);
+        let live_enabled = std::env::var("LESSVILLE_LIVE_WEATHER").ok().as_deref() == Some("1");
+        self.weather_at(unix_now, live_enabled).await;
+    }
+
+    async fn weather_at(&mut self, unix_now: i64, live_enabled: bool) {
         let now = self.now();
         let md = self.md();
-        if (md % 180 == 0 || (day_of(now) == 1 && md == 810)) && self.w.weather_changed_at != now {
+        let live = live_enabled && self.w.weather_live_until > unix_now;
+        let fallback =
+            !live && (self.w.weather_live_until > 0 || self.w.weather_source == "open-meteo-free");
+        let scheduled = (DAY_START..DAY_END).contains(&md)
+            && (md % 180 == 0 || (day_of(now) == 1 && md == 810))
+            && self.w.weather_changed_at != now;
+        if !live && (fallback || scheduled) {
             let bucket = md / 180;
             let roll = seeded_roll(self.w.world_seed, day_of(now), bucket) % 100;
             let (kind, temp, wind) = if day_of(now) == 1 && md == 810 {
@@ -3031,6 +3051,13 @@ impl Sim {
             self.w.temperature_c = temp;
             self.w.wind_kmh = wind;
             self.w.weather_changed_at = now;
+            self.w.weather_source = "seeded-fallback".into();
+            self.w.weather_code = -1; // No WMO observation backs the seeded state.
+            self.w.weather_observed_at = 0;
+            self.w.weather_live_until = 0;
+            if kind != "rain" {
+                self.end_rain();
+            }
             let detail = format!(
                 "{}°C · wind {} km/h · seeded world roll {}",
                 temp, wind, roll
@@ -3055,9 +3082,14 @@ impl Sim {
                     .await;
             }
         }
-        if self.w.rain_until > 0 && now >= self.w.rain_until {
+        if live && matches!(self.w.weather_kind.as_str(), "rain" | "storm") {
+            // A fresh observation lasts until its wall-clock freshness deadline,
+            // rather than expiring after 45 accelerated simulation minutes.
+            self.w.rain_until = now + 45;
+        } else if !live && self.w.rain_until > 0 && now >= self.w.rain_until {
             self.w.rain_until = 0;
             self.w.last_rain_end = now;
+            self.w.rain_reason.clear();
             self.w.weather_kind = "wet_after_rain".into();
             self.event("world", "weather.clear", "", "Rain stopped")
                 .await;
@@ -3253,6 +3285,7 @@ impl Sim {
         wind_kmh: i32,
         observed_at: i64,
         source: &str,
+        refresh_secs: u64,
     ) {
         let kind = weather_kind_from_code(code);
         let changed = self.w.weather_kind != kind
@@ -3265,10 +3298,15 @@ impl Sim {
         self.w.wind_kmh = wind_kmh;
         self.w.weather_source = source.into();
         self.w.weather_observed_at = observed_at;
+        // Allow one missed poll, then visibly return to deterministic fallback.
+        let lifetime = refresh_secs.saturating_mul(2).min(i64::MAX as u64) as i64;
+        self.w.weather_live_until = observed_at.saturating_add(lifetime);
         self.w.weather_changed_at = self.now();
-        if matches!(kind, "rain" | "showers" | "snow") {
+        if matches!(kind, "rain" | "storm") {
             self.w.rain_until = self.now() + 45;
             self.w.rain_reason = format!("Live weather observation from {source}");
+        } else {
+            self.end_rain();
         }
         if changed {
             let detail = format!(
@@ -3284,6 +3322,14 @@ impl Sim {
                 "",
             );
         }
+    }
+
+    fn end_rain(&mut self) {
+        if self.w.rain_until > 0 {
+            self.w.last_rain_end = self.now();
+        }
+        self.w.rain_until = 0;
+        self.w.rain_reason.clear();
     }
 
     pub async fn start_rain(&mut self, minutes: i64, reason: &str) {
@@ -4675,6 +4721,10 @@ impl Sim {
     pub async fn nudge(&mut self, kind: &str) -> Result<String, String> {
         let msg = match kind {
             "rain" => {
+                self.w.weather_source = "observer-nudge".into();
+                self.w.weather_code = -1;
+                self.w.weather_observed_at = 0;
+                self.w.weather_live_until = 0;
                 self.start_rain(45, "Observer nudge: a passing shower")
                     .await;
                 "Rain for 45 sim-minutes".to_string()
@@ -4833,6 +4883,7 @@ impl Sim {
                 "weather": self.w.weather_kind, "temperature_c": self.w.temperature_c,
                 "wind_kmh": self.w.wind_kmh, "weather_code": self.w.weather_code,
                 "weather_source": self.w.weather_source, "weather_observed_at": self.w.weather_observed_at,
+                "weather_live_until": self.w.weather_live_until,
                 "weather_changed_at": self.w.weather_changed_at,
                 "day_start": DAY_START, "day_end": DAY_END,
             },
@@ -4952,6 +5003,162 @@ mod world_tests {
     use std::collections::BTreeSet;
 
     use super::{World, activity_fields, bus_trip, next_bus_start, novelty_choice, seeded_roll};
+
+    #[tokio::test]
+    async fn weather_dry_observation_ends_seeded_rain() {
+        let (store, world, dir) = crate::scenarios::fixture().await;
+        let mut sim = super::Sim {
+            store,
+            w: world,
+            llm: None,
+        };
+        sim.w.minute = 590226;
+        sim.start_rain(45, "seeded world roll 14").await;
+        sim.apply_external_weather(45, 24, 3, 1794856308, "open-meteo-free", 3600)
+            .await;
+        let clock = sim.snapshot(vec![], 0)["clock"].clone();
+        assert_eq!(clock["weather"], "foggy");
+        assert_eq!(clock["raining"], false);
+        assert_eq!(sim.w.rain_until, 0);
+        assert_eq!(sim.w.last_rain_end, sim.now());
+        assert!(sim.w.rain_reason.is_empty());
+        sim.w.minute += 45;
+        sim.weather_at(1794856353, true).await;
+        assert_eq!(
+            sim.w.weather_kind, "foggy",
+            "old rain expiry cannot replace fog"
+        );
+        assert!(
+            !sim.snapshot(vec![], 0)["clock"]["raining"]
+                .as_bool()
+                .unwrap()
+        );
+        sim.w.minute += 30; // 22:21: the overnight path must preserve fresh dry weather.
+        sim.weather_at(1794856383, true).await;
+        assert_eq!(sim.w.weather_kind, "foggy");
+        assert_eq!(sim.w.rain_until, 0);
+        drop(sim);
+        std::fs::remove_dir_all(dir).expect("remove weather test data");
+    }
+
+    #[tokio::test]
+    async fn weather_live_precedence_and_expiry_use_wall_time() {
+        let (store, world, dir) = crate::scenarios::fixture().await;
+        let mut sim = super::Sim {
+            store,
+            w: world,
+            llm: None,
+        };
+        sim.w.minute = 809;
+        sim.apply_external_weather(45, 24, 3, 1000, "open-meteo-free", 900)
+            .await;
+        sim.w.minute = 810; // The seeded first-day shower must not override live fog.
+        sim.weather_at(2799, true).await;
+        assert_eq!(sim.w.weather_kind, "foggy");
+        assert_eq!(sim.w.temperature_c, 24);
+        assert_eq!(sim.w.wind_kmh, 3);
+        assert_eq!(sim.w.weather_code, 45);
+        assert_eq!(sim.w.weather_source, "open-meteo-free");
+        assert_eq!(sim.w.rain_until, 0);
+
+        sim.apply_external_weather(95, 25, 18, 2000, "open-meteo-free", 900)
+            .await;
+        sim.w.minute = 1325; // Far beyond 45 simulated minutes, including nighttime.
+        sim.weather_at(3799, true).await;
+        assert_eq!(sim.w.weather_kind, "storm");
+        assert!(
+            sim.snapshot(vec![], 0)["clock"]["raining"]
+                .as_bool()
+                .unwrap()
+        );
+        sim.w = serde_json::from_value(serde_json::to_value(&sim.w).unwrap()).unwrap();
+        assert_eq!(
+            sim.w.weather_live_until, 3800,
+            "expiry survives checkpoint restore"
+        );
+
+        // Choose a dry fallback bucket to prove stale live rain is actually ended.
+        sim.w.world_seed = (1..100)
+            .find(|seed| seeded_roll(*seed, 1, 7) % 100 >= 18)
+            .unwrap();
+        sim.weather_at(3800, true).await;
+        assert_eq!(sim.w.weather_source, "seeded-fallback");
+        assert_eq!(sim.w.weather_code, -1);
+        assert_eq!(sim.w.weather_observed_at, 0);
+        assert_eq!(sim.w.weather_live_until, 0);
+        assert_ne!(sim.w.weather_kind, "storm");
+        assert_eq!(sim.w.rain_until, 0);
+        assert!(sim.w.rain_reason.is_empty());
+        assert_eq!(sim.w.last_rain_end, 1325);
+        drop(sim);
+        std::fs::remove_dir_all(dir).expect("remove weather test data");
+    }
+
+    #[tokio::test]
+    async fn weather_disabled_live_and_legacy_restore_return_to_seeded_fallback() {
+        let (store, world, dir) = crate::scenarios::fixture().await;
+        let mut sim = super::Sim {
+            store,
+            w: world,
+            llm: None,
+        };
+        sim.w.minute = 809;
+        sim.apply_external_weather(45, 24, 3, 1000, "open-meteo-free", 900)
+            .await;
+        sim.w.minute = 810;
+        sim.weather_at(1001, false).await;
+        assert_eq!(
+            sim.w.weather_kind, "rain",
+            "disabled live retains the seeded first-day shower"
+        );
+        assert_eq!(sim.w.weather_source, "seeded-fallback");
+        assert_eq!(sim.w.weather_code, -1);
+        assert_eq!(sim.w.weather_observed_at, 0);
+        assert!(sim.w.rain_reason.contains("seeded world roll"));
+
+        sim.apply_external_weather(45, 24, 3, 1000, "open-meteo-free", 900)
+            .await;
+        let mut old_checkpoint = serde_json::to_value(&sim.w).unwrap();
+        old_checkpoint
+            .as_object_mut()
+            .unwrap()
+            .remove("weather_live_until");
+        sim.w = serde_json::from_value(old_checkpoint).unwrap();
+        sim.weather_at(1001, true).await;
+        assert_eq!(
+            sim.w.weather_source, "seeded-fallback",
+            "legacy state cannot claim unbounded live freshness"
+        );
+        assert_eq!(sim.w.weather_code, -1);
+        assert_eq!(sim.w.weather_observed_at, 0);
+        drop(sim);
+        std::fs::remove_dir_all(dir).expect("remove weather test data");
+    }
+
+    #[tokio::test]
+    async fn weather_observer_shower_stays_bounded_after_live_observation() {
+        let (store, world, dir) = crate::scenarios::fixture().await;
+        let mut sim = super::Sim {
+            store,
+            w: world,
+            llm: None,
+        };
+        sim.w.minute = 1000;
+        sim.apply_external_weather(45, 24, 3, 1000, "open-meteo-free", 900)
+            .await;
+        sim.nudge("rain").await.unwrap();
+        assert_eq!(sim.w.weather_source, "observer-nudge");
+        assert_eq!(sim.w.weather_code, -1);
+        assert_eq!(sim.w.weather_observed_at, 0);
+        assert_eq!(sim.w.weather_live_until, 0);
+        sim.w.minute = 1045;
+        sim.weather_at(1001, true).await;
+        assert_eq!(sim.w.weather_kind, "wet_after_rain");
+        assert_eq!(sim.w.rain_until, 0);
+        assert!(sim.w.rain_reason.is_empty());
+        drop(sim);
+        std::fs::remove_dir_all(dir).expect("remove weather test data");
+    }
 
     #[test]
     fn timetable_has_named_delayed_trip() {

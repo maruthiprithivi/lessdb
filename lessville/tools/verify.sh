@@ -12,6 +12,7 @@ if [[ ! -x "$GODOT_BIN" ]]; then GODOT_BIN="$(command -v godot || true)"; fi
 if [[ ! -x "$GODOT_BIN" ]]; then echo "Set GODOT_BIN to Godot 4.7.2." >&2; exit 1; fi
 "$GODOT_BIN" --headless --path . --editor --import
 "$GODOT_BIN" --headless --path . res://test/test_suite.tscn
+"$GODOT_BIN" --headless --path . --script res://test/weather_consistency.gd
 if [[ "${1:-}" == "--export" ]]; then
   GODOT_BIN="$GODOT_BIN" ./tools/export_web.sh
 fi

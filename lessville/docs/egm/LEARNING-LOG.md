@@ -422,7 +422,7 @@ upload occurred. The local server stopped and the input archive hash was unchang
 Evidence: `native-cloudflare-restore-verification.json`,
 `native-cloudflare-http-restore.log` and `native-cloudflare-local-reopen.log` in the
 evidence root above. This qualifies the native candidate against the copied archive;
-the exact Linux result is recorded below. Live deployment remains pending.
+the exact Linux and later rollout results are recorded below.
 
 The root also removed the old sibling-engine launch guard and the blanket media
 ignore rules. `npm run dev`, `check`, `build` and `export` now use local repository
@@ -463,7 +463,7 @@ tests passing, TypeScript checks passing and helper parity against the downloade
 bundle. No identity, secret or checkpoint namespace changed. The root uploaded the
 new immutable static pack to R2; it is not yet activated. The later Linux-image
 qualification is recorded below; Worker/Container rollout and live-world continuation
-remain pending for the root's final release entry.
+were not yet verified at this checkpoint.
 
 ### Final bounded drift review before Linux qualification
 
@@ -492,7 +492,7 @@ for this bounded review. The operator's `release-checks.json` supplies the curre
 52-pass/one-ignored backend result, 14 Worker tests, dry run and zero-error Web boot;
 the client log directly confirms 390 checks with four expected office-art failures.
 The imported source commit is `9dec5558803a163a4dafb865c56b7ff00bd36ec7` in PR #3.
-The later Linux-image result follows below; live rollout remains pending. General head-on/shared-destination
+The later Linux-image result follows below; rollout had not run at this review checkpoint. General head-on/shared-destination
 overlap and known office artwork remain open, and no new 24-hour video was claimed
 at this review checkpoint.
 
@@ -570,5 +570,46 @@ not production performance proof.
 `cloudflare-checkpoint-before-rollout-20261116T190525Z.json` records a separate
 read-only backup matching R2's current ETag, minute 589,562 (Day 410 10:02),
 529,798 bytes, SHA-256 `2d51a342078c17710fac002a0f63fffc05410ad723df5b2bbcee730f28a6daa3`.
-The rehearsal archive was untouched. Worker/Container rollout and live candidate
-continuation remain pending; these local checks and backup did not deploy it.
+The rehearsal archive was untouched. These local checks and backup did not deploy
+the candidate; the following entry records the later rollout.
+
+### Cloudflare rollout; final post-checkpoint verification outstanding
+
+Source `67ce334be6f6e8e92f732fdfb3185dee9c8ecbb4` deployed as Worker
+`d1b2a6fa-7473-4e25-a2c4-7c0b98ce8060`, Container application version 27. The rollout
+completed at 2026-11-16 19:11:45.518 UTC. `cloudflare-container-after-rollout.json`
+records the running placement and unchanged singleton. `cloudflare-image-equivalence.json`
+proves deployed Linux/amd64 manifest `e4ba2fd2…249970` is in qualified image index
+`8fdf192a…123ae6`, with matching runtime configuration and all 29 filesystem layers;
+full identifiers are in [release qualification](../RELEASE-QUALIFICATION.md).
+
+The initial probe remains failed transition evidence: cached 13-resident responses
+and health 503 preceded live backend health 200 and the restored 100-resident state.
+The runtime restored 531,340 bytes from the existing R2 namespace and logged Day 410
+21:06 (minute 590,226), 618 memories and 27 messages. Its state advanced to 590,238,
+preserving the initial 13 IDs while hydrating to 100 unique residents (5/95, 17/83).
+Root-page candidate routes and immutable asset hashes matched; the probe's rejection
+of the canonical `/index.html` redirect is a page-verification issue to resolve.
+Evidence: `cloudflare-probe-20261116T191119919514Z.json`.
+
+That live sample also exposed `weather: foggy` alongside `raining: true` and an
+older seeded-rain reason. The local correction clears stale rain on dry observations
+while preserving wet-ground history, and gives fresh live observations precedence
+through simulated rain deadlines and overnight updates. Persisted `weather_live_until`
+is Unix observation time plus twice the existing refresh interval. Expiry or disabled
+live weather restores seeded provenance, code -1 and observation time 0; observer
+rain nudges clear live provenance to remain bounded. The renderer honors explicit
+rain state and authoritative kind/temperature. Six native weather tests passed
+(four new, two existing; 51 filtered out), along with 16 Godot checks and diff checking;
+`tools/verify.sh` includes the Godot check. Refreshed Linux/Web artifacts and corrective
+rollout remain pending.
+
+The initial zero-upload observation was followed by an independently verified R2
+checkpoint written at 2026-11-16 19:16:56.083 UTC: 258,216 bytes, SHA-256
+`4e0f07e0672651616d80fa8f7fad34f370aacb12a2bff8f82a7cd0409ae3109c`.
+`cloudflare-checkpoint-after-rollout-20261116T191835Z.json` confirms its matching ETag,
+but not an exact latest world minute. The settled 19:17 probe
+`cloudflare-probe-20261116T191717183010Z.json` verified assets, stable 100-resident IDs
+and advancing sampled time, while all three live-health requests returned 503.
+Checkpoint persistence is confirmed; full live-health qualification remains unpassed.
+Worker healthz and cached state alone do not establish it.
