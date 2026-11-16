@@ -11,9 +11,13 @@ weather precedence and stages a `basic` capacity trial. Its strict copied-checkp
 restart gate exposed a JSON float-roundtrip defect. Parser correction `4bc21af` is
 committed and pushed. Its focused regression and Linux CI `43943678663` passed.
 Artifact integrity, the full native backend suite and exact Linux-image
-qualification also passed. **Corrective deployment and production health/checkpoint
-verification remain pending.** Earlier
-artifact and recording evidence below identifies the version it actually covers.
+qualification also passed. Corrective release `73fbedf` completed its `basic`
+Container rollout at 2026-11-16 20:22:37.495 UTC. **All 14 final live gates passed
+at 20:28 UTC**, including real backend health, advancing time, stable 100-resident
+identities, exact asset hashes and a new independently verified R2 checkpoint. One
+`basic` instance is retained; the short observation window establishes early capacity
+headroom, not endurance or the cause of earlier timeouts. Earlier artifact and
+recording evidence below identifies the version it actually covers.
 
 ## Portable commands and operator setup
 
@@ -309,10 +313,10 @@ Its ETag matched the downloaded backup; archive statistics do not prove an exact
 latest world minute. The settled 19:17 probe (`cloudflare-probe-20261116T191717183010Z.json`)
 verified candidate assets, stable 100-resident identities and advancing sampled time,
 but all three live-health requests returned 503. The new checkpoint is confirmed;
-full live-health qualification remains unpassed. Worker healthz and cached state alone
-do not establish it.
+that first rollout did not pass full live-health qualification. Worker healthz and
+cached state alone do not establish it.
 
-### Precision-corrected candidate `4bc21af`: qualified; deployment pending
+### Precision-corrected backend `4bc21af`: qualified and verified live
 
 Source `38cd1593f1db2b4ed92de05c2b6ff239c142fa0c` contains the weather correction
 above and changes the existing single Container to the `basic` instance type as a
@@ -390,8 +394,7 @@ and all owned containers/volumes were removed. No CPU probe ran; these results d
 not qualify production `basic` performance. Evidence:
 `linux-container-verification-4bc21af-43943678663.json` and
 `qualified-image-provenance-4bc21af.json`, with all six before/after/reopened
-snapshots retained. Corrective deployment and live health/checkpoint verification
-remain pending.
+snapshots retained. The corrective rollout and passing live checks are recorded below.
 
 The fresh pre-trial backup in
 `cloudflare-checkpoint-before-second-rollout-20261116T193226Z.json` matched stable R2
@@ -411,7 +414,8 @@ these are not an exact latest-row query. The independent 20:09:19 stale-cache sa
 showed minute 595,424 (Day 414 11:44), unpaused, with the same 100 resident IDs.
 One live health request returned 200 in 7.099 seconds (Worker 6,963 ms), with 11
 checkpoint uploads and zero reported failures. This later success does not erase
-the repeated earlier 503s or establish sustained health; `basic` remains a capacity trial.
+the repeated earlier 503s or establish sustained health; the subsequent capacity
+trial and its bounded results are recorded below.
 
 The refreshed Web pack is `525042e0…afe2f`; the operator verified its immutable
 GET returned 200 with 15,563,640 bytes and the expected hash. The operator inspected
@@ -422,4 +426,58 @@ macOS rerun exited zero: `weather-client-check-native.log` records **388 checks 
 four expected office-art failures**, followed by **16 passing weather checks**.
 Two live-local API checks were skipped because `127.0.0.1:8790` was unreachable;
 those two checks account for the earlier 390 count. Production API verification is
-separate. Corrective deployment and live health/checkpoint verification remain pending. The full-day video predates this weather correction.
+separate. The full-day video predates this weather correction.
+
+### Corrective rollout and final live verification passed
+
+Release source `73fbedfd11fa1ecc123cb1fb109aa9b106f28182` deployed the qualified
+backend and refreshed Web pack. Worker `815e5341-451c-44a9-8428-735a2e50abcd`,
+Container app version 28, rollout `d9bc746b-d2ad-48c4-82c3-735a82bbaf9c` completed
+at 2026-11-16 20:22:37.495 UTC. The control plane reported one healthy instance and
+no rollout errors. `cloudflare-image-equivalence-73fbedf.json` verifies the deployed
+Linux manifest `774d8a82…5c604`, config and all 29 ordered layers against the qualified
+image, with independently equal RootFS and unchanged qualification evidence.
+The existing singleton retains one `basic` instance: 0.25 vCPU, 1 GiB memory and
+4 GB disk. Earlier `lite` cost estimates are historical. At the current published
+[Container rates](https://developers.cloudflare.com/containers/platform/pricing/),
+30 continuously active days add about **$5.22 in memory and disk charges versus
+`lite`** (0.75 GiB extra memory and 2 GB extra disk); active CPU is additional. This
+is the capacity increment, not a total bill or a measured monthly cost.
+
+The pre-completion probe `cloudflare-corrective-early-20261116T202208Z.json`
+returned health 503 at the 8-second Worker timeout and served the old cached state.
+It is retained as transition evidence. After completion, the operator's native Web
+browser inspection showed “Resumed Day 415 06:45” with 631 memories and 15 messages,
+then 06:58 fog at 24°C without rendered rain, the new pack and zero console errors.
+Screenshot: `cloudflare-corrective-initial.png`.
+
+The final GET-only probe, `cloudflare-probe-20261116T202802144607Z.json`, passed all
+14 gates across 13 requests in 33.487 seconds. Three real `/api/health` requests
+returned 200 in 0.308, 0.337 and 0.416 seconds, reporting restoration of 424,687 bytes
+from the existing `lessville/v3/latest.tar.gz`, one upload, zero checkpoint failures
+and a 399,128-byte last save. State samples retained the same 100 unique IDs, remained
+unpaused and advanced 597,205→597,240→597,275. Fresh live weather was foggy, 24°C,
+wind 2 km/h, with `raining: false`, an empty rain reason and a valid Unix expiry.
+The pack and Wasm passed complete size/hash checks. `/index.html` returned the
+expected 307 redirect to `/`; injected root HTML retained the candidate asset routes,
+but raw HTML hash equality was not verified. Worker healthz and stale-labelled state
+were not treated as substitutes for the successful real backend health requests.
+
+Independent read-only R2 evidence,
+`cloudflare-checkpoint-after-corrective-rollout-20261116T202801Z.json`, confirms a
+new save written at **20:27:40.882 UTC**, 399,128 bytes, SHA-256
+`88a757cffc30590012e4eef437bf70de75889ccd2b88dfb6488d6e5b89221500`.
+Stable metadata/ETag matched the private backup, and all nine prior archives remained
+unchanged. Its multirow part bounds do not identify the exact latest checkpoint
+minute; the independent cached state at minute 597,220 is separate continuity evidence.
+
+`cloudflare-post-corrective-metrics-20261116T202803310424Z.json` confirms app v28,
+one running instance and the new placement. Only two complete minute buckets
+(20:23–20:24 UTC, 12 samples) survived lag/partial filtering: weighted CPU use was
+21.76% of allocation, or 0.05439 cores, with a 31.08% peak. The earlier `lite`
+baseline covered nine buckets at 104.32%, or 0.06521 cores. This shows early capacity
+headroom, not latency causality or endurance: capacity and image changed together,
+and `lite` had also returned one health 200 in 7.099 seconds before deployment.
+The retained `basic` allocation and successful live gates do not extend the existing
+movement, art or recording claims; the 24-simulated-hour video predates weather and
+precision corrections.

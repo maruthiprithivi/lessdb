@@ -1,5 +1,12 @@
 # Durable simulation operations plan
 
+> **Current status — 2026-11-17:** The corrective rollout passed its final live
+> health, continuity and checkpoint gates and retains one `basic` Container. See
+> [release qualification](RELEASE-QUALIFICATION.md) for current evidence and costs
+> (about $5.22/month extra memory/disk versus `lite`; active CPU additional).
+> The older `lite` budgets and delivery evidence below are retained as history,
+> not the current deployment estimate. Early capacity headroom is not endurance proof.
+
 **Status:** proposed architecture; not yet deployed or enabled.
 
 This plan answers what is required to move the temporary Reachy Mini, MicroDuck and Security Lab surfaces to durable public services while keeping the existing LessVille town deployment and its cost guardrails honest.

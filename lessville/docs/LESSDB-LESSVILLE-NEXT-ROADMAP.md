@@ -1,5 +1,12 @@
 # LessDB + LessVille next action plan and roadmap
 
+> **Current status — 2026-11-17:** The corrective rollout passed its final live
+> health, continuity and checkpoint gates and retains one `basic` Container. See
+> [release qualification](RELEASE-QUALIFICATION.md) for current evidence and costs
+> (about $5.22/month extra memory/disk versus `lite`; active CPU additional).
+> The older `lite` budgets and delivery evidence below are retained as history,
+> not the current deployment estimate. Early capacity headroom is not endurance proof.
+
 **Status date:** 2026-10-12
 
 ## 1. Cloudflare cost position

@@ -612,15 +612,15 @@ checkpoint written at 2026-11-16 19:16:56.083 UTC: 258,216 bytes, SHA-256
 but not an exact latest world minute. The settled 19:17 probe
 `cloudflare-probe-20261116T191717183010Z.json` verified assets, stable 100-resident IDs
 and advancing sampled time, while all three live-health requests returned 503.
-Checkpoint persistence is confirmed; full live-health qualification remains unpassed.
-Worker healthz and cached state alone do not establish it.
+Checkpoint persistence was confirmed; that first rollout did not pass full live-health
+qualification. Worker healthz and cached state alone do not establish it.
 
 ### Second candidate: weather correction and `basic` capacity trial
 
 Source `38cd1593f1db2b4ed92de05c2b6ff239c142fa0c` contains the correction above and
 stages the existing singleton on the `basic` instance type after repeated live-health
 503s. This is a capacity trial with unchanged Worker, singleton and R2 identities;
-its deployment and effect on health remain pending. Actions run `43939193796`
+its later replacement and bounded health results are recorded below. Actions run `43939193796`
 succeeded, and artifact integrity passed with all 92 inputs matching `38cd159`.
 Verified synthetic merge `76eb5315c83e967a47181a3de1e23e35a49e5459` has parents
 main `44d823b` and candidate `38cd159`. Source hash `4b6b1580…a1d73` and Linux binary
@@ -651,8 +651,8 @@ passed. The native macOS rerun exited zero: `weather-client-check-native.log` re
 388 checks with four expected office-art failures, plus 16 passing weather checks.
 Two live-local API checks were skipped because `127.0.0.1:8790` was unreachable,
 explaining the difference from the earlier 390 count; production has a separate
-probe. Corrective rollout and live health/checkpoint results remain pending. The full-day video covers the movement fix and predates this weather
-correction.
+probe. The later corrective rollout and live results follow below. The full-day video
+covers the movement fix and predates this weather correction.
 
 ### Strict restart gate exposed a JSON float-roundtrip defect
 
@@ -689,8 +689,8 @@ The original archive stayed unchanged, all owned containers/volumes were removed
 and all six phase snapshots were retained. No CPU probe ran. Evidence:
 `linux-container-verification-4bc21af-43943678663.json` and
 `qualified-image-provenance-4bc21af.json`. Assertions and the exact resident-state
-contract remain unchanged; deployment and production health/checkpoint verification
-remain pending.
+contract remain unchanged. The later corrective rollout and passing production
+health/checkpoint verification are recorded below.
 
 The later pre-corrective backup evidence,
 `cloudflare-checkpoint-before-corrective-rollout-20261116T200907Z.json`, records a
@@ -701,4 +701,43 @@ the latest world row. A separate 20:09:19 stale-cache sample showed minute 595,4
 Day 414 11:44, unpaused, and the same 100 IDs. One health request returned 200 in
 7.099 seconds (Worker 6,963 ms), with 11 uploads and zero reported checkpoint failures.
 The earlier repeated 503s remain historical evidence; this single success establishes
-neither sustained health nor the benefit of the still-pending `basic` capacity trial.
+neither sustained health nor the benefit of the `basic` capacity trial.
+
+### Corrective rollout — 2026-11-16 20:22 UTC
+
+Release `73fbedfd11fa1ecc123cb1fb109aa9b106f28182` completed rollout at
+20:22:37.495 UTC: Worker `815e5341-451c-44a9-8428-735a2e50abcd`, Container app v28,
+rollout `d9bc746b-d2ad-48c4-82c3-735a82bbaf9c`, one control-plane healthy instance,
+no rollout errors. `cloudflare-image-equivalence-73fbedf.json` verifies the exact
+qualified platform manifest `774d8a82…5c604`, config and all 29 ordered layers;
+RootFS also matches independently. Qualification evidence stayed unchanged.
+The singleton retains one `basic` instance (0.25 vCPU, 1 GiB, 4 GB), so earlier `lite`
+budgets are historical. The current 30-day memory/disk increment is about $5.22
+versus `lite`, with active CPU additional; calculation and pricing reference are in
+[release qualification](../RELEASE-QUALIFICATION.md).
+
+The 20:22:08 pre-completion health 503 and old cached state remain in
+`cloudflare-corrective-early-20261116T202208Z.json`. After completion, the operator
+observed the new pack, “Resumed Day 415 06:45” (631 memories, 15 messages), 06:58
+fog at 24°C without rendered rain and zero browser console errors in
+`cloudflare-corrective-initial.png`.
+
+The final 20:28 UTC probe passed all 14 gates: 13 GETs in 33.487 seconds, three real
+backend health 200s in 0.308/0.337/0.416 seconds, restored 424,687 bytes from the v3
+R2 checkpoint, one upload and zero failures. The same 100 IDs remained unpaused as
+minutes advanced 597,205→597,240→597,275. Foggy 24°C/wind 2 weather had no rain or
+rain reason and a valid live expiry. Both full asset hashes matched; the canonical
+307 and injected root routes passed, but raw HTML equality was not verified.
+Evidence: `cloudflare-probe-20261116T202802144607Z.json`.
+
+Independent R2 metadata and private backup confirm the 20:27:40.882 UTC save:
+399,128 bytes, SHA-256 `88a757cffc30590012e4eef437bf70de75889ccd2b88dfb6488d6e5b89221500`;
+nine earlier archives stayed unchanged. Multirow bounds do not prove its exact latest
+minute (`cloudflare-checkpoint-after-corrective-rollout-20261116T202801Z.json`).
+Only two complete post-rollout metric buckets, 12 samples, show 21.76% allocated CPU
+(0.05439 cores), versus nine earlier `lite` buckets at 104.32% (0.06521 cores).
+This is early headroom evidence, not latency causality or endurance; capacity and
+image changed together, and pre-rollout `lite` health was intermittent.
+Evidence: `cloudflare-post-corrective-metrics-20261116T202803310424Z.json`.
+The earlier failed transition, first rollout and strict precision gate remain evidence;
+passing the final gates does not extend the older video to the corrected weather build.

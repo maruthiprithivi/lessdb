@@ -138,7 +138,10 @@ No drift detected.
   `4bc21af` enables `float_roundtrip` and adds the three-roundtrip, 100-resident
   regression. Focused/full native tests, Linux CI `43943678663`, artifact integrity
   and exact-image qualification passed. The formerly failing minute now preserves
-  all 99 values exactly. Corrective deployment and live verification remain pending.
+  all 99 values exactly. Corrective rollout and all 14 final live gates passed,
+  including real health, stable population, advancing time and a new independent
+  R2 save; see [release qualification](../RELEASE-QUALIFICATION.md). The short
+  capacity observation is not endurance proof.
 
 ## scripts/lessville/EGM.md — weather precedence contract refresh
 

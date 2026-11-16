@@ -1,5 +1,12 @@
 # Lessville: LessDB Agent World, delivery report
 
+> **Current status — 2026-11-17:** The corrective rollout passed its final live
+> health, continuity and checkpoint gates and retains one `basic` Container. See
+> [release qualification](RELEASE-QUALIFICATION.md) for current evidence and costs
+> (about $5.22/month extra memory/disk versus `lite`; active CPU additional).
+> The older `lite` budgets and delivery evidence below are retained as history,
+> not the current deployment estimate. Early capacity headroom is not endurance proof.
+
 **Checkpoint:** backend source `f9b1810`, release/operations checkpoint `2887dcb`. The source checkpoint is published to the canonical project remote. The official MicroDuck robotd adapter and visual twin are local/research tooling and have **not** been rolled into the public `ville.lessdb.dev` container.
 **Project:** `<project-root>` (Godot 4 Web client) and `<project-root>/backend/agentd` (Rust agent service built against the qualified LessDB source).
 
