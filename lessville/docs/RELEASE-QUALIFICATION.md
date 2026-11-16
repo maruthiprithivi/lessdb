@@ -15,6 +15,8 @@ do not infer success from the existing live URL.
 With Rust 1.96 and Godot 4.7.2 installed, `npm run dev` starts the local native
 world, `npm run check` runs the Godot checks, and `npm run build` or `npm run export`
 exports the Web client. Web export also requires matching Godot export templates.
+The client suite requires Pillow in `/usr/bin/python3`, plus Xvfb on Linux; macOS
+captures fixtures natively. See [local prerequisites](LOCAL-WORLD.md#prerequisites).
 These commands no longer require Manus `GAME_RUNTIME` or a private sibling engine
 checkout. Historical preview/doctor/asset-report commands still use the optional
 Manus runtime; experimental robot/art tools can retain their original prerequisites.
@@ -178,6 +180,15 @@ stopped. Evidence is `native-cloudflare-restore-verification.json` under the loc
 `release-client-check.log` records 390 passing checks with four existing expected
 office-art failures. The current Web export passed with Godot 4.7.2. Those results
 do not validate the Linux binary or the deployed world.
+
+The operator's `release-checks.json` records source commit
+`9dec5558803a163a4dafb865c56b7ff00bd36ec7` (published in PR #3), 52 passing backend
+tests and one ignored simulator-input test in 569.47 seconds, 14 Worker tests,
+TypeScript and deployment dry-run success, and a clean imported Web-client boot
+with zero browser console errors. `release-clean-import.log` records fresh Godot
+resource import. The operator also reports a passing native scale-atlas run.
+These recorded checks are separate from the still-pending Linux image and rollout;
+the dry run did not deploy a replacement Worker or Container.
 
 The exact Linux image still needs its own copied-checkpoint result. Deployment
 evidence must identify the committed source revision,

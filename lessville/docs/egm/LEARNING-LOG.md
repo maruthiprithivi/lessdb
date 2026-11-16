@@ -464,3 +464,34 @@ bundle. No identity, secret or checkpoint namespace changed. The root uploaded t
 new immutable static pack to R2; it is not yet activated. Linux-image qualification,
 Worker/Container rollout and live-world continuation remain pending for the root's
 final release entry.
+
+### Final bounded drift review before Linux qualification
+
+Re-read the EGM drift-report workflow, codebase-details persona and Codex integration,
+local AGENTS/EGM, RTK instructions, the target contracts and this learning log. This
+was a continuation review by the existing documentation agent, not a newly isolated
+Goldfish. No conversation history or secret files were retrieved. The explicit
+assignment allowed report/documentation edits; no product code or deployment changed.
+
+The review covered current local launch/import commands, vendored-engine/build
+boundaries, release evidence and modified client movement contracts. Graph discovery
+returned no matching script/tool symbols; coverage marks scripts/tools/deploy excluded,
+changed test/manifest metadata stale, and vendor files untracked by the index. Direct
+source was therefore authoritative. Inspected `run_local.sh`, `verify.sh`,
+`export_web.sh`, `build_cloudflare_linux.py`, manifests, Dockerfile/start script,
+`_walker_path`, `_follow_budget` and the fixture-render helper. All 73 vendored file
+hashes and the upstream patch hash match recorded provenance. The build guide remains
+accurate while Linux compilation/qualification is pending.
+
+The report appends resolved command/prerequisite mismatches to
+[2026-11-17_DRIFT_REPORT.md](2026-11-17_DRIFT_REPORT.md). In particular, the unsupported
+`--pack` command and stale macOS fixture instructions are corrected. Historical
+reference-game descriptions were not re-audited as current Lessville behavior.
+No expensive simulation, backend suite, new native capture or deployment was rerun
+for this bounded review. The operator's `release-checks.json` supplies the current
+52-pass/one-ignored backend result, 14 Worker tests, dry run and zero-error Web boot;
+the client log directly confirms 390 checks with four expected office-art failures.
+The imported source commit is `9dec5558803a163a4dafb865c56b7ff00bd36ec7` in PR #3.
+Linux-image restore and live rollout remain pending. General head-on/shared-destination
+overlap and known office artwork remain open, and no new 24-hour video was claimed
+at this review checkpoint.

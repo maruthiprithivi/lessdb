@@ -1,7 +1,8 @@
 # Local Lessville world
 
 Run `tools/run_local.sh` from this checkout. It starts the native LessDB service on
-127.0.0.1:8790, waits for health, then opens Godot. Closing Godot saves and flushes
+127.0.0.1:8790, waits for health, then opens Godot. It first imports Godot resources,
+so a clean checkout does not need an existing `.godot` cache. Closing Godot saves and flushes
 the world before the service exits. State is in `.local/world`; versioned world checkpoints retain the latest 64 revisions.
 `LESSVILLE_DATA` can also select the existing recorded world `.local/day-run-world`.
 Set `LESSVILLE_PORT` to use another local port. Runtime files stay ignored.
@@ -106,9 +107,9 @@ It also checks junction-preserving reroutes and arrival at changed destinations.
 The daily-life tests cover scarce food, time-delayed coffee, interrupted social
 contact, continuous night, pending-meal restart and a deterministic day for all 95
 supporting residents. The Godot suite is `test/test_suite.tscn`. Its hair-render
-subtest defaults to Linux Xvfb; on macOS supply previously captured native images
-with `LESSVILLE_LIN_HAIR_RENDERS`, or render the two fixtures with
-`tools/render_attire.gd`. Do not interpret these fixture checks as a clean bill of
+subtest automatically captures two fixtures through Linux Xvfb or the native macOS
+renderer using `tools/render_attire.gd`. `LESSVILLE_LIN_HAIR_RENDERS` optionally
+selects previously captured fixtures instead. Do not interpret these checks as a clean bill of
 health for dense crowd crossings.
 
 ## Cloudflare release boundary

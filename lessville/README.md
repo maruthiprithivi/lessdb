@@ -37,7 +37,9 @@ is not evidence that this candidate is deployed.
 For the 100-resident local simulation, run `tools/run_local.sh`. See
 [Local world and recording](docs/LOCAL-WORLD.md) for setup, behavior and limits.
 
-Install Rust 1.96 and Godot 4.7.2. `npm run dev` starts the local world;
+Install Rust 1.96 and Godot 4.7.2. The client checks also require Pillow in
+`/usr/bin/python3`, and Xvfb on Linux; see the linked local prerequisites.
+`npm run dev` starts the local world;
 `npm run check` runs the client checks; `npm run build` exports the Web client
 with matching Godot templates. The engine source is included in `vendor/lessdb`;
 these commands do not require a private engine checkout or Manus runtime.
@@ -49,6 +51,10 @@ The public deployment is the authoritative shared world. For local development, 
 ---
 
 # Generic Game Template
+
+The following sections preserve the inherited template guidance and reference-game
+description. Lessville's active setup is documented above and in
+[LOCAL-WORLD.md](docs/LOCAL-WORLD.md); optional Manus tools retain their own runtime.
 
 This versioned source is owned by the Webdev Addon. Use the installed Game workflow for initialization, preview, release and publishing. Matching gameplay source: template-provenance.json. Existing projects are never overwritten by a new starter.
 
@@ -338,11 +344,15 @@ These rules override frozen README tuning instructions: do not recreate a native
 
 ## Run and verify
 ```bash
-npm run check                   # finite import, boot and game-owned outcome hooks
-npm run build                   # current standalone export through the shared runtime
-npm run check -- --pack          # verify that current export and applicable outcome hooks
+npm run check                   # import resources and run the Godot client suite
+npm run build                   # export the Web client with Godot 4.7.2
+npm run verify:release          # run the client suite, then export the Web client
 ```
-Use the runtime directory returned by init/attach and the installed Game workflow. Keep meaningful game-specific hooks in optional `game-verification.json`; an absent hook file is normal before one is needed. Fresh compatibility aliases delegate to this same finite verifier. Older READMEs and `tools/verify.sh` may hardcode the maze scene, obsolete resource-audit assumptions or a different `dist/index.pck`; adapt relevant outcome hooks instead of repairing that separate pipeline. Asset sync/build own dependency, hash and current-export checks. The Web preset uses `thread_support=false`; developer tools and fixtures stay outside the playable export.
+These are the active Lessville commands and do not use the shared Manus verifier.
+`tools/verify.sh` accepts only the optional `--export` flag; `--pack` is unsupported.
+The Web preset uses `thread_support=false`; developer tools and fixtures stay outside
+the playable export. Optional template preview, inspection and asset-report commands
+still use their original external runtime.
 
 The original 2D reference's native capture uses the actual viewport and renderer; adapt its scene/state selectors for another game and run without `--editor`:
 ```bash
