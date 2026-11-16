@@ -5004,6 +5004,58 @@ mod world_tests {
 
     use super::{World, activity_fields, bus_trip, next_bus_start, novelty_choice, seeded_roll};
 
+    #[test]
+    fn world_checkpoint_preserves_accumulated_life_values_exactly() {
+        let mut world = World::fresh(1);
+        world.paused = true;
+        world.minute = 585202;
+        for (index, life) in world
+            .agents
+            .iter_mut()
+            .map(|resident| &mut resident.life)
+            .chain(
+                world
+                    .background
+                    .iter_mut()
+                    .map(|resident| &mut resident.life),
+            )
+            .enumerate()
+        {
+            for minute in 0..(7 + index) {
+                life.minute(minute >= 7 && minute % 3 == 0);
+            }
+        }
+        assert_eq!(
+            world.agents[0].life.social_need.to_bits(),
+            15.350_000_000_000_005_f64.to_bits(),
+            "reproduce the captured checkpoint value"
+        );
+        let expected = serde_json::to_value(&world).unwrap();
+        for _ in 0..3 {
+            // Match persist's World -> Value -> JSON, then startup's JSON -> World.
+            let checkpoint = serde_json::to_value(&world).unwrap().to_string();
+            let restored: World = serde_json::from_str(&checkpoint).unwrap();
+            let lives = |world: &World| {
+                world
+                    .agents
+                    .iter()
+                    .map(|resident| &resident.life)
+                    .chain(world.background.iter().map(|resident| &resident.life))
+                    .map(|life| {
+                        [
+                            life.hunger.to_bits(),
+                            life.fatigue.to_bits(),
+                            life.social_need.to_bits(),
+                        ]
+                    })
+                    .collect::<Vec<_>>()
+            };
+            assert_eq!(lives(&restored), lives(&world));
+            assert_eq!(serde_json::to_value(&restored).unwrap(), expected);
+            world = restored;
+        }
+    }
+
     #[tokio::test]
     async fn weather_dry_observation_ends_seeded_rain() {
         let (store, world, dir) = crate::scenarios::fixture().await;
