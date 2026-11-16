@@ -1,0 +1,18 @@
+{
+ "source": "/workspace/shared/ai-hq/results/lessville/BL-0167/runs/20261116-1409/iter-02/proposal.txt (+ iterations.jsonl model field)",
+ "text": "",
+ "reasoning": null,
+ "finish": "length",
+ "usage": {
+  "completion_tokens": 16000
+ },
+ "secs": 1438,
+ "model_line": "qwen3.8-27b-nvfp4@megatron-qwen38 1438s 16000 tok finish=length",
+ "request": {
+  "max_tokens": 16000,
+  "temperature": 0.2,
+  "chat_template_kwargs": {
+   "enable_thinking": true
+  }
+ }
+}

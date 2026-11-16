@@ -1,0 +1,5 @@
+node_modules/
+public/
+container/lessville-agentd
+.wrangler/
+container/bin-parts/

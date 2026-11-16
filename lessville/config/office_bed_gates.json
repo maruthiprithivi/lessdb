@@ -1,0 +1,128 @@
+{
+  "description": "G12 Office bed paint-out. The mask and bed palette are frozen from 1a099fc office.png and must never be redrawn from the output under test. Desk pixels frozen from 1a099fc are excluded from bed-palette and floor-stat regions (the original bed mask overlapped the left desk's lower body).",
+  "mask": "config/office_bed_mask.png",
+  "source_commit": "1a099fc0919c1417741d4ce51f165a75a8290bf7",
+  "palette": [
+    [
+      64,
+      104,
+      104
+    ],
+    [
+      56,
+      104,
+      104
+    ],
+    [
+      48,
+      80,
+      80
+    ],
+    [
+      48,
+      72,
+      80
+    ],
+    [
+      40,
+      56,
+      64
+    ],
+    [
+      40,
+      64,
+      72
+    ],
+    [
+      56,
+      96,
+      96
+    ],
+    [
+      48,
+      64,
+      72
+    ],
+    [
+      24,
+      32,
+      32
+    ],
+    [
+      24,
+      24,
+      32
+    ],
+    [
+      48,
+      64,
+      64
+    ],
+    [
+      16,
+      24,
+      32
+    ],
+    [
+      72,
+      96,
+      96
+    ],
+    [
+      40,
+      72,
+      80
+    ],
+    [
+      40,
+      80,
+      80
+    ],
+    [
+      48,
+      64,
+      80
+    ],
+    [
+      16,
+      24,
+      24
+    ],
+    [
+      16,
+      32,
+      32
+    ],
+    [
+      56,
+      104,
+      96
+    ],
+    [
+      8,
+      16,
+      24
+    ],
+    [
+      24,
+      32,
+      40
+    ],
+    [
+      48,
+      80,
+      88
+    ]
+  ],
+  "palette_tol": 28,
+  "erode_px": 4,
+  "surround_dilate_px": 24,
+  "max_bed_palette_px": 80,
+  "max_mean_rgb_delta": 18.0,
+  "max_luma_std_delta": 8.0,
+  "min_board_autocorr": 0.12,
+  "board_lag_lo": 19,
+  "board_lag_hi": 21,
+  "desk_mask": "config/office_desk_mask.png",
+  "left_end_support_roi": "config/office_left_end_roi.png"
+}

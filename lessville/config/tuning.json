@@ -1,0 +1,393 @@
+{
+  "version": 3,
+  "settings": [
+    {
+      "id": "ui.hud.opacity",
+      "category": "UI",
+      "type": "number",
+      "default": 0.94,
+      "min": 0.5,
+      "max": 1,
+      "step": 0.02,
+      "decimals": 2,
+      "unit_key": "unit.none",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.ui.hud_opacity",
+      "description_key": "tuning.ui.hud_opacity.description",
+      "tags": [
+        "hud",
+        "opacity",
+        "accessibility"
+      ]
+    },
+    {
+      "id": "ui.reduced_motion",
+      "category": "UI",
+      "type": "boolean",
+      "default": false,
+      "unit_key": "unit.none",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.ui.reduced_motion",
+      "description_key": "tuning.ui.reduced_motion.description",
+      "tags": [
+        "motion",
+        "accessibility",
+        "effects"
+      ]
+    },
+    {
+      "id": "gameplay.pickup.duration_multiplier",
+      "category": "Gameplay",
+      "type": "number",
+      "default": 1,
+      "min": 0.5,
+      "max": 2,
+      "step": 0.1,
+      "decimals": 1,
+      "unit_key": "unit.multiplier",
+      "apply_mode": "NEXT_ACTION",
+      "integrity": "GAMEPLAY",
+      "label_key": "tuning.gameplay.pickup_duration",
+      "description_key": "tuning.gameplay.pickup_duration.description",
+      "tags": [
+        "pickup",
+        "powerup",
+        "duration"
+      ]
+    },
+    {
+      "id": "gameplay.respawn.invulnerability",
+      "category": "Gameplay",
+      "type": "number",
+      "default": 1.2,
+      "min": 0.4,
+      "max": 3,
+      "step": 0.1,
+      "decimals": 1,
+      "unit_key": "unit.seconds",
+      "apply_mode": "NEXT_ACTION",
+      "integrity": "GAMEPLAY",
+      "label_key": "tuning.gameplay.invulnerability",
+      "description_key": "tuning.gameplay.invulnerability.description",
+      "tags": [
+        "respawn",
+        "damage",
+        "safety"
+      ]
+    },
+    {
+      "id": "gameplay.stage.transition_delay",
+      "category": "Gameplay",
+      "type": "number",
+      "default": 1,
+      "min": 0.4,
+      "max": 2.5,
+      "step": 0.1,
+      "decimals": 1,
+      "unit_key": "unit.seconds",
+      "apply_mode": "NEXT_STAGE",
+      "integrity": "GAMEPLAY",
+      "label_key": "tuning.gameplay.transition_delay",
+      "description_key": "tuning.gameplay.transition_delay.description",
+      "tags": [
+        "stage",
+        "transition",
+        "timing"
+      ]
+    },
+    {
+      "id": "audio.master.volume_db",
+      "category": "Audio",
+      "type": "number",
+      "default": 0,
+      "min": -30,
+      "max": 0,
+      "step": 1,
+      "decimals": 0,
+      "unit_key": "unit.db",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.audio.master",
+      "description_key": "tuning.audio.master.description",
+      "tags": [
+        "master",
+        "volume",
+        "mute"
+      ]
+    },
+    {
+      "id": "audio.master.muted",
+      "category": "Audio",
+      "type": "boolean",
+      "default": false,
+      "unit_key": "unit.none",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.audio.mute",
+      "description_key": "tuning.audio.mute.description",
+      "tags": [
+        "master",
+        "mute",
+        "accessibility"
+      ]
+    },
+    {
+      "id": "audio.music.volume_db",
+      "category": "Audio",
+      "type": "number",
+      "default": -8,
+      "min": -40,
+      "max": 0,
+      "step": 1,
+      "decimals": 0,
+      "unit_key": "unit.db",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.audio.music",
+      "description_key": "tuning.audio.music.description",
+      "tags": [
+        "music",
+        "volume",
+        "title"
+      ]
+    },
+    {
+      "id": "audio.sfx.volume_db",
+      "category": "Audio",
+      "type": "number",
+      "default": -4,
+      "min": -40,
+      "max": 0,
+      "step": 1,
+      "decimals": 0,
+      "unit_key": "unit.db",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.audio.sfx",
+      "description_key": "tuning.audio.sfx.description",
+      "tags": [
+        "effects",
+        "sfx",
+        "volume"
+      ]
+    },
+    {
+      "id": "audio.ui.volume_db",
+      "category": "Audio",
+      "type": "number",
+      "default": -6,
+      "min": -40,
+      "max": 0,
+      "step": 1,
+      "decimals": 0,
+      "unit_key": "unit.db",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.audio.ui",
+      "description_key": "tuning.audio.ui.description",
+      "tags": [
+        "menu",
+        "ui",
+        "volume"
+      ]
+    },
+    {
+      "id": "player.move.max_speed",
+      "category": "Player",
+      "type": "number",
+      "default": 170,
+      "min": 90,
+      "max": 280,
+      "step": 5,
+      "decimals": 0,
+      "unit_key": "unit.px_per_second",
+      "apply_mode": "LIVE",
+      "integrity": "GAMEPLAY",
+      "label_key": "tuning.player.speed",
+      "description_key": "tuning.player.speed.description",
+      "tags": [
+        "movement",
+        "speed",
+        "runner"
+      ]
+    },
+    {
+      "id": "player.lives",
+      "category": "Player",
+      "type": "number",
+      "default": 3,
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "decimals": 0,
+      "unit_key": "unit.count",
+      "apply_mode": "NEXT_RUN",
+      "integrity": "GAMEPLAY",
+      "label_key": "tuning.player.lives",
+      "description_key": "tuning.player.lives.description",
+      "tags": [
+        "lives",
+        "difficulty",
+        "run"
+      ]
+    },
+    {
+      "id": "player.visual.scale",
+      "category": "Player",
+      "type": "number",
+      "default": 1,
+      "min": 0.8,
+      "max": 1.25,
+      "step": 0.05,
+      "decimals": 2,
+      "unit_key": "unit.multiplier",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.player.scale",
+      "description_key": "tuning.player.scale.description",
+      "tags": [
+        "character",
+        "scale",
+        "visibility"
+      ]
+    },
+    {
+      "id": "enemies.move.speed_multiplier",
+      "category": "Enemies",
+      "type": "number",
+      "default": 1,
+      "min": 0.55,
+      "max": 1.65,
+      "step": 0.05,
+      "decimals": 2,
+      "unit_key": "unit.multiplier",
+      "apply_mode": "LIVE",
+      "integrity": "GAMEPLAY",
+      "label_key": "tuning.enemies.speed",
+      "description_key": "tuning.enemies.speed.description",
+      "tags": [
+        "enemy",
+        "speed",
+        "difficulty"
+      ]
+    },
+    {
+      "id": "enemies.ai.aggression",
+      "category": "Enemies",
+      "type": "number",
+      "default": 1,
+      "min": 0.5,
+      "max": 1.5,
+      "step": 0.1,
+      "decimals": 1,
+      "unit_key": "unit.multiplier",
+      "apply_mode": "NEXT_STAGE",
+      "integrity": "GAMEPLAY",
+      "label_key": "tuning.enemies.aggression",
+      "description_key": "tuning.enemies.aggression.description",
+      "tags": [
+        "ai",
+        "chase",
+        "difficulty"
+      ]
+    },
+    {
+      "id": "enemies.visual.scale",
+      "category": "Enemies",
+      "type": "number",
+      "default": 1,
+      "min": 0.8,
+      "max": 1.25,
+      "step": 0.05,
+      "decimals": 2,
+      "unit_key": "unit.multiplier",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.enemies.scale",
+      "description_key": "tuning.enemies.scale.description",
+      "tags": [
+        "enemy",
+        "scale",
+        "visibility"
+      ]
+    },
+    {
+      "id": "environment.filter.enabled",
+      "category": "Environment",
+      "type": "boolean",
+      "default": true,
+      "unit_key": "unit.none",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.environment.filter",
+      "description_key": "tuning.environment.filter.description",
+      "tags": [
+        "filter",
+        "post process",
+        "visual"
+      ]
+    },
+    {
+      "id": "environment.filter.intensity",
+      "category": "Environment",
+      "type": "number",
+      "default": 0.18,
+      "min": 0,
+      "max": 0.8,
+      "step": 0.02,
+      "decimals": 2,
+      "unit_key": "unit.none",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.environment.filter_intensity",
+      "description_key": "tuning.environment.filter_intensity.description",
+      "tags": [
+        "filter",
+        "shader",
+        "strength"
+      ]
+    },
+    {
+      "id": "environment.particles.density",
+      "category": "Environment",
+      "type": "number",
+      "default": 0.4,
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "decimals": 1,
+      "unit_key": "unit.multiplier",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.environment.particles",
+      "description_key": "tuning.environment.particles.description",
+      "tags": [
+        "particles",
+        "ambient",
+        "effects"
+      ]
+    },
+    {
+      "id": "environment.camera.zoom",
+      "category": "Environment",
+      "type": "number",
+      "default": 1,
+      "min": 0.85,
+      "max": 1.15,
+      "step": 0.05,
+      "decimals": 2,
+      "unit_key": "unit.multiplier",
+      "apply_mode": "LIVE",
+      "integrity": "COSMETIC",
+      "label_key": "tuning.environment.zoom",
+      "description_key": "tuning.environment.zoom.description",
+      "tags": [
+        "camera",
+        "zoom",
+        "layout"
+      ]
+    }
+  ]
+}

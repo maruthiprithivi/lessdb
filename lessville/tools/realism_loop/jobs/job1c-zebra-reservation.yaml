@@ -1,0 +1,30 @@
+id: job1c-zebra-reservation
+item: BL-0148 step 2b part 3 of 3 (after 1b). PLAN Design lines 24-40.
+spec: |
+  Job 1c: zebra-crossing reservation plus deadlock breaker, on top of jobs 1a (arc-length follower) and
+  1b (follow gap). Speed control only: positions only ever come from P(s); nothing moves sideways.
+  - Each zebra (nav polygons of kind "crossing"; use nav_polygons()) is a reservation resource.
+    A walker whose remaining path enters a zebra may enter only if the zebra holds no walker going the
+    opposite way and no same-direction walker within the follow gap of the entry. Otherwise it stops at
+    its hold point = P(s_entry - r), ENTRY (24 px) + r before the polygon, which is ON its own path
+    (G16: snapped by construction; it must satisfy nav_contains). First come first served by request
+    time, tie by id. Release the reservation when the walker's feet leave the zebra zone.
+  - Deadlock breaker: a walker that has waited 8 s gets priority; stopped holders are released to clear in
+    their own direction. Wait cap 10 s. The breaker only changes speeds, never positions.
+  - Destination flips mid-route rebuild the path from the current P(s) (existing _best_start).
+  - Keep edits minimal: small helpers (reserve / release / may_enter) instead of rewriting the update loops.
+  Target checks: suite.crossing_overlap (zebra overlap pair-ticks == 0, footprint margin >= 0, facing,
+  0 off-nav) and sim.crossings_multihour (3 seeds x 3 h). Walkers progress (max wait 10 s, all reach goals)
+  and every other passing check must keep passing.
+spec_md: /workspace/shared/ai-hq/results/lessdb/evidence/BL-0148/PLAN-step2b-redesign.md
+spec_lines: [16, 45]
+context_files:
+  - scripts/lessville/town_view.gd
+  - scripts/lessville/town_nav.gd
+  - test/crossing_sim.gd
+read_only: [test/crossing_sim.gd]
+context_funcs:
+  scripts/lessville/town_view.gd: [_update_walkers, _update_background, nav_polygons, nav_contains, "re:(?i)poly|arc|gap|follow|ahead|advance|zebra|reserv|hold|cross|enter"]
+  test/crossing_sim.gd: [_crossing_of]
+gates: [suite.crossing_overlap, sim.crossings_multihour]
+must_keep: [suite.arc_follow, suite.follow_gap, suite.facing_matches_heading, suite.pedestrians_stay_on_nav, suite.bus_route_and_dwell, suite.walkers_progress]

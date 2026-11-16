@@ -1,0 +1,11 @@
+{
+  "id": "game-generic",
+  "kind": "game",
+  "game_genre": "maze-chase",
+  "status": "ready",
+  "name": "Generic Game Template",
+  "description": "A minimalist Godot browser-game foundation with a complete two-stage maze-chase reference, original precision-styled art, optional asset-free audio engine, responsive UI, bilingual localization, onboarding, runtime tuning, and local standings.",
+  "capabilities": [
+    "static"
+  ]
+}

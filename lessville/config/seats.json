@@ -1,0 +1,1652 @@
+{
+  "version": 1,
+  "sprite": {
+    "width": 96,
+    "height": 112,
+    "scale": 1.2,
+    "hip_row": 78
+  },
+  "notes": "Hip is the sit-contact in sprite space (row 78 of 112). Standing/walk/run spots stay in interior_view STATIONS. Masks are axis-aligned or polygons in location-image pixels. fg_front_y: characters with feet_y greater than this draw in front of the overlay. North-facing typists have no desk FG so their closer-to-camera heads are not painted over. seat_surface is a tight mask on the actual chair/bench/stool/log pixels in the location art (not a rectangle drawn around the hip). The hip must lie inside it. legs_hidden: front-facing desk may hide legs for that seat. Facing is derived from furniture, not copied from the facing field: chair_back is the side of the seat_surface where the chair/sofa/bench back sits in the location art (expected facing is the opposite direction); faces_furniture is the overlay whose centroid the sitter should face (explicit, not seat.fg); open_side is the sit direction on backless furniture (a log or weight bench).",
+  "seats": [
+    {
+      "id": "office.desk.center",
+      "location": "office",
+      "station": "desk",
+      "index": 0,
+      "pose": "type",
+      "facing": "n",
+      "chair_back": "s",
+      "hip": [
+        388,
+        200
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          365,
+          191,
+          411,
+          215
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          368,
+          192,
+          410,
+          214
+        ]
+      }
+    },
+    {
+      "id": "office.desk.right",
+      "location": "office",
+      "station": "desk",
+      "index": 1,
+      "pose": "type",
+      "facing": "e",
+      "faces_furniture": "office.desk_right",
+      "hip": [
+        698,
+        256
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          680,
+          244,
+          718,
+          270
+        ]
+      },
+      "fg": "office.desk_right",
+      "fg_front_y": 280,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          686,
+          248,
+          714,
+          266
+        ]
+      }
+    },
+    {
+      "id": "office.desk.left",
+      "location": "office",
+      "station": "desk",
+      "index": 2,
+      "pose": "type",
+      "facing": "w",
+      "faces_furniture": "office.desk_left",
+      "hip": [
+        90,
+        214
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          70,
+          198,
+          114,
+          226
+        ]
+      },
+      "fg": "office.desk_left",
+      "fg_front_y": 230,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          76,
+          204,
+          106,
+          224
+        ]
+      }
+    },
+    {
+      "id": "home.living.left",
+      "location": "home",
+      "station": "living",
+      "index": 0,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "faces_furniture": "home.coffee_table",
+      "hip": [
+        125,
+        170
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          88,
+          148,
+          158,
+          192
+        ]
+      },
+      "fg": "home.coffee_table",
+      "fg_front_y": 252,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          100,
+          150,
+          156,
+          188
+        ]
+      }
+    },
+    {
+      "id": "home.living.right",
+      "location": "home",
+      "station": "living",
+      "index": 1,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "faces_furniture": "home.coffee_table",
+      "hip": [
+        200,
+        170
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          162,
+          148,
+          236,
+          192
+        ]
+      },
+      "fg": "home.coffee_table",
+      "fg_front_y": 252,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          164,
+          150,
+          236,
+          188
+        ]
+      }
+    },
+    {
+      "id": "home.dining.west",
+      "location": "home",
+      "station": "dining",
+      "index": 0,
+      "pose": "seat",
+      "facing": "e",
+      "chair_back": "w",
+      "faces_furniture": "home.dining_table",
+      "hip": [
+        568,
+        218
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          548,
+          200,
+          590,
+          236
+        ]
+      },
+      "fg": "home.dining_table",
+      "fg_front_y": 262,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          554,
+          210,
+          584,
+          234
+        ]
+      }
+    },
+    {
+      "id": "home.dining.east",
+      "location": "home",
+      "station": "dining",
+      "index": 1,
+      "pose": "seat",
+      "facing": "w",
+      "chair_back": "e",
+      "faces_furniture": "home.dining_table",
+      "hip": [
+        662,
+        230
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          636,
+          214,
+          686,
+          258
+        ]
+      },
+      "fg": "home.dining_table",
+      "fg_front_y": 262,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          648,
+          220,
+          676,
+          250
+        ]
+      }
+    },
+    {
+      "id": "home.dining.north",
+      "location": "home",
+      "station": "dining",
+      "index": 2,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "faces_furniture": "home.dining_table",
+      "hip": [
+        632,
+        166
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          610,
+          150,
+          658,
+          182
+        ]
+      },
+      "fg": "home.dining_table",
+      "fg_front_y": 262,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          618,
+          164,
+          650,
+          184
+        ]
+      }
+    },
+    {
+      "id": "cafe.table1.right",
+      "location": "cafe",
+      "station": "table1",
+      "index": 0,
+      "pose": "seat",
+      "facing": "w",
+      "chair_back": "e",
+      "faces_furniture": "cafe.table_upper",
+      "hip": [
+        155,
+        205
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          134,
+          182,
+          178,
+          222
+        ]
+      },
+      "fg": "cafe.table_upper",
+      "fg_front_y": 230,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          138,
+          192,
+          168,
+          218
+        ]
+      }
+    },
+    {
+      "id": "cafe.table3.upper_left",
+      "location": "cafe",
+      "station": "table3",
+      "index": 0,
+      "pose": "seat",
+      "facing": "e",
+      "chair_back": "w",
+      "faces_furniture": "cafe.table_upper",
+      "hip": [
+        65,
+        205
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          44,
+          182,
+          88,
+          222
+        ]
+      },
+      "fg": "cafe.table_upper",
+      "fg_front_y": 230,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          50,
+          192,
+          80,
+          218
+        ]
+      }
+    },
+    {
+      "id": "cafe.table2.right",
+      "location": "cafe",
+      "station": "table2",
+      "index": 0,
+      "pose": "seat",
+      "facing": "w",
+      "chair_back": "e",
+      "faces_furniture": "cafe.table_lower",
+      "hip": [
+        145,
+        312
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          124,
+          292,
+          168,
+          332
+        ]
+      },
+      "fg": "cafe.table_lower",
+      "fg_front_y": 340,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          128,
+          300,
+          158,
+          326
+        ]
+      }
+    },
+    {
+      "id": "cafe.table3.lower_left",
+      "location": "cafe",
+      "station": "table3",
+      "index": 1,
+      "pose": "seat",
+      "facing": "e",
+      "chair_back": "w",
+      "faces_furniture": "cafe.table_lower",
+      "hip": [
+        52,
+        312
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          32,
+          292,
+          76,
+          332
+        ]
+      },
+      "fg": "cafe.table_lower",
+      "fg_front_y": 340,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          38,
+          300,
+          68,
+          326
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r0c0",
+      "location": "school",
+      "station": "lecture",
+      "index": 0,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r0c0",
+      "hip": [
+        85,
+        205
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          62,
+          192,
+          108,
+          222
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          68,
+          202,
+          102,
+          222
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r0c1",
+      "location": "school",
+      "station": "lecture",
+      "index": 1,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r0c1",
+      "hip": [
+        175,
+        205
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          152,
+          192,
+          198,
+          222
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          158,
+          202,
+          192,
+          222
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r0c2",
+      "location": "school",
+      "station": "lecture",
+      "index": 2,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r0c2",
+      "hip": [
+        250,
+        205
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          227,
+          192,
+          273,
+          222
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          233,
+          202,
+          267,
+          222
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r1c0",
+      "location": "school",
+      "station": "lecture",
+      "index": 3,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r1c0",
+      "hip": [
+        78,
+        281
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          55,
+          275,
+          102,
+          297
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          60,
+          275,
+          96,
+          295
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r1c1",
+      "location": "school",
+      "station": "lecture",
+      "index": 4,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r1c1",
+      "hip": [
+        168,
+        281
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          145,
+          275,
+          192,
+          297
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          150,
+          275,
+          186,
+          295
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r1c2",
+      "location": "school",
+      "station": "lecture",
+      "index": 5,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r1c2",
+      "hip": [
+        245,
+        281
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          222,
+          275,
+          269,
+          297
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          227,
+          275,
+          263,
+          295
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r2c0",
+      "location": "school",
+      "station": "lecture",
+      "index": 6,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r2c0",
+      "hip": [
+        68,
+        353
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          45,
+          347,
+          92,
+          369
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          50,
+          347,
+          86,
+          367
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r2c1",
+      "location": "school",
+      "station": "lecture",
+      "index": 7,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r2c1",
+      "hip": [
+        158,
+        353
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          135,
+          347,
+          182,
+          369
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          140,
+          347,
+          176,
+          367
+        ]
+      }
+    },
+    {
+      "id": "school.lecture.r2c2",
+      "location": "school",
+      "station": "lecture",
+      "index": 8,
+      "pose": "seat",
+      "facing": "n",
+      "chair_back": "s",
+      "faces_furniture": "school.desk_r2c2",
+      "hip": [
+        238,
+        353
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          215,
+          347,
+          262,
+          369
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          220,
+          347,
+          256,
+          367
+        ]
+      }
+    },
+    {
+      "id": "school.teacher",
+      "location": "school",
+      "station": "teacher",
+      "index": 0,
+      "pose": "seat",
+      "facing": "s",
+      "faces_furniture": "school.teacher_desk",
+      "hip": [
+        598,
+        188
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          575,
+          168,
+          625,
+          210
+        ]
+      },
+      "fg": "school.teacher_desk",
+      "fg_front_y": 230,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          575,
+          176,
+          625,
+          196
+        ]
+      },
+      "legs_hidden": true
+    },
+    {
+      "id": "bus.seat.0",
+      "location": "bus",
+      "station": "seat",
+      "index": 0,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        140,
+        230
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          112,
+          214,
+          166,
+          248
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          118,
+          216,
+          162,
+          244
+        ]
+      }
+    },
+    {
+      "id": "bus.seat.1",
+      "location": "bus",
+      "station": "seat",
+      "index": 1,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        190,
+        230
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          166,
+          214,
+          218,
+          248
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          168,
+          216,
+          214,
+          244
+        ]
+      }
+    },
+    {
+      "id": "bus.seat.2",
+      "location": "bus",
+      "station": "seat",
+      "index": 2,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        282,
+        230
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          254,
+          214,
+          310,
+          248
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          260,
+          216,
+          306,
+          244
+        ]
+      }
+    },
+    {
+      "id": "bus.seat.3",
+      "location": "bus",
+      "station": "seat",
+      "index": 3,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        338,
+        230
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          310,
+          214,
+          366,
+          248
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          316,
+          216,
+          362,
+          244
+        ]
+      }
+    },
+    {
+      "id": "bus.seat.4",
+      "location": "bus",
+      "station": "seat",
+      "index": 4,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        442,
+        230
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          414,
+          214,
+          470,
+          248
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          420,
+          216,
+          466,
+          244
+        ]
+      }
+    },
+    {
+      "id": "bus.seat.5",
+      "location": "bus",
+      "station": "seat",
+      "index": 5,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        498,
+        230
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          470,
+          214,
+          526,
+          248
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          476,
+          216,
+          522,
+          244
+        ]
+      }
+    },
+    {
+      "id": "bus.seat.6",
+      "location": "bus",
+      "station": "seat",
+      "index": 6,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        622,
+        230
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          594,
+          214,
+          650,
+          248
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          600,
+          216,
+          646,
+          244
+        ]
+      }
+    },
+    {
+      "id": "gym.bench.window",
+      "location": "gym",
+      "station": "bench",
+      "index": 0,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        184,
+        112
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          120,
+          100,
+          248,
+          136
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          124,
+          102,
+          240,
+          118
+        ]
+      }
+    },
+    {
+      "id": "gym.bench.weights",
+      "location": "gym",
+      "station": "bench",
+      "index": 1,
+      "pose": "seat",
+      "facing": "e",
+      "open_side": "e",
+      "hip": [
+        118,
+        292
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          70,
+          260,
+          170,
+          325
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          90,
+          250,
+          122,
+          325
+        ]
+      }
+    },
+    {
+      "id": "trail.log",
+      "location": "trail",
+      "station": "log",
+      "index": 0,
+      "pose": "seat",
+      "facing": "s",
+      "open_side": "s",
+      "hip": [
+        680,
+        414
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          640,
+          402,
+          720,
+          422
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "polygon",
+        "points": [
+          [
+            640,
+            400
+          ],
+          [
+            720,
+            416
+          ],
+          [
+            720,
+            424
+          ],
+          [
+            640,
+            408
+          ]
+        ]
+      },
+      "log_top_y": 414
+    },
+    {
+      "id": "town.park.bench",
+      "location": "town",
+      "station": "park_bench",
+      "index": 0,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        830,
+        600
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          780,
+          580,
+          900,
+          620
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          790,
+          578,
+          880,
+          612
+        ]
+      },
+      "map": "town"
+    },
+    {
+      "id": "town.bus_stop.bench",
+      "location": "town",
+      "station": "bus_bench",
+      "index": 0,
+      "pose": "seat",
+      "facing": "s",
+      "chair_back": "n",
+      "hip": [
+        455,
+        725
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          390,
+          700,
+          530,
+          750
+        ]
+      },
+      "fg": null,
+      "fg_front_y": null,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          430,
+          712,
+          560,
+          736
+        ]
+      },
+      "map": "town"
+    },
+    {
+      "id": "town.cafe.table_a",
+      "location": "town",
+      "station": "cafe_table",
+      "index": 0,
+      "pose": "seat",
+      "facing": "e",
+      "chair_back": "w",
+      "faces_furniture": "town.cafe_table_a",
+      "hip": [
+        1278,
+        422
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          1260,
+          406,
+          1298,
+          438
+        ]
+      },
+      "fg": "town.cafe_table_a",
+      "fg_front_y": 440,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          1268,
+          412,
+          1294,
+          434
+        ]
+      },
+      "map": "town"
+    },
+    {
+      "id": "town.cafe.table_b",
+      "location": "town",
+      "station": "cafe_table",
+      "index": 1,
+      "pose": "seat",
+      "facing": "w",
+      "chair_back": "e",
+      "faces_furniture": "town.cafe_table_a",
+      "hip": [
+        1366,
+        439
+      ],
+      "mask": {
+        "type": "rect",
+        "xyxy": [
+          1352,
+          428,
+          1382,
+          452
+        ]
+      },
+      "fg": "town.cafe_table_b",
+      "fg_front_y": 465,
+      "seat_surface": {
+        "type": "rect",
+        "xyxy": [
+          1352,
+          430,
+          1380,
+          448
+        ]
+      },
+      "map": "town"
+    }
+  ],
+  "overlays": {
+    "office.desk_right": {
+      "location": "office",
+      "polygons": [
+        [
+          [
+            700,
+            188
+          ],
+          [
+            768,
+            188
+          ],
+          [
+            768,
+            280
+          ],
+          [
+            718,
+            280
+          ],
+          [
+            718,
+            248
+          ],
+          [
+            700,
+            230
+          ]
+        ]
+      ]
+    },
+    "office.desk_left": {
+      "location": "office",
+      "polygons": [
+        [
+          [
+            0,
+            150
+          ],
+          [
+            82,
+            150
+          ],
+          [
+            82,
+            210
+          ],
+          [
+            70,
+            230
+          ],
+          [
+            0,
+            230
+          ]
+        ]
+      ]
+    },
+    "home.coffee_table": {
+      "location": "home",
+      "polygons": [
+        [
+          [
+            95,
+            200
+          ],
+          [
+            250,
+            200
+          ],
+          [
+            250,
+            252
+          ],
+          [
+            95,
+            252
+          ]
+        ]
+      ]
+    },
+    "home.dining_table": {
+      "location": "home",
+      "ellipse": [
+        620,
+        218,
+        45,
+        31
+      ]
+    },
+    "cafe.table_upper": {
+      "location": "cafe",
+      "polygons": [
+        [
+          [
+            75,
+            164
+          ],
+          [
+            148,
+            164
+          ],
+          [
+            148,
+            220
+          ],
+          [
+            75,
+            220
+          ]
+        ]
+      ]
+    },
+    "cafe.table_lower": {
+      "location": "cafe",
+      "polygons": [
+        [
+          [
+            62,
+            262
+          ],
+          [
+            132,
+            262
+          ],
+          [
+            132,
+            322
+          ],
+          [
+            62,
+            322
+          ]
+        ]
+      ]
+    },
+    "school.desk_r0c0": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            54,
+            174
+          ],
+          [
+            118,
+            174
+          ],
+          [
+            118,
+            198
+          ],
+          [
+            54,
+            198
+          ]
+        ]
+      ]
+    },
+    "school.desk_r0c1": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            144,
+            174
+          ],
+          [
+            208,
+            174
+          ],
+          [
+            208,
+            198
+          ],
+          [
+            144,
+            198
+          ]
+        ]
+      ]
+    },
+    "school.desk_r0c2": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            218,
+            174
+          ],
+          [
+            282,
+            174
+          ],
+          [
+            282,
+            198
+          ],
+          [
+            218,
+            198
+          ]
+        ]
+      ]
+    },
+    "school.desk_r1c0": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            44,
+            240
+          ],
+          [
+            112,
+            240
+          ],
+          [
+            112,
+            264
+          ],
+          [
+            44,
+            264
+          ]
+        ]
+      ]
+    },
+    "school.desk_r1c1": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            134,
+            240
+          ],
+          [
+            202,
+            240
+          ],
+          [
+            202,
+            264
+          ],
+          [
+            134,
+            264
+          ]
+        ]
+      ]
+    },
+    "school.desk_r1c2": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            212,
+            240
+          ],
+          [
+            280,
+            240
+          ],
+          [
+            280,
+            264
+          ],
+          [
+            212,
+            264
+          ]
+        ]
+      ]
+    },
+    "school.desk_r2c0": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            34,
+            308
+          ],
+          [
+            102,
+            308
+          ],
+          [
+            102,
+            332
+          ],
+          [
+            34,
+            332
+          ]
+        ]
+      ]
+    },
+    "school.desk_r2c1": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            124,
+            308
+          ],
+          [
+            192,
+            308
+          ],
+          [
+            192,
+            332
+          ],
+          [
+            124,
+            332
+          ]
+        ]
+      ]
+    },
+    "school.desk_r2c2": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            204,
+            308
+          ],
+          [
+            272,
+            308
+          ],
+          [
+            272,
+            332
+          ],
+          [
+            204,
+            332
+          ]
+        ]
+      ]
+    },
+    "school.teacher_desk": {
+      "location": "school",
+      "polygons": [
+        [
+          [
+            500,
+            185
+          ],
+          [
+            665,
+            185
+          ],
+          [
+            665,
+            230
+          ],
+          [
+            500,
+            230
+          ]
+        ]
+      ]
+    },
+    "town.cafe_table_a": {
+      "location": "town",
+      "polygons": [
+        [
+          [
+            1288,
+            400
+          ],
+          [
+            1338,
+            400
+          ],
+          [
+            1338,
+            432
+          ],
+          [
+            1288,
+            432
+          ]
+        ]
+      ]
+    },
+    "town.cafe_table_b": {
+      "location": "town",
+      "polygons": [
+        [
+          [
+            1386,
+            428
+          ],
+          [
+            1440,
+            428
+          ],
+          [
+            1440,
+            458
+          ],
+          [
+            1386,
+            458
+          ]
+        ]
+      ]
+    }
+  }
+}

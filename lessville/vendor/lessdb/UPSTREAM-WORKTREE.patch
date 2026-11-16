@@ -1,0 +1,120 @@
+diff --git a/crates/less-agent/src/lib.rs b/crates/less-agent/src/lib.rs
+index 617cb23..9a614fe 100644
+--- a/crates/less-agent/src/lib.rs
++++ b/crates/less-agent/src/lib.rs
+@@ -58,7 +58,11 @@ fn text(v: &str, err: &'static str) -> ContractResult {
+     }
+ }
+ fn schema(v: &str, want: &str) -> ContractResult {
+-    if v == want { Ok(()) } else { Err("unknown or mismatched contract schema") }
++    if v == want {
++        Ok(())
++    } else {
++        Err("unknown or mismatched contract schema")
++    }
+ }
+ fn list<T>(v: &[T], err: &'static str) -> ContractResult {
+     if v.len() > MAX_LIST { Err(err) } else { Ok(()) }
+@@ -268,7 +272,12 @@ impl FrameTransform {
+         if self.from_frame == self.to_frame {
+             return Err("transform cannot map a frame to itself");
+         }
+-        if !self.translation.iter().chain([&self.yaw_rad]).all(|v| v.is_finite()) {
++        if !self
++            .translation
++            .iter()
++            .chain([&self.yaw_rad])
++            .all(|v| v.is_finite())
++        {
+             return Err("transform values must be finite");
+         }
+         if !self.uncertainty_m.is_finite() || self.uncertainty_m < 0.0 {
+@@ -388,7 +397,8 @@ impl EvolutionProposal {
+         if self.auto_apply {
+             return Err("proposals never auto-apply");
+         }
+-        if self.compatibility == EvolutionCompatibility::Breaking && self.required_approvals.is_empty()
++        if self.compatibility == EvolutionCompatibility::Breaking
++            && self.required_approvals.is_empty()
+         {
+             return Err("breaking proposals require named approvals");
+         }
+@@ -482,7 +492,10 @@ impl SecurityAssessment {
+         id(&self.assessment_id, "assessment id is required")?;
+         id(&self.task_id, "assessment task is required")?;
+         id(&self.agent_id, "assessment agent is required")?;
+-        id(&self.policy_version, "assessment policy version is required")?;
++        id(
++            &self.policy_version,
++            "assessment policy version is required",
++        )?;
+         list(&self.risk_factors, "too many risk factors")?;
+         refs(&self.evidence, false)?;
+         text(&self.reason, "assessment reason is required")
+@@ -556,7 +569,11 @@ impl RetentionPolicy {
+     pub fn validate(&self) -> ContractResult {
+         schema(&self.schema, RETENTION_POLICY_SCHEMA_V1)?;
+         id(&self.table, "retention table is required")?;
+-        if !self.table.chars().all(|c| c.is_ascii_alphanumeric() || c == '_') {
++        if !self
++            .table
++            .chars()
++            .all(|c| c.is_ascii_alphanumeric() || c == '_')
++        {
+             return Err("retention table must be a plain identifier");
+         }
+         if self.keep_minutes <= 0 || self.max_rows == 0 {
+@@ -626,7 +643,11 @@ mod tests {
+     use super::*;
+ 
+     fn r(id: &str) -> SourceRef {
+-        SourceRef { kind: "event".into(), id: id.into(), relation: "supports".into() }
++        SourceRef {
++            kind: "event".into(),
++            id: id.into(),
++            relation: "supports".into(),
++        }
+     }
+ 
+     fn proposal() -> EvolutionProposal {
+@@ -676,7 +697,10 @@ mod tests {
+         assert_eq!(json["operation"], "memory_lens");
+         let back: EvolutionProposal = serde_json::from_value(json).unwrap();
+         assert_eq!(back, proposal());
+-        assert_eq!(serde_json::to_value(GuardrailVerdict::Danger).unwrap(), "danger");
++        assert_eq!(
++            serde_json::to_value(GuardrailVerdict::Danger).unwrap(),
++            "danger"
++        );
+     }
+ 
+     #[test]
+@@ -697,12 +721,24 @@ mod tests {
+             policy_version: "grants/v1".into(),
+         };
+         assert!(g.permits("verifier-b", "neighbor_pose", 1200));
+-        assert!(!g.permits("verifier-b", "neighbor_pose", 1260), "window end is exclusive");
+-        assert!(!g.permits("verifier-c", "neighbor_pose", 1230), "unlisted recipient");
+-        assert!(!g.permits("verifier-b", "camera_frame", 1230), "unlisted kind");
++        assert!(
++            !g.permits("verifier-b", "neighbor_pose", 1260),
++            "window end is exclusive"
++        );
++        assert!(
++            !g.permits("verifier-c", "neighbor_pose", 1230),
++            "unlisted recipient"
++        );
++        assert!(
++            !g.permits("verifier-b", "camera_frame", 1230),
++            "unlisted kind"
++        );
+         let mut bad = g.clone();
+         bad.recipients.push("coordinator".into());
+-        assert!(!bad.permits("verifier-b", "neighbor_pose", 1230), "invalid grant permits nothing");
++        assert!(
++            !bad.permits("verifier-b", "neighbor_pose", 1230),
++            "invalid grant permits nothing"
++        );
+     }
+ 
+     #[test]

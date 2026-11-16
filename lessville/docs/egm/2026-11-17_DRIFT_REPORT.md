@@ -1,0 +1,73 @@
+## EGM.md
+
+No drift detected.
+
+## scripts/EGM.md
+
+No drift detected.
+
+## scripts/lessville/EGM.md
+
+No drift detected.
+
+## backend/EGM.md
+
+No drift detected.
+
+## backend/agentd/EGM.md
+
+No drift detected.
+
+## backend/agentd/src/EGM.md
+
+- Nit: named the private predicate `visible_in_town` as a snapshot field; actual
+  serialized field is `background[].visible`. Resolved in the contract.
+- Nit: omitted `scenarios::fixture`, the shared real-LessDB test helper returning
+  `World::fresh(1)` without seeding. Resolved with its source link and behavior.
+
+## backend/agentd/src/sim/EGM.md
+
+- Nit: omitted Maya's owner-break exception to café-open/staff checks. Resolved.
+- Nit: omitted meal deadline, evening cutoff, unavailable-resource timeout and
+  completion/cancellation retry delays. Resolved in the contract.
+
+## docs/WORLD-SCALE.md
+
+- Nit: said five focal +24 supporting =17; actual town membership is five +12.
+  Resolved; all 100 people remain simulated.
+- Major: claimed an automated adult-height equivalence assertion that the scale
+  gallery does not implement. Resolved by accurately separating its frame/bounds/
+  ratio assertions from visual silhouette inspection. No new automated rendered
+  silhouette equivalence test is claimed.
+
+## docs/LOCAL-WORLD.md
+
+No drift detected.
+
+## docs/TOWN-ART.md
+
+No drift detected within inspected integration claims. Generation provenance and
+historical capture evidence were not independently verified by the source reviewer.
+
+## scripts/lessville/EGM.md
+
+No drift detected.
+
+## backend/agentd/src/EGM.md
+
+No drift detected.
+
+## docs/WORLD-SCALE.md
+
+- Major: described the remaining café-path test failure as head-on. The final
+  continuation log and oracle report one same-direction follower-overlap tick
+  with a −14.9 px margin. Resolved by naming the observed follower failure;
+  the preceding head-on encounter remains diagnostic context in the learning log.
+- Nit: described vehicle separation using sprite lengths, but the bicycle reserves
+  its height. Measured atlas bounds are 558×563 px: rendered width 99.118 px versus
+  reserved length 100.006 px. Resolved to “reserved body lengths”; the current
+  bicycle reservation is conservative, so no collision fix was required.
+
+## docs/LOCAL-WORLD.md
+
+No drift detected.

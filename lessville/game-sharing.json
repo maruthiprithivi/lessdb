@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 2,
+  "title": "Lessville — A LessDB Agent World",
+  "description": "Watch five pixel neighbours message each other, remember and change their plans — every memory, message and decision is a real row in an embedded LessDB database you can inspect and trace.",
+  "defaultCaptions": {
+    "x": "Lessville: a pixel town where every agent memory is a LessDB row you can trace.",
+    "facebook": "Explore Lessville, a pixel town of agents who share context through LessDB.",
+    "reddit": "Lessville — a pixel agent-memory simulation backed by a real embedded database",
+    "discord": "Lessville: pixel agents, shared memory, real SQL."
+  },
+  "assets": {
+    "favicon": "assets/share/favicon.png",
+    "og": "assets/share/og.png"
+  }
+}

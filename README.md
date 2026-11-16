@@ -27,6 +27,17 @@ It combines:
 * **Native AI-agent access** through an MCP server, plus installable agent
   skills.
 
+## Lessville simulation
+
+[Lessville](lessville/README.md) is a Godot small-world simulation with five focal
+residents and 95 supporting residents, persisted by a pinned LessDB engine. The
+town-centre cast is 17 people; other residents live in surrounding districts.
+See the [local guide](lessville/docs/LOCAL-WORLD.md),
+[release checks](lessville/docs/RELEASE-QUALIFICATION.md), and
+[Cloudflare deployment guide](lessville/deploy/cloudflare/README.md).
+The simulation vendors its qualified engine separately; it does not replace the
+experimental database baseline above.
+
 ## Quickstart
 
 ```bash

@@ -1,0 +1,14 @@
+[   0% ] reimport | Executing post-reimport operations...
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+SCRIPT ERROR: Parse Error: Could not preload resource script "res://scripts/lessville/town_view.gd".
+          at: GDScript::reload (res://scripts/main.gd:5)
+SCRIPT ERROR: Parse Error: Could not resolve script "res://scripts/lessville/town_view.gd".
+          at: GDScript::reload (res://scripts/main.gd:5)
+ERROR: Failed to load script "res://scripts/main.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)

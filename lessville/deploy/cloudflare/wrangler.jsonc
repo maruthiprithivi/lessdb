@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "lessville",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "ville.lessdb.dev", "custom_domain": true }],
+  // The backend owns pose/activity/location; the legacy observer post-filter is disabled.
+  "vars": { "DAILY_NEURON_CAP": "9500", "PUBLIC_ORIGIN": "https://ville.lessdb.dev", "CKPT_HOURLY_KEEP": "168", "LESSVILLE_REALISM_PATCH": "0" },
+  "assets": { "directory": "./public", "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": true },
+  "ai": { "binding": "AI" },
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "lessville-data" }],
+  "ratelimits": [{ "name": "RL", "namespace_id": "4207", "simple": { "limit": 400, "period": 60 } }],
+  "containers": [{ "class_name": "LessvilleAgent", "image": "./container/Dockerfile", "max_instances": 1, "instance_type": "lite" }],
+  "durable_objects": { "bindings": [
+    { "name": "AGENT", "class_name": "LessvilleAgent" },
+    { "name": "BUDGET", "class_name": "Budget" }
+  ] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["LessvilleAgent", "Budget"] }],
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "observability": { "enabled": true }
+}

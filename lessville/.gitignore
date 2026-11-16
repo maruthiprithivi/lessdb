@@ -1,0 +1,9 @@
+.godot/
+dist/
+node_modules/
+.manus-logs/
+.local/
+backend/agentd/target/
+site/
+__pycache__/
+deploy/cloudflare/wrangler.recovery.jsonc

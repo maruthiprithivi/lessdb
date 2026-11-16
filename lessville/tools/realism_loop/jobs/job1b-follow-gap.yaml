@@ -1,0 +1,25 @@
+id: job1b-follow-gap
+item: BL-0148 step 2b part 2 of 3 (after 1a). Not the PLAN's standing-slot "job 1b" (that stays out of scope).
+spec: |
+  Job 1b: speed-only gap keeping on shared segments, on top of the job 1a arc-length follower
+  (v["poly"], v["s"], v["path"] = remaining waypoints, v["pos"] = P(s)).
+  - Before advancing a walker's s, find the walkers AHEAD of it on the same segment going the same way:
+    same next waypoint (path[0] within 1 px) and heading dot > 0.7, and ahead along the walker's tangent.
+    Named walkers are in _vis (footprint r 20), background walkers in _bg_vis (r 7); consider both sets.
+  - Cap this tick's advance so the distance to the nearest walker ahead stays >= r_i + r_j + 4 px.
+    Speed control only: the advance is in [0, budget]; never move a walker sideways or backwards and never
+    set pos except through P(s). If the cap is 0 the walker waits (wait accumulates as today).
+  - Keep it small: one helper that returns the allowed advance, called from both update functions.
+  - Walkers progress must keep passing (max wait 10 s, everyone reaches the last goal) and so must
+    stay-on-nav and facing.
+  Target check 'same-direction followers keep a gap (job 1b)' (suite.follow_gap): moving walkers with
+  the same next waypoint, heading dot > 0.7, both outside every crossing zone, never overlap footprints.
+context_files:
+  - scripts/lessville/town_view.gd
+  - test/crossing_sim.gd
+read_only: [test/crossing_sim.gd]
+context_funcs:
+  scripts/lessville/town_view.gd: [_update_walkers, _update_background, "re:(?i)poly|arc|gap|follow|ahead|advance"]
+  test/crossing_sim.gd: [_follow_measure]
+gates: [suite.follow_gap]
+must_keep: [suite.arc_follow, suite.facing_matches_heading, suite.pedestrians_stay_on_nav, suite.bus_route_and_dwell, suite.walkers_progress]

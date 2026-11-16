@@ -1,0 +1,23 @@
+[package]
+name = "lessville-agentd"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "Lessville agent world service: deterministic agents whose memory, messages and decisions live in an embedded LessDB engine"
+
+# Standalone workspace. The qualified embedded engine is pinned in
+# ../../vendor/lessdb/PROVENANCE.json, separately from the parent public engine.
+[workspace]
+
+[dependencies]
+less-common = { path = "../../vendor/lessdb/crates/less-common" }
+less-agent = { path = "../../vendor/lessdb/crates/less-agent" }
+less-engine = { path = "../../vendor/lessdb/crates/less-engine" }
+less-query = { path = "../../vendor/lessdb/crates/less-query" }
+arrow = "59"
+arrow-json = "59"
+axum = "0.8.9"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "time", "sync", "net", "signal"] }
+tower-http = { version = "0.7.0", features = ["cors"] }

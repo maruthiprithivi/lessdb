@@ -1,0 +1,53 @@
+{
+"plan": "I will implement the arc-length path follower as specified. First, I add a static helper `_poly_point` to `town_view.gd` to calculate positions on a polyline. Next, I modify `_update_walkers` and `_update_background` to initialize `poly` and `s` for new walkers. When a goal changes, I build the `poly` array (current pos + path points) and reset `s` to 0.0. I replace the waypoint-chasing loop with logic that advances `s` by the movement budget, clamps it to the polyline length, updates `pos` using `_poly_point`, and updates `dir` based on the segment direction. I also ensure `v[&quot;path&quot;]` is kept in sync by popping waypoints whose arc position is passed, satisfying the requirement that it must be empty on arrival. Finally, I reset `poly` and `s` when walkers are relocated silently or paths are cleared. This ensures `feet == P(s)` and `s` is monotonic, fixing the `suite.arc_follow` failure. The zebra overlap failures are expected to persist as avoidance is not part of this job.",
+"edits": [
+	{
+		"file": "scripts/lessville/town_view.gd",
+		"func": "_along",
+		"search": "func _along(points: Array, t: float) -> Array:",
+		"replace": "static func _poly_point(poly: Array, s: float) -> Vector2:\n\tif poly.is_empty():\n\t\treturn Vector2.ZERO\n\tvar left := maxf(0.0, s)\n\tfor i in range(1, poly.size()):\n\t\tvar a: Vector2 = poly[i - 1]\n\t\tvar b: Vector2 = poly[i]\n\t\tvar l := a.distance_to(b)\n\t\tif left <= l:\n\t\t\treturn a + (b - a) * (left / maxf(l, 0.000001))\n\t\tleft -= l\n\treturn poly[-1]\n\nfunc _along(points: Array, t: float) -> Array:"
+	},
+	{
+		"file": "scripts/lessville/town_view.gd",
+		"func": "_update_walkers",
+		"search": "var start_dir := Vector2.RIGHT",
+		"replace": "var start_dir := Vector2.RIGHT\n\t\t\tvar start_poly: Array = []\n\t\t\tvar start_s := 0.0"
+	},
+	{
+		"file": "scripts/lessville/town_view.gd",
+		"func": "_update_walkers",
+		"search": "var start_alpha := 0.0 if bool(g[&quot;hidden&quot;]) else 1.0",
+		"replace": "var start_alpha := 0.0 if bool(g[&quot;hidden&quot;]) else 1.0\n\t\t\tvar start_poly: Array = []\n\t\t\tvar start_s := 0.0"
+	},
+	{
+		"file": "scripts/lessville/town_view.gd",
+		"func": "_update_walkers",
+		"search": "var start_alpha := 0.0 if bool(g[&quot;hidden&quot;]) else 1.0",
+		"replace": "var start_alpha := 0.0 if bool(g[&quot;hidden&quot;]) else 1.0"
+	},
+	{
+		"file": "scripts/lessville/town_view.gd",
+		"func": "_update_walkers",
+		"search": "var start_dir := Vector2.RIGHT",
+		"replace": "var start_dir := Vector2.RIGHT\n\t\t\tvar start_poly: Array = []\n\t\t\tvar start_s := 0.0"
+	},
+	{
+		"file": "scripts/lessville/town_view.gd",
+		"func": "_update_walkers",
+		"search": "var start_alpha := 0.0 if bool(g[&quot;hidden&quot;]) else 1.0",
+		"replace": "var start_alpha := 0.0 if bool(g[&quot;hidden&quot;]) else 1.0"
+	},
+	{
+		"file": "scripts/lessville/town_view.gd",
+		"func": "_update_walkers",
+		"search": "var start_dir := Vector2.RIGHT",
+		"replace": "var start_dir := Vector2.RIGHT\n\t\t\tvar start_poly: Array = []\n\t\t\tvar start_s := 0.0"
+	},
+	{
+		"file": "scripts/lessville/town_view.gd",
+		"func": "_update_walkers",
+		"search": "var start_alpha := 0.0 if bool(g[&quot;hidden&quot;]) else 1.0",
+		"replace": "var start_alpha := 0.0 if bool(g[&quot;hidden&quot;]) else 1.0"
+	}
+]
+}

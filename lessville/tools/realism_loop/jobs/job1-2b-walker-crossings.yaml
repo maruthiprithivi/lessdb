@@ -1,0 +1,10 @@
+id: job1-2b-walker-crossings
+item: BL-0148 step 2b (approved by Maruthi 16 Nov 13:41 SGT; becomes BL-0167 job 1 at 13:42)
+spec_md: /workspace/shared/ai-hq/results/lessdb/evidence/BL-0148/PLAN-step2b-redesign.md
+context_files:
+  - scripts/lessville/town_view.gd
+  - scripts/lessville/town_nav.gd
+  - test/crossing_sim.gd
+fail_before_log: /workspace/shared/ai-hq/results/lessdb/evidence/BL-0148/proof-step2b-redesign-fail-before.log
+gates: [suite.crossing_overlap, sim.crossings_multihour]
+must_keep: [suite.facing_matches_heading, suite.pedestrians_stay_on_nav, suite.bus_route_and_dwell, suite.walkers_progress, render.seats, render.atmosphere, render.attire, render.lin_hair, render.terrace_layers, render.office]

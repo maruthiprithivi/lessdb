@@ -1,0 +1,3 @@
+lessville cost guardrail checkpoint=300s archive=168h instance=lite
+backend source checkpoint=ca18484 lessdb=private-archive 84ae452+less-agent 0367d81 retention=lessville-retention/v1 presence=deterministic:presence/v1 checkpoint-prefix=lessville/v3
+binary sha256=61042e579847c0c1e08721267c4783c1c73e5988d0e75fa35086e2b7ce04d9a2
